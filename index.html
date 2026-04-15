@@ -11,2265 +11,1406 @@
   <meta name="theme-color" content="#0000ff">
 
   <style>
-    :root{
-      --primary-color:#4a6bff;--secondary-color:#f8f9fa;--accent-color:#ff6b6b;
-      --text-color:#222;--light-text:#6c757d;--border-color:#dee2e6;
-      --success-color:#28a745;--warning-color:#ffc107;--danger-color:#dc3545;
-      --sky:#e9f0ff;
-      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --gradient-secondary: linear-gradient(135deg, #8A2BE2 0%, #9370DB 100%);
-      --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      --gradient-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    }
-    
-    [data-theme="dark"] {
-      --primary-color: #6c8eff;
-      --secondary-color: #1a1a1a;
-      --accent-color: #ff6b6b;
-      --text-color: #ffffff;
-      --light-text: #a0a0a0;
-      --border-color: #333333;
-      --success-color: #28a745;
-      --warning-color: #ffc107;
-      --danger-color: #dc3545;
-      --sky: #2a2a2a;
-      --gradient-primary: linear-gradient(135deg, #4a6bff 0%, #6a11cb 100%);
-      --gradient-secondary: linear-gradient(135deg, #8A2BE2 0%, #9370DB 100%);
-    }
-
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal','Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
-    html,body{height:100%}
-    body{background:#f5f5f5;color:var(--text-color);overscroll-behavior-y:contain;-webkit-text-size-adjust:100%;touch-action:manipulation}
-    .container{max-width:100%;min-height:100vh;background:#fff;padding-bottom:70px}
-
-    [data-theme="dark"] body,
-    [data-theme="dark"] .container {
-      background: #121212;
-      color: #ffffff;
-    }
-
-    [data-theme="dark"] .post,
-    [data-theme="dark"] .company,
-    [data-theme="dark"] .modal-content,
-    [data-theme="dark"] .header,
-    [data-theme="dark"] .bottom-nav {
-      background: #1e1e1e;
-      color: #ffffff;
-      border-color: #333;
-    }
-
-    [data-theme="dark"] .form-control,
-    [data-theme="dark"] .select-control,
-    [data-theme="dark"] .filter-select {
-      background: #2a2a2a;
-      color: #ffffff;
-      border-color: #444;
-    }
-
-    [data-theme="dark"] .post-description {
-      background: #2a2a2a;
-      color: #ffffff;
-    }
-
-    [data-theme="dark"] .profile-actions-card {
-      background: var(--gradient-secondary);
-    }
-
-    [data-theme="dark"] .post-username,
-    [data-theme="dark"] .user-name,
-    [data-theme="dark"] .post-title {
-      color: #ffffff !important;
-    }
-
-    [data-theme="dark"] .filter-container {
-      background: #1e1e1e;
-      border-color: #333;
-    }
-
-    [data-theme="dark"] .filter-select {
-      background: #2a2a2a;
-      color: #ffffff;
-      border-color: #444;
-    }
-
-    .splash {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(60% 90% at 20% 10%, rgba(16,209,255,.20), transparent 60%),
-                  radial-gradient(70% 80% at 90% 90%, rgba(106,17,203,.18), transparent 60%),
-                  linear-gradient(135deg,#0d0f1a 0%, #0f1330 100%);
-      z-index: 9999;
-      overflow: hidden;
-      transition: opacity .6s ease;
-    }
-
-    .splash.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .runner {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .08em;
-      filter: drop-shadow(0 10px 28px rgba(0,0,0,.45));
-      pointer-events: none;
-    }
-
-    .runner span {
-      font-weight: 900;
-      font-size: clamp(40px, 9vw, 74px);
-      color: #e6ebff;
-      display: inline-block;
-      opacity: 0;
-      transform: translateX(6vw) scale(.96);
-      animation: runCentered .8s cubic-bezier(.2,.8,.2,1) forwards;
-      will-change: transform, opacity;
-    }
-
-    .runner span:nth-child(1){ animation-delay:.00s }
-    .runner span:nth-child(2){ animation-delay:.05s }
-    .runner span:nth-child(3){ animation-delay:.10s }
-    .runner span:nth-child(4){ animation-delay:.15s }
-    .runner span:nth-child(5){ animation-delay:.20s }
-    .runner span:nth-child(6){ animation-delay:.25s }
-    .runner span:nth-child(7){ animation-delay:.30s }
-    .runner span:nth-child(8){ animation-delay:.35s }
-    .runner span:nth-child(9){ animation-delay:.40s }
-    .runner span:nth-child(10){ animation-delay:.45s }
-
-    @keyframes runCentered {
-      0% { opacity: 0; transform: translateX(6vw) scale(.96) }
-      18% { opacity: 1 }
-      55% { transform: translateX(-6vw) scale(1.02) }
-      100% { opacity: 0; transform: translateX(-6vw) scale(.98) }
-    }
-
-    .final-logo {
-      position: relative;
-      z-index: 2;
-      opacity: 0;
-      font-weight: 900;
-      font-size: clamp(42px, 9.5vw, 72px);
-      color: #eef2ff;
-      text-shadow: 0 14px 40px rgba(16,209,255,.22), 0 4px 10px rgba(0,0,0,.5);
-      white-space: nowrap;
-      line-height: 1;
-      direction: rtl;
-      unicode-bidi: plaintext;
-      animation: logoMerge .55s cubic-bezier(.2,.9,.1,1) var(--merge-delay,1.35s) forwards;
-    }
-
-    @keyframes logoMerge {
-      0% { opacity: 0; transform: translateY(18px) scale(.94) }
-      100% { opacity: 1; transform: translateY(0) scale(1) }
-    }
-
-    .loading-text {
-      position: absolute;
-      bottom: 30%;
-      color: #a0b4ff;
-      font-size: 14px;
-      font-weight: 500;
-      text-align: center;
-      opacity: 0;
-      animation: loadingPulse 2s infinite;
-      direction: rtl;
-    }
-
-    @keyframes loadingPulse {
-      0%, 100% { opacity: 0.7; }
-      50% { opacity: 1; }
-    }
-
-    .loading-text.show {
-      display: block;
-      animation: fadeInUp 0.5s ease forwards;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .help-floating-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: linear-gradient(135deg, #4a6bff, #6a11cb);
-      color: white;
-      padding: 12px 16px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      box-shadow: 0 4px 15px rgba(74, 107, 255, 0.4);
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-    }
-
-    .help-floating-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(74, 107, 255, 0.6);
-    }
-
-    .theme-toggle-btn {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 16px;
-      color: white;
-      z-index: 1001;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .theme-toggle-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.1);
-    }
-
-    .auth-container{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;padding:20px;background:linear-gradient(135deg,#4a6bff,#6a11cb); position: relative;}
-    .auth-box{background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.1);padding:30px;width:100%;max-width:420px;text-align:center}
-    .auth-tabs{display:flex;margin-bottom:20px;border-bottom:1px solid var(--border-color)}
-    .auth-tab{flex:1;padding:10px;cursor:pointer;font-weight:500;color:var(--light-text);transition:.3s}
-    .auth-tab.active{color:var(--primary-color);border-bottom:2px solid var(--primary-color)}
-    .auth-form{display:none}.auth-form.active{display:block}
-    .form-group{margin-bottom:15px;text-align:right}
-    .form-group label{display:block;margin-bottom:5px;font-weight:500}
-    .form-control{width:100%;padding:12px 15px;border:1px solid var(--border-color);border-radius:8px;font-size:16px;transition:.3s}
-    .form-control:focus{outline:none;border-color:var(--primary-color);box-shadow:0 0 0 3px rgba(74,107,255,.2)}
-    .row{display:flex;gap:8px;align-items:center}
-    .grow{flex:1}
-
-    .avatar-upload-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        margin: 15px 0;
-    }
-
-    .avatar-upload-btn-large {
-        position: relative;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background: #f8f9fa;
-        border: 2px dashed var(--border-color);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        color: var(--light-text);
-    }
-
-    .avatar-upload-btn-large:hover {
-        border-color: var(--primary-color);
-        background: var(--sky);
-        color: var(--primary-color);
-        transform: translateY(-2px);
-    }
-
-    .avatar-upload-btn-large i {
-        font-size: 24px;
-        margin-bottom: 8px;
-    }
-
-    .avatar-upload-btn-large span {
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .avatar-container {
-        position: relative;
-        display: inline-block;
-    }
-
-    .avatar {
-        width: 72px;
-        height: 72px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        background: #d7e4ff;
-        color: #2740b9;
-        font-size: 40px;
-        cursor: pointer;
-        border: 2px solid #c9d7ff;
-        overflow: hidden;
-    }
-
-    .avatar-upload-btn {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        background: #4a6bff;
-        color: white;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        cursor: pointer;
-        border: 2px solid white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .avatar-upload-btn:hover {
-        background: #3a5bef;
-        transform: scale(1.1);
-    }
-
-    .rank-avatar-container {
-        position: relative;
-        width: 50px;
-        height: 50px;
-        flex-shrink: 0;
-    }
-
-    .rank-avatar {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid #e9ecef;
-        background: #f8f9fa;
-    }
-
-    .btn{display:inline-block;padding:10px 14px;background:var(--primary-color);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;width:auto}
-    .btn:hover{transform:translateY(-1px)}
-    .btn[disabled]{opacity:.65;cursor:not-allowed;transform:none}
-    .btn-block{width:100%}
-    .btn-secondary{background:var(--secondary-color);color:var(--text-color)}
-    .btn-danger{background:var(--danger-color);color:#fff}
-    .btn-success{background:var(--success-color)}
-    .btn-warning{background:var(--warning-color);color:#111}
-    .btn-xs{padding:6px 8px;font-size:12px;border-radius:8px}
-
-    .header{position:sticky;top:0;background:#fff;padding:12px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-color);z-index:100}
-    .brand{display:flex;align-items:center;gap:8px}
-    .section-switch{display:inline-flex;background:#f2f4ff;border:1px solid #dfe4ff;border-radius:999px;overflow:hidden;margin-inline-start:10px}
-    .section-pill{padding:6px 10px;font-size:12px;font-weight:800;color:#3a5bef;cursor:pointer;border:none;background:transparent}
-    .section-pill.active{background:#3a5bef;color:#fff}
-    .icon-btn{position:relative;background:transparent;border:none;cursor:pointer;font-size:20px}
-    .icon-btn .dot{position:absolute;top:-2px;right:-2px;width:8px;height:8px;background:#ff3b3b;border-radius:50%;display:none}
-    .icon-btn.has-unseen .dot{display:block}
-
-    .filter-container{padding:15px;background:#fff;border-bottom:1px solid var(--border-color); display:flex; gap:10px;}
-    .filter-select{width:100%;padding:10px;border:1px solid var(--border-color);border-radius:5px}
-    
-    .posts-container{padding:15px 15px 90px}
-    .pull-indicator{position:relative;height:0;overflow:visible}
-    .pull-indicator .bubble{position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:#e9f0ff;border:1px solid #d0dcff;border-radius:999px;padding:4px 10px;font-size:12px;color:#3a5bef;display:none}
-
-    .post {
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 2px 5px rgba(0,0,0,.05);
-      padding: 16px;
-      margin-bottom: 16px;
-      border: 1px solid var(--border-color);
-      position: relative;
-      line-height: 1.4;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .post.pinned{box-shadow:0 4px 14px rgba(74,107,255,.25)}
-    .post .pin-ribbon{position:absolute;top:-8px;right:-8px;background:#4a6bff;color:#fff;font-weight:800;padding:4px 8px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-size:11px}
-    .post.sold{opacity:.85;position:relative}
-    .post.deleted{opacity:.5;position:relative}
-    .post.sold::after{content:"تم بيعه";position:absolute;top:10px;left:10px;background:var(--success-color);color:#fff;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:800}
-    .post-header{display:flex;align-items:flex-start;margin-bottom:0;gap:12px}
-    .post-username{display:flex;align-items:center;gap:10px;font-weight:900;color:#111;font-size:17px}
-    
-    .badge-verified {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border-radius: 25px;
-      background: linear-gradient(135deg, 
-        #ff6b6b 0%, 
-        #ff8e6b 25%, 
-        #ffd166 50%, 
-        #06d6a0 75%, 
-        #118ab2 100%);
-      background-size: 300% 300%;
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 900;
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 
-        0 4px 20px rgba(255, 107, 107, 0.4),
-        0 6px 30px rgba(255, 214, 102, 0.3),
-        0 8px 40px rgba(6, 214, 160, 0.2),
-        inset 0 0 30px rgba(255, 255, 255, 0.3),
-        0 0 20px rgba(255, 107, 107, 0.5);
-      position: relative;
-      overflow: hidden;
-      animation: 
-        gradient-shift 3s ease infinite,
-        glow-pulse 2s ease-in-out infinite,
-        float-gentle 4s ease-in-out infinite;
-      transform-style: preserve-3d;
-      perspective: 500px;
-      text-shadow: 
-        0 1px 2px rgba(0,0,0,0.3),
-        0 0 10px rgba(255,255,255,0.5);
-      backdrop-filter: blur(10px);
-      letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-    }
-
-    .badge-verified::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        45deg, 
-        transparent, 
-        rgba(255,255,255,0.6), 
-        transparent, 
-        rgba(255,255,255,0.4),
-        transparent
-      );
-      transform: rotate(45deg);
-      animation: shine-sweep 2.5s ease-in-out infinite;
-    }
-
-    .badge-verified::after {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      background: radial-gradient(
-        circle at 30% 20%, 
-        rgba(255,255,255,0.5) 0%, 
-        transparent 60%
-      );
-      border-radius: 22px;
-      animation: inner-glow 3s ease-in-out infinite;
-      filter: blur(5px);
-    }
-
-    .badge-verified i {
-      font-size: 13px;
-      filter: 
-        drop-shadow(0 1px 2px rgba(0,0,0,0.3))
-        drop-shadow(0 0 8px rgba(255,255,255,0.8));
-      animation: 
-        icon-bounce 2s ease-in-out infinite,
-        icon-spin 8s linear infinite;
-      position: relative;
-      z-index: 2;
-    }
-
-    @keyframes gradient-shift {
-      0%, 100% { 
-        background-position: 0% 50%;
-        box-shadow: 
-          0 4px 20px rgba(255, 107, 107, 0.4),
-          0 6px 30px rgba(255, 214, 102, 0.3),
-          0 8px 40px rgba(6, 214, 160, 0.2);
-      }
-      25% { 
-        background-position: 50% 100%;
-        box-shadow: 
-          0 4px 20px rgba(255, 214, 102, 0.4),
-          0 6px 30px rgba(6, 214, 160, 0.3),
-          0 8px 40px rgba(17, 138, 178, 0.2);
-      }
-      50% { 
-        background-position: 100% 50%;
-        box-shadow: 
-          0 4px 20px rgba(6, 214, 160, 0.4),
-          0 6px 30px rgba(17, 138, 178, 0.3),
-          0 8px 40px rgba(255, 107, 107, 0.2);
-      }
-      75% { 
-        background-position: 50% 0%;
-        box-shadow: 
-          0 4px 20px rgba(17, 138, 178, 0.4),
-          0 6px 30px rgba(255, 107, 107, 0.3),
-          0 8px 40px rgba(255, 214, 102, 0.2);
-      }
-    }
-
-    @keyframes glow-pulse {
-      0%, 100% { 
-        transform: scale(1) rotate(0deg);
-        box-shadow: 
-          0 4px 20px rgba(255, 107, 107, 0.4),
-          0 6px 30px rgba(255, 214, 102, 0.3),
-          0 8px 40px rgba(6, 214, 160, 0.2);
-      }
-      50% { 
-        transform: scale(1.05) rotate(0.5deg);
-        box-shadow: 
-          0 6px 30px rgba(255, 107, 107, 0.6),
-          0 8px 40px rgba(255, 214, 102, 0.5),
-          0 12px 60px rgba(6, 214, 160, 0.4),
-          0 0 30px rgba(255, 255, 255, 0.3);
-      }
-    }
-
-    @keyframes float-gentle {
-      0%, 100% { 
-        transform: translateY(0px) rotateX(0deg) rotateY(0deg); 
-      }
-      33% { 
-        transform: translateY(-3px) rotateX(1deg) rotateY(1deg); 
-      }
-      66% { 
-        transform: translateY(2px) rotateX(-1deg) rotateY(-1deg); 
-      }
-    }
-
-    @keyframes shine-sweep {
-      0% { transform: rotate(45deg) translateX(-100%) translateY(-100%); }
-      100% { transform: rotate(45deg) translateX(200%) translateY(200%); }
-    }
-
-    @keyframes inner-glow {
-      0%, 100% { opacity: 0.4; transform: scale(1); }
-      50% { opacity: 0.8; transform: scale(1.1); }
-    }
-
-    @keyframes icon-bounce {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-2px) scale(1.1); }
-    }
-
-    @keyframes icon-spin {
-      0% { transform: rotate(0deg) scale(1); }
-      25% { transform: rotate(90deg) scale(1.05); }
-      50% { transform: rotate(180deg) scale(1.1); }
-      75% { transform: rotate(270deg) scale(1.05); }
-      100% { transform: rotate(360deg) scale(1); }
-    }
-
-    .badge-verified:hover {
-      animation: 
-        gradient-shift 1s ease infinite,
-        glow-pulse 0.5s ease-in-out infinite,
-        float-gentle 2s ease-in-out infinite;
-      transform: scale(1.1) rotate(2deg);
-      box-shadow: 
-        0 8px 40px rgba(255, 107, 107, 0.8),
-        0 12px 60px rgba(255, 214, 102, 0.6),
-        0 16px 80px rgba(6, 214, 160, 0.5),
-        0 0 40px rgba(255, 255, 255, 0.5) !important;
-    }
-
-    @media (max-width: 768px) {
-      .badge-verified {
-        padding: 6px 12px;
-        font-size: 11px;
-        gap: 4px;
-      }
-      
-      .badge-verified i {
-        font-size: 12px;
-      }
-    }
-
-    .post-title{font-weight:800;font-size:15px;color:var(--primary-color)}
-    .post-price{justify-self:end;font-weight:900;color:#28a745}
-    
-    .post-description{
-        margin: 0;
-        line-height: 1.8;
-        color: #222;
-        white-space: pre-wrap;
-        font-weight: 500;
-        text-align: right;
-        padding: 16px;
-        background: #f8f9fa;
-        border-radius: 12px;
-        border-right: 4px solid var(--primary-color);
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        min-height: auto;
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-        font-size: 15px;
-        letter-spacing: 0.3px;
-    }
-    
-    .post-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-    .owner-tools{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;border-bottom:1px dashed #eee;padding-bottom:8px}
-
-    .company{background:#fff;border-radius:14px;box-shadow:0 2px 5px rgba(0,0,0,.05);padding:15px;margin-bottom:12px;border:1px solid var(--border-color)}
-    .company .name{font-weight:900;color:#111;font-size:16px}
-    .company .phone{color:#0c7a43;font-weight:800;margin-top:6px}
-    .company .route{color:#555;margin-top:6px;font-size:13px}
-    .company .desc{color:#333;margin-top:6px}
-
-    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;overflow-y:auto}
-    .modal-content{background:#fff;margin:20px auto;padding:20px;border-radius:12px;width:90%;max-width:520px;animation:modalOpen .25s}
-    @keyframes modalOpen{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border-color)}
-    .modal-header h2{font-size:18px;margin:0}
-    .close-modal{background:none;border:none;font-size:24px;cursor:pointer;color:var(--light-text)}
-    .select-group{margin-bottom:15px}
-    .select-group label{display:block;margin-bottom:5px;font-weight:500}
-    .select-control{width:100%;padding:12px 15px;border:1px solid var(--border-color);border-radius:8px;font-size:16px;background:#fff}
-    .modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
-
-    .profile-shell{padding:16px}
-    .profile-card{
-        background: var(--gradient-primary);
-        border-radius: 20px;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 20px;
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        color: white;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .profile-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-        transform: translateX(-100%);
-        transition: transform 0.6s;
-    }
-
-    .profile-card:hover::before {
-        transform: translateX(100%);
-    }
-
-    .profile-meta{display:flex;flex-direction:column;gap:6px;flex:1}
-    .profile-name-row{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px;color:#fff}
-    .profile-count{font-size:14px;color:rgba(255,255,255,0.9);font-weight:700}
-    .profile-email{font-size:13px;color:rgba(255,255,255,0.8);word-break:break-all}
-    .profile-uid-input {font-size:12px;padding:6px 8px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius:6px;}
-    .profile-uid-input::placeholder {color: rgba(255,255,255,0.7);}
-
-    .profile-actions-card{
-        margin-top: 20px;
-        background: var(--gradient-secondary);
-        border-radius: 18px;
-        padding: 15px;
-        box-shadow: 0 6px 20px rgba(138, 43, 226, 0.3);
-    }
-
-    .profile-menu{padding:5px}
-    .menu-item{
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px;
-        margin-bottom: 12px;
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(10px);
-        border-radius: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        color: white;
-        border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .menu-item:hover{
-        background: rgba(255,255,255,0.25);
-        transform: translateY(-3px);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    .menu-item i {
-        font-size: 18px;
-        width: 24px;
-        text-align: center;
-    }
-
-    .muted{color:#777;font-size:13px}
-
-    #broadcast-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:210}
-    #broadcast-overlay.show{display:block}
-    #broadcast-banner{
-      display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(.98);
-      width:min(92%, 380px); max-height:70vh; overflow:auto; z-index:220;
-      background:#e9f0ff; border:1px solid #d0dcff; border-radius:16px; padding:16px 46px 16px 16px;
-      box-shadow:0 20px 40px rgba(0,0,0,.28); opacity:0;
-    }
-    #broadcast-banner.show{
-      display:block; opacity:1; transform:translate(-50%,-50%) scale(1);
-      animation:bannerIn .32s cubic-bezier(.2,.8,.2,1) forwards;
-    }
-    @keyframes bannerIn{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-    #broadcast-banner .x{position:absolute;top:10px;right:12px;background:#0000;border:none;font-size:22px;cursor:pointer;color:#2643b8}
-
-    .bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid var(--border-color);z-index:120}
-    .nav-item{display:flex;flex-direction:column;align-items:center;color:var(--light-text);font-size:12px;cursor:pointer;position:relative;transition: all 0.3s ease;}
-    .nav-item.active{color:var(--primary-color);transform: translateY(-2px);}
-
-    .notification{
-      position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
-      background:var(--success-color);color:#fff;padding:16px 22px;border-radius:12px;
-      box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:300;display:none;font-size:14px;text-align:center;min-width:240px;max-width:85%;
-    }
-
-    .nav-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: #dc3545;
-      color: white;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      font-size: 11px;
-      font-weight: bold;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      animation: pulse 2s infinite;
-    }
-
-    .menu-item {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .menu-item .nav-badge {
-      position: static;
-      margin-right: auto;
-      margin-left: 8px;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-    
-    .user-info {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .user-details {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .user-name {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 900;
-      color: #111;
-      font-size: 16px;
-      line-height: 1.2;
-      margin: 0;
-      flex-wrap: wrap;
-    }
-
-    .post-time {
-      color: var(--light-text);
-      font-size: 13px;
-      margin-top: 2px;
-      line-height: 1.2;
-    }
-
-    .post-content {
-      margin-bottom: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .post-meta {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 0;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .post-stage, .post-material, .post-price {
-      padding: 4px 8px;
-      background: var(--sky);
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary-color);
-      line-height: 1.2;
-      white-space: nowrap;
-    }
-
-    .post-price {
-      background: #e8f5e8;
-      color: var(--success-color);
-    }
-
-    .post-stats {
-      padding: 12px 0;
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 0;
-    }
-
-    .views-count {
-      color: var(--light-text);
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .post-actions-new {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr 1fr !important;
-      gap: 8px !important;
-      margin-top: 12px !important;
-    }
-
-    .post-action-btn {
-      display: flex !important;
-      flex-direction: row !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 6px !important;
-      padding: 12px 8px !important;
-      background: transparent !important;
-      border: 1px solid var(--border-color) !important;
-      border-radius: 8px !important;
-      color: var(--light-text) !important;
-      cursor: pointer !important;
-      transition: all 0.3s ease !important;
-      font-size: 14px !important;
-      font-weight: 600 !important;
-      min-height: 44px !important;
-      text-align: center !important;
-    }
-
-    .post-action-btn:hover {
-      background: var(--sky) !important;
-      color: var(--primary-color) !important;
-      transform: translateY(-2px) !important;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-    }
-
-    .post-action-btn span {
-      display: inline-block !important;
-      font-size: 13px !important;
-    }
-
-    .telegram-btn {
-      background: #0088cc !important;
-      color: white !important;
-      border-color: #0088cc !important;
-    }
-
-    .telegram-btn:hover {
-      background: #0077b5 !important;
-      transform: translateY(-1px);
-    }
-
-    .whatsapp-btn {
-      background: #25D366 !important;
-      color: white !important;
-      border-color: #25D366 !important;
-    }
-
-    .whatsapp-btn:hover {
-      background: #128C7E !important;
-      transform: translateY(-1px);
-    }
-
-    .comments-btn {
-      background: #FFC107 !important;
-      color: #212529 !important;
-      border-color: #FFC107 !important;
-    }
-
-    .comments-btn:hover {
-      background: #E0A800 !important;
-      transform: translateY(-1px);
-    }
-
-    .report-btn {
-      background: #DC3545 !important;
-      color: white !important;
-      border-color: #DC3545 !important;
-    }
-
-    .report-btn:hover {
-      background: #C82333 !important;
-      transform: translateY(-1px);
-    }
-
-    .details-btn {
-      background: #6C757D !important;
-      color: white !important;
-      border-color: #6C757D !important;
-    }
-
-    .details-btn:hover {
-      background: #5A6268 !important;
-      transform: translateY(-1px);
-    }
-
-    .details-info {
-      background: #f8f9fa;
-      border-radius: 12px;
-      padding: 16px;
-      margin: 12px 0;
-      border-right: 4px solid var(--primary-color);
-    }
-
-    .detail-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid #e9ecef;
-    }
-
-    .detail-item:last-child {
-      border-bottom: none;
-    }
-
-    .detail-label {
-      font-weight: 700;
-      color: #555;
-      font-size: 14px;
-    }
-
-    .detail-value {
-      font-weight: 800;
-      color: #222;
-      font-size: 14px;
-    }
-
-    .cheapest-price {
-      background: linear-gradient(135deg, #28a745, #20c997);
-      color: white;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-weight: 900;
-      text-align: center;
-      margin: 10px 0;
-    }
-
-    @media (max-width: 480px) {
-      .post {
-        padding: 12px;
-        margin-bottom: 12px;
-        gap: 10px;
-      }
-      
-      .user-name {
-        font-size: 15px;
-      }
-      
-      .post-meta {
-        gap: 6px;
-      }
-      
-      .post-description {
-        padding: 10px;
-        font-size: 14px;
-      }
-      
-      .post-actions-new {
-        grid-template-columns: 1fr 1fr 1fr !important;
-        gap: 6px !important;
-      }
-      
-      .post-action-btn {
-        padding: 10px 6px !important;
-        font-size: 12px !important;
-        min-height: 40px !important;
-      }
-      
-      .post-action-btn span {
-        font-size: 11px !important;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .post-actions-new {
-        grid-template-columns: 1fr 1fr 1fr !important;
-      }
-      
-      .post-action-btn {
-        padding: 8px 4px !important;
-        font-size: 11px !important;
-      }
-      
-      .post-action-btn i {
-        font-size: 14px !important;
-      }
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      padding: 15px;
-    }
-
-    .stat-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border-radius: 16px;
-      padding: 16px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      min-height: 120px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-
-    .stat-icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-      opacity: 0.9;
-    }
-
-    .stat-number {
-      font-size: 24px;
-      font-weight: 900;
-      margin-bottom: 4px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .stat-label {
-      font-size: 13px;
-      opacity: 0.9;
-      font-weight: 600;
-    }
-
-    .stat-card:nth-child(1) {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-
-    .stat-card:nth-child(2) {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    }
-
-    .stat-card:nth-child(3) {
-      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    }
-
-    .stat-card:nth-child(4) {
-      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    }
-
-    .user-management-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .user-management-item .user-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
-    }
-
-    .user-management-item .user-details {
-      flex: 1;
-    }
-
-    .user-management-item .user-name {
-      font-weight: 700;
-      color: #111;
-    }
-
-    .user-management-item .user-email {
-      font-size: 12px;
-      color: #666;
-      margin-top: 2px;
-    }
-
-    .user-management-item .user-id {
-      font-size: 11px;
-      color: #999;
-      margin-top: 2px;
-    }
-
-    .user-management-item .user-status {
-      font-size: 12px;
-      font-weight: 700;
-      margin-top: 4px;
-    }
-
-    .user-management-item .user-status.banned {
-      color: #dc3545;
-    }
-
-    .user-management-item .user-status.active {
-      color: #28a745;
-    }
-
-    .user-management-item .user-actions {
-      display: flex;
-      gap: 8px;
-    }
-
-    @media (max-width: 768px) {
-      .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-      
-      .stat-card {
-        min-height: 110px;
-        padding: 14px;
-      }
-      
-      .stat-number {
-        font-size: 22px;
-      }
-      
-      .user-management-item {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      
-      .user-management-item .user-actions {
-        justify-content: center;
-      }
-    }
-
-    .menu-item[onclick="logout()"] {
-      background: rgba(220, 53, 69, 0.2) !important;
-      color: #fff !important;
-      border: 1px solid rgba(220, 53, 69, 0.4) !important;
-    }
-
-    .menu-item[onclick="logout()"]:hover {
-      background: rgba(220, 53, 69, 0.3) !important;
-      transform: translateY(-2px);
-    }
-
-    .admin-menu {
-      padding: 10px;
-    }
-
-    .admin-menu .menu-item {
-      background: var(--sky);
-      border: 1px solid #d0dcff;
-    }
-
-    .admin-menu .menu-item:hover {
-      background: #e1eaff;
-      transform: translateY(-2px);
-    }
-
-    .search-box {
-      margin-bottom: 15px;
-    }
-
-    .search-box input {
-      margin-bottom: 10px;
-    }
-
-    .avatar-selection {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 20px 0;
-    }
-
-    .avatar-option {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      padding: 15px;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-
-    .avatar-option:hover {
-      background: var(--sky);
-      transform: translateY(-2px);
-    }
-
-    .avatar-option .emo {
-      font-size: 48px;
-      margin-bottom: 8px;
-    }
-
-    .avatar-option .avatar-label {
-      font-weight: 600;
-      color: var(--primary-color);
-    }
-
-    .comment {
-      background: #f8f9fa;
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 10px;
-      border-right: 3px solid var(--primary-color);
-    }
-
-    .comment-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .comment-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .comment-user {
-      font-weight: 700;
-      color: #111;
-      font-size: 14px;
-    }
-
-    .comment-time {
-      color: var(--light-text);
-      font-size: 12px;
-    }
-
-    .comment-content {
-      color: #333;
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .comment-actions {
-      display: flex;
-      gap: 15px;
-      margin-top: 8px;
-    }
-
-    .comment-action {
-      background: none;
-      border: none;
-      color: var(--light-text);
-      font-size: 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .comment-action:hover {
-      color: var(--primary-color);
-    }
-
-    .privacy-content {
-      padding: 20px;
-      line-height: 1.6;
-    }
-
-    .support-page {
-      padding: 20px;
-    }
-
-    .support-card {
-      background: var(--gradient-success);
-      border-radius: 20px;
-      padding: 25px;
-      color: white;
-      box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
-      margin-bottom: 20px;
-    }
-
-    .support-actions {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .support-btn {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 18px;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 15px;
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .support-btn:hover {
-      background: rgba(255,255,255,0.25);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    }
-
-    .support-btn i {
-      font-size: 20px;
-      width: 24px;
-    }
-
-    .user-support-page {
-      padding: 20px;
-    }
-
-    .user-support-item {
-      background: #fff;
-      border-radius: 15px;
-      padding: 18px;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-
-    [data-theme="dark"] .user-support-item {
-      background: #1e1e1e;
-      color: #ffffff;
-      border-color: #333;
-    }
-
-    .user-support-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-
-    .support-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .support-user {
-      font-weight: 700;
-      color: var(--primary-color);
-      font-size: 16px;
-    }
-
-    .support-type {
-      background: var(--accent-color);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .support-message {
-      color: var(--text-color);
-      line-height: 1.6;
-      margin-bottom: 15px;
-      white-space: pre-wrap;
-      font-size: 14px;
-    }
-
-    .reply-section {
-      border-top: 1px dashed var(--border-color);
-      padding-top: 12px;
-      margin-top: 12px;
-    }
-
-    .support-reply-btn {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .support-reply-btn:hover {
-      background: #3a5bef;
-      transform: translateY(-1px);
-    }
-
-    .admin-control-btn {
-      background: var(--primary-color) !important;
-      color: white !important;
-      border: 1px solid var(--primary-color) !important;
-    }
-
-    .admin-control-btn:hover {
-      background: #3a5bef !important;
-      transform: translateY(-2px);
-    }
-    
-    .post-menu {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 10;
-    }
-
-    .post-menu-btn {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid var(--border-color);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 14px;
-      color: var(--text-color);
-      transition: all 0.3s ease;
-    }
-
-    .post-menu-btn:hover {
-      background: var(--primary-color);
-      color: white;
-      transform: scale(1.1);
-    }
-
-    .post-menu-dropdown {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      min-width: 150px;
-      display: none;
-      z-index: 100;
-    }
-
-    [data-theme="dark"] .post-menu-dropdown {
-      background: #2a2a2a;
-      border-color: #444;
-    }
-
-    .post-menu-dropdown.show {
-      display: block;
-      animation: fadeIn 0.2s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .post-menu-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      cursor: pointer;
-      border-bottom: 1px solid var(--border-color);
-      transition: all 0.2s ease;
-      font-size: 13px;
-      color: var(--text-color);
-    }
-
-    .post-menu-item:last-child {
-      border-bottom: none;
-    }
-
-    .post-menu-item:hover {
-      background: var(--sky);
-      color: var(--primary-color);
-    }
-
-    .post-menu-item i {
-      width: 16px;
-      text-align: center;
-      font-size: 12px;
-    }
-
-    #report-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 1000;
-        backdrop-filter: blur(5px);
-    }
-
-    #report-modal .modal-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 25px;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        width: 90%;
-        max-width: 400px;
-        color: white;
-        animation: modalSlideIn 0.3s ease-out;
-    }
-
-    @keyframes modalSlideIn {
-        from {
-            opacity: 0;
-            transform: translate(-50%, -60%);
-        }
-        to {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-        }
-    }
-
-    #report-modal .modal-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    #report-modal .modal-header i {
-        font-size: 24px;
-        color: #ffd166;
-    }
-
-    #report-modal .modal-header h2 {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 900;
-    }
-
-    #report-modal .report-reasons {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-
-    .report-reason-btn {
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 12px;
-        padding: 15px;
-        color: white;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: right;
-        backdrop-filter: blur(10px);
-    }
-
-    .report-reason-btn:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .report-reason-btn i {
-        margin-left: 8px;
-        font-size: 16px;
-    }
-
-    #report-custom-input {
-        width: 100%;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 12px;
-        padding: 15px;
-        color: white;
-        font-size: 14px;
-        margin-top: 10px;
-        resize: vertical;
-        min-height: 80px;
-        backdrop-filter: blur(10px);
-    }
-
-    #report-custom-input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-    }
-
-    #report-custom-input:focus {
-        outline: none;
-        border-color: #ffd166;
-        box-shadow: 0 0 0 2px rgba(255, 209, 102, 0.3);
-    }
-
-    .report-modal-actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-    }
-
-    .report-modal-actions button {
-        flex: 1;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    #report-submit-btn {
-        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        color: #000;
-    }
-
-    #report-submit-btn:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4);
-    }
-
-    #report-cancel-btn {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    #report-cancel-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: translateY(-2px);
-    }
-
-    #report-submit-btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-    }
-
-    .confirmation-modal .modal-content {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-
-    .confirmation-modal .modal-header {
-      border-bottom: 1px solid rgba(255,255,255,0.3);
-      padding-bottom: 15px;
-    }
-
-    .confirmation-modal .modal-body {
-      padding: 20px 0;
-      text-align: center;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    .confirmation-modal .modal-footer {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-    }
-
-    .confirmation-btn {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 100px;
-    }
-
-    .confirm-btn {
-      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-      color: #000;
-    }
-
-    .confirm-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4);
-    }
-
-    .cancel-btn {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .cancel-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: translateY(-2px);
-    }
-
-    body {
-        touch-action: pan-y;
-        -webkit-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
-        text-size-adjust: 100%;
-        -webkit-user-select: none;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    input, select, textarea {
-        font-size: 16px !important;
-        max-height: 44px;
-    }
-
-    @media screen and (max-width: 768px) {
-        input, select, textarea {
-            font-size: 16px !important;
-        }
-    }
-
-    #study-timer-display {
-        font-size: 48px;
-        font-weight: 900;
-        color: var(--primary-color);
-        margin: 20px 0;
-        font-family: monospace;
-        text-align: center;
-    }
-
-    #timer-stats {
-        margin-top: 20px;
-        padding: 15px;
-        background: var(--sky);
-        border-radius: 10px;
-    }
-
-    .sessions-history {
-      margin-top: 20px;
-      padding: 15px;
-      background: #f8f9fa;
-      border-radius: 12px;
-    }
-
-    [data-theme="dark"] .sessions-history {
-      background: #2a2a2a;
-    }
-
-    .sessions-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .session-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 15px;
-      background: #fff;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-
-    [data-theme="dark"] .session-item {
-      background: #1e1e1e;
-    }
-
-    .session-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .session-info {
-      flex: 1;
-    }
-
-    .session-name {
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 4px;
-    }
-
-    .session-duration {
-      font-size: 12px;
-      color: var(--light-text);
-    }
-
-    .session-date {
-      font-size: 11px;
-      color: #999;
-    }
-
-    .session-name-input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      font-size: 14px;
-      margin-bottom: 15px;
-      background: #fff;
-      color: #333;
-    }
-
-    [data-theme="dark"] .session-name-input {
-      background: #333;
-      color: #fff;
-      border-color: #555;
-    }
-
-    .session-name-input::placeholder {
-      color: #999;
-    }
-
-    [data-theme="dark"] .session-name-input::placeholder {
-      color: #777;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--light-text);
-    }
-
-    .empty-state i {
-      font-size: 48px;
-      margin-bottom: 15px;
-      opacity: 0.5;
-    }
-    
-    #session-name-modal .modal-content {
-    max-width: 400px;
-    animation: modalSlideIn 0.3s ease-out;
+    :root {
+  --primary-color: #4a6bff;
+  --secondary-color: #f8f9fa;
+  --accent-color: #ff6b6b;
+  --text-color: #222;
+  --light-text: #6c757d;
+  --border-color: #dee2e6;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --sky: #e9f0ff;
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #8A2BE2 0%, #9370DB 100%);
+  --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 }
 
-    #session-name-modal input {
-        font-size: 16px !important;
-        padding: 12px 15px;
-        border-radius: 12px;
-        margin-top: 8px;
-    }
-
-    #session-name-modal input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-    }
-
-    #session-name-modal input:focus {
-        outline: none;
-        border-color: #ffd166;
-        box-shadow: 0 0 0 2px rgba(255, 209, 102, 0.3);
-    }
-
-    @media (max-width: 480px) {
-        #session-name-modal .modal-content {
-            width: 90%;
-            margin: 10px auto;
-            padding: 20px;
-        }
-    }
-
-    * {
-        text-align: right !important;
-        direction: rtl !important;
-    }
-
-    body, .container, .post, .company, .modal-content {
-        text-align: right !important;
-        direction: rtl !important;
-    }
-
-    .post-header, .user-info, .user-details, .post-content, .post-meta {
-        text-align: right !important;
-        direction: rtl !important;
-    }
-
-    .post-description, .company .desc {
-        text-align: right !important;
-        direction: rtl !important;
-        white-space: normal !important;
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-    }
-
-    .btn, .post-action-btn, .menu-item {
-        text-align: center !important;
-        justify-content: center !important;
-    }
-
-    .container {
-        max-width: 100% !important;
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-    }
-
-    .posts-container {
-        padding: 15px !important;
-    }
-
-    .header {
-        padding: 12px 15px !important;
-    }
-
-    .filter-container {
-        padding: 15px !important;
-        background: #fff !important;
-        border-bottom: 1px solid var(--border-color) !important;
-    }
-
-    .rank-avatar-container {
-        width: 50px !important;
-        height: 50px !important;
-        flex-shrink: 0 !important;
-    }
-
-    .rank-avatar {
-        width: 100% !important;
-        height: 100% !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
-    }
-
-    .user-name {
-        display: flex !important;
-        align-items: center !important;
-        gap: 8px !important;
-        flex-wrap: wrap !important;
-        line-height: 1.2 !important;
-    }
-
-    .post-title {
-        font-size: 15px !important;
-        font-weight: 800 !important;
-        color: var(--primary-color) !important;
-        margin-bottom: 8px !important;
-    }
-
-    * {
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    @media (max-width: 480px) {
-        .post {
-            padding: 12px !important;
-            margin-bottom: 12px !important;
-            gap: 10px !important;
-        }
-        
-        .post-actions-new {
-            grid-template-columns: 1fr 1fr 1fr !important;
-            gap: 6px !important;
-        }
-        
-        .post-action-btn {
-            padding: 10px 6px !important;
-            font-size: 12px !important;
-            min-height: 40px !important;
-        }
-        
-        .post-action-btn span {
-            font-size: 11px !important;
-        }
-    }
-
-    [data-theme="dark"] .post,
-    [data-theme="dark"] .post-description,
-    [data-theme="dark"] .user-name {
-        text-align: right !important;
-        direction: rtl !important;
-    }
-
-    a, button {
-        text-decoration: none !important;
-        -webkit-tap-highlight-color: transparent !important;
-    }
-
-    .post-action-btn, .btn, .menu-item {
-        touch-action: manipulation !important;
-        min-height: 44px !important;
-        min-width: 44px !important;
-    }
-
-    #load-more-btn {
-        display: block;
-        margin: 20px auto;
-        padding: 12px 30px;
-        background: linear-gradient(135deg, #4a6bff, #6a11cb);
-        color: white;
-        border: none;
-        border-radius: 25px;
-        font-size: 14px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(74, 107, 255, 0.3);
-    }
-
-    #load-more-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(74, 107, 255, 0.4);
-    }
-
-    #load-more-btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-    }
-
-    #load-more-btn i {
-        margin-left: 8px;
-    }
-    
-    /* تنسيق عرض العداد الدراسي */
-#study-timer-display {
-    font-size: 48px;
-    font-weight: 900;
-    color: var(--primary-color);
-    margin: 20px 0;
-    font-family: 'Tajawal', monospace;
-    text-align: center;
-    direction: ltr;
-    letter-spacing: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80px;
-    background: linear-gradient(135deg, rgba(74, 107, 255, 0.1), rgba(106, 17, 203, 0.1));
-    border-radius: 20px;
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+[data-theme="dark"] {
+  --primary-color: #6c8eff;
+  --secondary-color: #1a1a1a;
+  --accent-color: #ff6b6b;
+  --text-color: #ffffff;
+  --light-text: #a0a0a0;
+  --border-color: #333333;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --sky: #2a2a2a;
+  --gradient-primary: linear-gradient(135deg, #4a6bff 0%, #6a11cb 100%);
+  --gradient-secondary: linear-gradient(135deg, #8A2BE2 0%, #9370DB 100%);
 }
 
-/* تنسيق حاوية العداد */
-#study-timer-page .post {
-    text-align: center;
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* =========================================
+   Reset & Base Layout (RTL Enforced)
+========================================= */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box !important;
+  max-width: 100% !important;
 }
 
-/* تنسيق أزرار التحكم بالعداد */
-#study-timer-page .post-actions {
-    justify-content: center;
-    gap: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    width: 100%;
-    max-width: 400px;
+body, button, input, select, textarea, a, .runner span, .final-logo {
+  font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* تنسيق الإحصائيات */
-#timer-stats {
-    margin-top: 20px;
-    padding: 15px;
-    background: var(--sky);
-    border-radius: 10px;
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-}
-
-/* تنسيق تاريخ الجلسات */
-.sessions-history {
-    margin-top: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
-
-[data-theme="dark"] .sessions-history {
-    background: #2a2a2a;
-}
-
-/* تنسيق عناصر الجلسات */
-.session-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 15px;
-    background: #fff;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
-    text-align: right;
-    width: 100%;
-}
-
-/* تنسيق محتوى العداد */
-#study-timer-page .posts-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 15px;
-}
-
-/* إزالة الهوامش البيضاء من الجانبين */
 body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #f5f5f5;
+  color: var(--text-color);
+  overscroll-behavior-y: contain;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body, .container, .post, .company, .modal-content, .post-header, .user-info, .user-details, .post-content, .post-meta, .post-description, .name, .desc {
+  text-align: right !important;
+  direction: rtl !important;
 }
 
 .container {
-    width: 100%;
-    max-width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    background: #fff;
+  max-width: 100% !important;
+  min-height: 100vh;
+  background: #fff;
+  padding: 0 !important;
+  margin: 0 !important;
+  padding-bottom: 70px !important;
 }
 
-[data-theme="dark"] .container {
-    background: #121212;
-}
-
-/* إزالة الهوامش من الرأس */
-.header {
-    width: 100%;
-    padding: 12px 15px !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-}
-
-/* إزالة الهوامش من حاوية المنشورات */
-.posts-container {
-    width: 100%;
-    padding: 15px !important;
-    margin: 0 !important;
-}
-
-/* إزالة الهوامش من المنشورات */
-.post {
-    width: 100%;
-    max-width: 100% !important;
-    margin: 0 0 16px 0 !important;
-    border-radius: 14px;
-}
-
-/* إزالة الهوامش من شريط الفلاتر */
-.filter-container {
-    width: 100%;
-    padding: 15px !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-}
-
-/* إزالة الهوامش من الصفحات الأخرى */
 .page {
-    width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* إزالة الهوامش من عناصر داخلية */
-.post-content, .post-description, .user-info, .user-details {
-    width: 100%;
-    max-width: 100% !important;
+a, button {
+  text-decoration: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
-/* إزالة الهوامش من الشريط السفلي */
+/* =========================================
+   Dark Mode Global Overrides
+========================================= */
+[data-theme="dark"] body,
+[data-theme="dark"] .container {
+  background: #121212;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .post,
+[data-theme="dark"] .company,
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .header,
+[data-theme="dark"] .bottom-nav,
+[data-theme="dark"] .user-support-item,
+[data-theme="dark"] .sessions-history,
+[data-theme="dark"] .session-item,
+[data-theme="dark"] .comment,
+[data-theme="dark"] .details-info {
+  background: #1e1e1e;
+  color: #ffffff;
+  border-color: #333;
+}
+
+/* حل مشكلة سطوع الفلاتر بالوضع المظلم بإجبار اللون الغامق */
+[data-theme="dark"] .filter-container {
+  background: #1e1e1e !important;
+  border-color: #333 !important;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .select-control,
+[data-theme="dark"] .filter-select,
+[data-theme="dark"] .post-description,
+[data-theme="dark"] .avatar-upload-btn-large,
+[data-theme="dark"] .rank-avatar,
+[data-theme="dark"] .auth-box,
+[data-theme="dark"] .pull-indicator .bubble {
+  background: #2a2a2a;
+  color: #ffffff;
+  border-color: #444;
+}
+
+[data-theme="dark"] .profile-actions-card {
+  background: var(--gradient-secondary);
+}
+
+[data-theme="dark"] .post-username,
+[data-theme="dark"] .user-name,
+[data-theme="dark"] .post-title,
+[data-theme="dark"] .detail-value,
+[data-theme="dark"] #broadcast-title-display,
+[data-theme="dark"] #broadcast-text-display {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .post-menu-dropdown {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+[data-theme="dark"] .auth-tabs {
+  border-bottom-color: #333;
+}
+
+[data-theme="dark"] .auth-tab {
+  color: #a0a0a0;
+}
+
+[data-theme="dark"] .comment {
+  border-right-color: var(--primary-color);
+}
+
+[data-theme="dark"] .detail-label {
+  color: #aaa;
+}
+
+[data-theme="dark"] .detail-item {
+  border-bottom-color: #444;
+}
+
+[data-theme="dark"] #broadcast-banner {
+  background: #1e1e1e;
+  border-color: #444;
+}
+
+[data-theme="dark"] .empty-state i,
+[data-theme="dark"] .empty-state p {
+  color: #888;
+}
+
+/* =========================================
+   Splash Screen
+========================================= */
+.splash {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(60% 90% at 20% 10%, rgba(16,209,255,.20), transparent 60%),
+              radial-gradient(70% 80% at 90% 90%, rgba(106,17,203,.18), transparent 60%),
+              linear-gradient(135deg,#0d0f1a 0%, #0f1330 100%);
+  z-index: 9999;
+  overflow: hidden;
+  transition: opacity .6s ease;
+}
+
+.splash.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.runner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .08em;
+  filter: drop-shadow(0 10px 28px rgba(0,0,0,.45));
+  pointer-events: none;
+}
+
+.runner span {
+  font-weight: 900;
+  font-size: clamp(40px, 9vw, 74px);
+  color: #e6ebff;
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(6vw) scale(.96);
+  animation: runCentered .8s cubic-bezier(.2,.8,.2,1) forwards;
+  will-change: transform, opacity;
+}
+
+.runner span:nth-child(1){ animation-delay:.00s }
+.runner span:nth-child(2){ animation-delay:.05s }
+.runner span:nth-child(3){ animation-delay:.10s }
+.runner span:nth-child(4){ animation-delay:.15s }
+.runner span:nth-child(5){ animation-delay:.20s }
+.runner span:nth-child(6){ animation-delay:.25s }
+.runner span:nth-child(7){ animation-delay:.30s }
+.runner span:nth-child(8){ animation-delay:.35s }
+.runner span:nth-child(9){ animation-delay:.40s }
+.runner span:nth-child(10){ animation-delay:.45s }
+
+@keyframes runCentered {
+  0% { opacity: 0; transform: translateX(6vw) scale(.96) }
+  18% { opacity: 1 }
+  55% { transform: translateX(-6vw) scale(1.02) }
+  100% { opacity: 0; transform: translateX(-6vw) scale(.98) }
+}
+
+.final-logo {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  font-weight: 900;
+  font-size: clamp(42px, 9.5vw, 72px);
+  color: #eef2ff;
+  text-shadow: 0 14px 40px rgba(16,209,255,.22), 0 4px 10px rgba(0,0,0,.5);
+  white-space: nowrap;
+  line-height: 1;
+  direction: rtl;
+  unicode-bidi: plaintext;
+  animation: logoMerge .55s cubic-bezier(.2,.9,.1,1) var(--merge-delay,1.35s) forwards;
+}
+
+@keyframes logoMerge {
+  0% { opacity: 0; transform: translateY(18px) scale(.94) }
+  100% { opacity: 1; transform: translateY(0) scale(1) }
+}
+
+.loading-text {
+  position: absolute;
+  bottom: 30%;
+  color: #a0b4ff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  opacity: 0;
+  animation: loadingPulse 2s infinite;
+  direction: rtl;
+}
+
+.loading-text.show {
+  display: block;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes loadingPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   Floating Buttons
+========================================= */
+.help-floating-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, #4a6bff, #6a11cb);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 15px rgba(74, 107, 255, 0.4);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.help-floating-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 107, 255, 0.6);
+}
+
+.theme-toggle-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  z-index: 1001;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* =========================================
+   Auth & Forms
+========================================= */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #4a6bff, #6a11cb);
+  position: relative;
+}
+
+.auth-box {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--light-text);
+  transition: .3s;
+}
+
+.auth-tab.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.auth-form { display: none; }
+.auth-form.active { display: block; }
+
+.form-group { margin-bottom: 15px; text-align: right; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+
+input, select, textarea {
+  font-size: 16px !important;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: .3s;
+  max-height: 44px;
+}
+textarea.form-control { max-height: none; }
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74,107,255,.2);
+}
+
+.row { display: flex; gap: 8px; align-items: center; }
+.grow { flex: 1; }
+
+/* =========================================
+   Avatars
+========================================= */
+.avatar-upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 15px 0;
+}
+
+.avatar-upload-btn-large {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #f8f9fa;
+  border: 2px dashed var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--light-text);
+}
+
+.avatar-upload-btn-large:hover {
+  border-color: var(--primary-color);
+  background: var(--sky);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.avatar-upload-btn-large i { font-size: 24px; margin-bottom: 8px; }
+.avatar-upload-btn-large span { font-size: 12px; font-weight: 600; }
+
+.avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #d7e4ff;
+  color: #2740b9;
+  font-size: 40px;
+  cursor: pointer;
+  border: 2px solid #c9d7ff;
+  overflow: hidden;
+}
+
+.avatar-upload-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #4a6bff;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.avatar-upload-btn:hover { background: #3a5bef; transform: scale(1.1); }
+
+.rank-avatar-container {
+  position: relative;
+  width: 50px !important;
+  height: 50px !important;
+  flex-shrink: 0 !important;
+}
+
+.rank-avatar {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid #e9ecef;
+  background: #f8f9fa;
+}
+
+.avatar-selection { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+.avatar-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+.avatar-option:hover { background: var(--sky); transform: translateY(-2px); }
+.avatar-option .emo { font-size: 48px; margin-bottom: 8px; }
+.avatar-option .avatar-label { font-weight: 600; color: var(--primary-color); }
+
+/* =========================================
+   Buttons
+========================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 10px 14px;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+  width: auto;
+  min-height: 44px !important;
+  min-width: 44px !important;
+  touch-action: manipulation !important;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn[disabled] { opacity: .65; cursor: not-allowed; transform: none; }
+.btn-block { width: 100%; }
+.btn-secondary { background: var(--secondary-color); color: var(--text-color); }
+.btn-danger { background: var(--danger-color); color: #fff; }
+.btn-success { background: var(--success-color); color: #fff; }
+.btn-warning { background: var(--warning-color); color: #111; }
+.btn-xs { padding: 6px 8px; font-size: 12px; border-radius: 8px; min-height: auto !important; min-width: auto !important; }
+
+/* =========================================
+   Layout: Header, Filter, Nav
+========================================= */
+.header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 12px 15px !important;
+  margin: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  z-index: 100;
+  border-radius: 0 !important;
+  width: 100%;
+}
+
+.brand { display: flex; align-items: center; gap: 8px; }
+
+.section-switch {
+  display: inline-flex;
+  background: #f2f4ff;
+  border: 1px solid #dfe4ff;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-inline-start: 10px;
+}
+.section-pill {
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #3a5bef;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+.section-pill.active { background: #3a5bef; color: #fff; }
+
+.filter-container {
+  padding: 15px !important;
+  background: #fff !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+.filter-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  max-height: 44px;
+}
+
 .bottom-nav {
-    width: 100%;
-    margin: 0 !important;
-    padding: 12px 0 !important;
-    border-radius: 0 !important;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0 !important;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0 !important;
+  border-top: 1px solid var(--border-color);
+  z-index: 120;
+  border-radius: 0 !important;
 }
 
-/* إزالة أي حواف جانبية في جميع العناصر */
-* {
-    max-width: 100% !important;
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--light-text);
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.nav-item.active { color: var(--primary-color); transform: translateY(-2px); }
+
+/* =========================================
+   Posts & Companies
+========================================= */
+.posts-container {
+  width: 100%;
+  padding: 15px !important;
+  margin: 0 !important;
 }
 
-/* إصلاح خاص للهواتف */
+.pull-indicator { position: relative; height: 0; overflow: visible; }
+.pull-indicator .bubble {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #e9f0ff;
+  border: 1px solid #d0dcff;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #3a5bef;
+  display: none;
+}
+
+.post, .company {
+  width: 100%;
+  max-width: 100% !important;
+  margin: 0 0 16px 0 !important;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.05);
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  position: relative;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post.pinned { box-shadow: 0 4px 14px rgba(74,107,255,.25); }
+.post .pin-ribbon {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #4a6bff;
+  color: #fff;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  font-size: 11px;
+}
+.post.sold { opacity: .85; }
+.post.deleted { opacity: .5; }
+.post.sold::after {
+  content: "تم بيعه";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--success-color);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.post-header { display: flex; align-items: flex-start; margin-bottom: 0; gap: 12px; }
+
+.user-info { display: flex; align-items: flex-start; gap: 12px; flex: 1; min-width: 0; }
+.user-details { flex: 1; min-width: 0; }
+
+.user-name {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-weight: 900;
+  color: #111;
+  font-size: 16px;
+  line-height: 1.2 !important;
+  margin: 0;
+  flex-wrap: wrap !important;
+}
+
+.post-time { color: var(--light-text); font-size: 13px; margin-top: 2px; line-height: 1.2; }
+
+.post-content { margin-bottom: 0; display: flex; flex-direction: column; gap: 10px; }
+
+.post-meta { display: flex; gap: 8px; margin-bottom: 0; flex-wrap: wrap; align-items: center; }
+.post-stage, .post-material, .post-price {
+  padding: 4px 8px;
+  background: var(--sky);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.post-price { background: #e8f5e8; color: var(--success-color); }
+.post-title { font-weight: 800 !important; font-size: 15px !important; color: var(--primary-color) !important; margin-bottom: 8px !important; }
+
+.post-description {
+  margin: 0;
+  line-height: 1.8;
+  color: #222;
+  /* هذا السطر هو اللي يحل مشكلة الفراغات الزايدة */
+  white-space: pre-line !important; 
+  font-weight: 500;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-right: 4px solid var(--primary-color);
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  display: block;
+  width: 100%;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  text-align: right !important;
+}
+
+/* وهذا تعديل الدارك مود الخاص بي اذا تحب تتأكد منه */
+[data-theme="dark"] .post-description {
+  background: #2a2a2a;
+  color: #ffffff;
+  border-color: #444;
+  text-align: right !important;
+}
+
+.post-stats { padding: 12px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin-bottom: 0; }
+.views-count { color: var(--light-text); font-size: 13px; display: flex; align-items: center; gap: 6px; }
+
+.post-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.owner-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 8px; }
+
+.post-actions-new {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.post-action-btn {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 6px !important;
+  padding: 12px 8px !important;
+  background: transparent !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  color: var(--light-text) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  min-height: 44px !important;
+  min-width: 44px !important;
+  touch-action: manipulation !important;
+}
+
+.post-action-btn:hover {
+  background: var(--sky) !important;
+  color: var(--primary-color) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.post-action-btn span { display: inline-block !important; font-size: 13px !important; }
+
+.telegram-btn { background: #0088cc !important; color: white !important; border-color: #0088cc !important; }
+.telegram-btn:hover { background: #0077b5 !important; transform: translateY(-1px); }
+.whatsapp-btn { background: #25D366 !important; color: white !important; border-color: #25D366 !important; }
+.whatsapp-btn:hover { background: #128C7E !important; transform: translateY(-1px); }
+.comments-btn { background: #FFC107 !important; color: #212529 !important; border-color: #FFC107 !important; }
+.comments-btn:hover { background: #E0A800 !important; transform: translateY(-1px); }
+.report-btn { background: #DC3545 !important; color: white !important; border-color: #DC3545 !important; }
+.report-btn:hover { background: #C82333 !important; transform: translateY(-1px); }
+.details-btn { background: #6C757D !important; color: white !important; border-color: #6C757D !important; }
+.details-btn:hover { background: #5A6268 !important; transform: translateY(-1px); }
+
+#load-more-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #4a6bff, #6a11cb);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 107, 255, 0.3);
+}
+#load-more-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74, 107, 255, 0.4); }
+#load-more-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+#load-more-btn i { margin-left: 8px; }
+
+/* Company Specific */
+.company .name { font-weight: 900; color: #111; font-size: 16px; }
+.company .phone { color: #0c7a43; font-weight: 800; margin-top: 6px; }
+.company .route { color: #555; margin-top: 6px; font-size: 13px; }
+.company .desc { color: #333; margin-top: 6px; white-space: normal !important; word-wrap: break-word !important; overflow-wrap: break-word !important; }
+
+/* =========================================
+   Modals
+========================================= */
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; overflow-y: auto; }
+.modal-content {
+  background: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 520px;
+  animation: modalOpen .25s;
+}
+@keyframes modalOpen { from { opacity: 0; transform: translateY(-10px) } to { opacity: 1; transform: translateY(0) } }
+
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+.modal-header h2 { font-size: 18px; margin: 0; }
+.close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--light-text); }
+.select-group { margin-bottom: 15px; }
+.select-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+.select-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  background: #fff;
+  max-height: 44px;
+}
+textarea.select-control { max-height: none; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+
+/* Report Modal Overrides */
+#report-modal { backdrop-filter: blur(5px); }
+#report-modal .modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  color: white;
+  animation: modalSlideIn 0.3s ease-out;
+}
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+#report-modal .modal-header { border-bottom-color: rgba(255, 255, 255, 0.3); gap: 12px; }
+#report-modal .modal-header i { font-size: 24px; color: #ffd166; }
+#report-modal .modal-header h2 { font-size: 20px; font-weight: 900; }
+.report-reasons { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.report-reason-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 15px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: right;
+  backdrop-filter: blur(10px);
+}
+.report-reason-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.report-reason-btn i { margin-left: 8px; font-size: 16px; }
+#report-custom-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 15px;
+  color: white;
+  font-size: 14px;
+  margin-top: 10px;
+  resize: vertical;
+  min-height: 80px;
+  backdrop-filter: blur(10px);
+}
+#report-custom-input::placeholder { color: rgba(255, 255, 255, 0.7); }
+#report-custom-input:focus { outline: none; border-color: #ffd166; box-shadow: 0 0 0 2px rgba(255, 209, 102, 0.3); }
+.report-modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.report-modal-actions button { flex: 1; padding: 12px 20px; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+#report-submit-btn { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: #000; }
+#report-submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4); }
+#report-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+#report-cancel-btn { background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid rgba(255, 255, 255, 0.3); }
+#report-cancel-btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
+
+/* Confirmation Modal Overrides */
+.confirmation-modal .modal-content { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.confirmation-modal .modal-header { border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 15px; }
+.confirmation-modal .modal-body { padding: 20px 0; text-align: center; font-size: 16px; line-height: 1.6; }
+.confirmation-modal .modal-footer { justify-content: center; }
+.confirmation-btn { padding: 12px 24px; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; min-width: 100px; }
+.confirm-btn { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: #000; }
+.confirm-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4); }
+.cancel-btn { background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid rgba(255, 255, 255, 0.3); }
+.cancel-btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
+
+/* Post Menu */
+.post-menu { position: absolute; top: 10px; left: 10px; z-index: 10; }
+.post-menu-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+.post-menu-btn:hover { background: var(--primary-color); color: white; transform: scale(1.1); }
+.post-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 150px;
+  display: none;
+  z-index: 100;
+}
+.post-menu-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.post-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  font-size: 13px;
+  color: var(--text-color);
+}
+.post-menu-item:last-child { border-bottom: none; }
+.post-menu-item:hover { background: var(--sky); color: var(--primary-color); }
+.post-menu-item i { width: 16px; text-align: center; font-size: 12px; }
+
+/* =========================================
+   Profile Page
+========================================= */
+.profile-shell { padding: 16px; }
+.profile-card {
+  background: var(--gradient-primary);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+.profile-card:hover::before { transform: translateX(100%); }
+.profile-meta { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.profile-name-row { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 20px; color: #fff; }
+.profile-count { font-size: 14px; color: rgba(255,255,255,0.9); font-weight: 700; }
+.profile-email { font-size: 13px; color: rgba(255,255,255,0.8); word-break: break-all; }
+.profile-uid-input { font-size: 12px; padding: 6px 8px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 6px; }
+.profile-uid-input::placeholder { color: rgba(255,255,255,0.7); }
+
+.profile-actions-card {
+  margin-top: 20px;
+  background: var(--gradient-secondary);
+  border-radius: 18px;
+  padding: 15px;
+  box-shadow: 0 6px 20px rgba(138, 43, 226, 0.3);
+}
+.profile-menu { padding: 5px; }
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between !important;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  min-height: 44px !important;
+  min-width: 44px !important;
+  touch-action: manipulation !important;
+}
+.menu-item:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.menu-item i { font-size: 18px; width: 24px; text-align: center; }
+.menu-item .nav-badge { position: static; margin-right: auto; margin-left: 8px; }
+.menu-item[onclick="logout()"] { background: rgba(220, 53, 69, 0.2) !important; color: #fff !important; border: 1px solid rgba(220, 53, 69, 0.4) !important; }
+.menu-item[onclick="logout()"]:hover { background: rgba(220, 53, 69, 0.3) !important; transform: translateY(-2px); }
+
+/* =========================================
+   Badges & Notifications
+========================================= */
+.notification {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background: var(--success-color);
+  color: #fff;
+  padding: 16px 22px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  z-index: 300;
+  display: none;
+  font-size: 14px;
+  text-align: center;
+  min-width: 240px;
+  max-width: 85%;
+}
+
+.nav-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #dc3545;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+.badge-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ffd166, #ff9f1c);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(255, 159, 28, 0.3);
+}
+.badge-verified i { font-size: 10px; }
+
+#broadcast-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 210; }
+#broadcast-overlay.show { display: block; }
+#broadcast-banner {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) scale(.98);
+  width: min(92%, 380px);
+  max-height: 70vh;
+  overflow: auto;
+  z-index: 220;
+  background: #e9f0ff;
+  border: 1px solid #d0dcff;
+  border-radius: 16px;
+  padding: 16px 46px 16px 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.28);
+  opacity: 0;
+}
+#broadcast-banner.show {
+  display: block; opacity: 1; transform: translate(-50%,-50%) scale(1);
+  animation: bannerIn .32s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes bannerIn { to { opacity: 1; transform: translate(-50%,-50%) scale(1) } }
+#broadcast-banner .x { position: absolute; top: 10px; right: 12px; background: #0000; border: none; font-size: 22px; cursor: pointer; color: #2643b8; }
+
+/* =========================================
+   Details Page
+========================================= */
+.details-info {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  border-right: 4px solid var(--primary-color);
+}
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+.detail-item:last-child { border-bottom: none; }
+.detail-label { font-weight: 700; color: #555; font-size: 14px; }
+.detail-value { font-weight: 800; color: #222; font-size: 14px; }
+.cheapest-price {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 900;
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* =========================================
+   Comments
+========================================= */
+.comment {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-right: 3px solid var(--primary-color);
+}
+.comment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.comment-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.comment-user { font-weight: 700; color: #111; font-size: 14px; }
+.comment-time { color: var(--light-text); font-size: 12px; }
+.comment-content { color: #333; line-height: 1.5; font-size: 14px; }
+.comment-actions { display: flex; gap: 15px; margin-top: 8px; }
+.comment-action { background: none; border: none; color: var(--light-text); font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+.comment-action:hover { color: var(--primary-color); }
+
+/* =========================================
+   Admin & Stats
+========================================= */
+.admin-menu { padding: 10px; }
+.admin-menu .menu-item { background: var(--sky); border: 1px solid #d0dcff; color: var(--primary-color); }
+.admin-menu .menu-item:hover { background: #e1eaff; transform: translateY(-2px); }
+.admin-control-btn { background: var(--primary-color) !important; color: white !important; border: 1px solid var(--primary-color) !important; }
+.admin-control-btn:hover { background: #3a5bef !important; transform: translateY(-2px); }
+.search-box { margin-bottom: 15px; }
+.search-box input { margin-bottom: 10px; }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+.stat-card {
+  color: white;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+.stat-card:nth-child(1) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.stat-card:nth-child(2) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+.stat-card:nth-child(3) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+.stat-card:nth-child(4) { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.stat-icon { font-size: 28px; margin-bottom: 8px; opacity: 0.9; }
+.stat-number { font-size: 24px; font-weight: 900; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.stat-label { font-size: 13px; opacity: 0.9; font-weight: 600; }
+
+.user-management-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.user-management-item .user-info { display: flex; align-items: center; gap: 12px; flex: 1; }
+.user-management-item .user-details { flex: 1; }
+.user-management-item .user-name { font-weight: 700; color: #111; }
+.user-management-item .user-email { font-size: 12px; color: #666; margin-top: 2px; }
+.user-management-item .user-id { font-size: 11px; color: #999; margin-top: 2px; }
+.user-management-item .user-status { font-size: 12px; font-weight: 700; margin-top: 4px; }
+.user-management-item .user-status.banned { color: #dc3545; }
+.user-management-item .user-status.active { color: #28a745; }
+.user-management-item .user-actions { display: flex; gap: 8px; }
+
+/* =========================================
+   Support
+========================================= */
+.support-page { padding: 20px; }
+.support-card {
+  background: var(--gradient-success);
+  border-radius: 20px;
+  padding: 25px;
+  color: white;
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+  margin-bottom: 20px;
+}
+.support-actions { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
+.support-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 15px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.support-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+.support-btn i { font-size: 20px; width: 24px; }
+
+.user-support-page { padding: 20px; }
+.user-support-item {
+  background: #fff;
+  border-radius: 15px;
+  padding: 18px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+.user-support-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+.support-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+.support-user { font-weight: 700; color: var(--primary-color); font-size: 16px; }
+.support-type { background: var(--accent-color); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.support-message { color: var(--text-color); line-height: 1.6; margin-bottom: 15px; white-space: pre-wrap; font-size: 14px; }
+.reply-section { border-top: 1px dashed var(--border-color); padding-top: 12px; margin-top: 12px; }
+.support-reply-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.support-reply-btn:hover { background: #3a5bef; transform: translateY(-1px); }
+
+/* =========================================
+   Study Timer
+========================================= */
+#study-timer-display {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin: 20px 0;
+  font-family: 'Tajawal', monospace;
+  text-align: center;
+  direction: ltr;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px;
+  background: linear-gradient(135deg, rgba(74, 107, 255, 0.1), rgba(106, 17, 203, 0.1));
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#study-timer-page .post { text-align: center; padding: 30px 20px; display: flex; flex-direction: column; align-items: center; }
+#study-timer-page .post-actions { justify-content: center; gap: 15px; display: flex; flex-wrap: wrap; margin-top: 20px; width: 100%; max-width: 400px; }
+#study-timer-page .posts-container { display: flex; flex-direction: column; align-items: center; padding: 20px 15px; }
+
+#timer-stats { margin-top: 20px; padding: 15px; background: var(--sky); border-radius: 10px; text-align: center; width: 100%; max-width: 400px; }
+.sessions-history { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; }
+.sessions-list { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.session-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  text-align: right;
+  width: 100%;
+}
+.session-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.session-info { flex: 1; }
+.session-name { font-weight: 700; color: var(--primary-color); margin-bottom: 4px; }
+.session-duration { font-size: 12px; color: var(--light-text); }
+.session-date { font-size: 11px; color: #999; }
+.empty-state { text-align: center; padding: 40px 20px; color: var(--light-text); }
+.empty-state i { font-size: 48px; margin-bottom: 15px; opacity: 0.5; }
+
+#session-name-modal .modal-content { max-width: 400px; animation: modalSlideIn 0.3s ease-out; }
+#session-name-modal input { font-size: 16px !important; padding: 12px 15px; border-radius: 12px; margin-top: 8px; }
+#session-name-modal input::placeholder { color: rgba(255, 255, 255, 0.7); }
+#session-name-modal input:focus { outline: none; border-color: #ffd166; box-shadow: 0 0 0 2px rgba(255, 209, 102, 0.3); }
+
+/* =========================================
+   Media Queries & Responsiveness
+========================================= */
+@media (max-width: 1024px) {
+  .posts-container { padding: 20px 15px !important; }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 !important; }
+  .posts-container { padding: 20px !important; }
+  input, select, textarea { font-size: 16px !important; }
+  .stats-grid { grid-template-columns: 1fr; gap: 10px; }
+  .stat-card { min-height: 110px; padding: 14px; }
+  .stat-number { font-size: 22px; }
+  .user-management-item { flex-direction: column; align-items: stretch; }
+  .user-management-item .user-actions { justify-content: center; }
+}
+
 @media (max-width: 480px) {
-    .container {
-        padding: 0 !important;
-    }
-    
-    .posts-container {
-        padding: 12px !important;
-    }
-    
-    .post {
-        padding: 12px !important;
-        margin-bottom: 12px !important;
-    }
+  .container { padding: 0 !important; }
+  .posts-container { padding: 12px !important; }
+  .post { padding: 12px !important; margin-bottom: 12px !important; gap: 10px !important; }
+  .user-name { font-size: 15px; }
+  .post-meta { gap: 6px; }
+  .post-description { padding: 10px; font-size: 14px; }
+  .post-actions-new { grid-template-columns: repeat(3, 1fr) !important; gap: 6px !important; }
+  .post-action-btn { padding: 10px 6px !important; font-size: 12px !important; min-height: 40px !important; }
+  .post-action-btn span { font-size: 11px !important; }
+  #session-name-modal .modal-content { width: 90%; margin: 10px auto; padding: 20px; }
 }
 
-/* إصلاح خاص للأجهزة اللوحية */
-@media (min-width: 768px) {
-    .container {
-        padding: 0 !important;
-    }
-    
-    .posts-container {
-        padding: 20px !important;
-    }
-}
-
-/* إصلاح خاص للشاشات الكبيرة */
-@media (min-width: 1024px) {
-    .posts-container {
-        padding: 20px 15px !important;
-    }
+@media (max-width: 360px) {
+  .post-actions-new { grid-template-columns: repeat(3, 1fr) !important; }
+  .post-action-btn { padding: 8px 4px !important; font-size: 11px !important; }
+  .post-action-btn i { font-size: 14px !important; }
 }
 
   </style>
@@ -2277,8 +1418,6 @@ body, html {
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 </head>
 <body>
 
@@ -2462,12 +1601,12 @@ body, html {
 </div>
 
   <div id="details-page" class="container page" style="display:none">
-    <div class="header"><button class="btn btn-secondary" onclick="backToMainFromDetails()"><i class="fas fa-arrow-right"></i></button><span style="font-weight:900">تفاصيل المنشور</span></div>
+  <div class="header"><button class="btn btn-secondary" onclick="showMainPage()"><i class="fas fa-arrow-right"></i></button><span style="font-weight:900">تفاصيل المنشور</span></div>
     <div class="posts-container" id="details-container"></div>
   </div>
 
   <div id="comments-page" class="container page" style="display:none">
-    <div class="header"><button class="btn btn-secondary" onclick="backToMainFromComments()"><i class="fas fa-arrow-right"></i></button><span style="font-weight:900">التعليقات</span></div>
+  <div class="header"><button class="btn btn-secondary" onclick="showMainPage()"><i class="fas fa-arrow-right"></i></button><span style="font-weight:900">التعليقات</span></div>
     <div class="posts-container">
       <div id="comments-list-page"></div>
       <div class="row" style="margin-top:10px;">
@@ -2508,6 +1647,10 @@ body, html {
                 <i class="fas fa-bullhorn"></i>
                 <span>إشعار عام</span>
             </div>
+            <div class="menu-item admin-control-btn" onclick="showAdminExamsSettings()">
+    <i class="fas fa-calendar-alt"></i>
+    <span>مواعيد الامتحانات</span>
+</div>
             <div class="menu-item admin-control-btn" onclick="showUserSupportPage()">
                 <i class="fas fa-comments"></i>
                 <span>الرد على المستخدمين</span>
@@ -2603,6 +1746,11 @@ body, html {
         <i class="fas fa-home"></i>
         <span>المنشورات</span>
         <div id="posts-badge" class="nav-badge" style="display: none">0</div>
+    </div>
+    
+    <div class="nav-item" data-page="exams" onclick="showExamsPage()">
+        <i class="fas fa-hourglass-half"></i>
+        <span>الامتحانات</span>
     </div>
     
     <div class="nav-item" data-page="study-timer" onclick="showStudyTimerPage()">
@@ -2914,7 +2062,7 @@ body, html {
 
 <div id="study-timer-page" class="container page" style="display:none">
     <div class="header">
-        <button class="btn btn-secondary" onclick="showStudyAssistantPage()">
+        <button class="btn btn-secondary" onclick="showMainPage()">
             <i class="fas fa-arrow-right"></i>
         </button>
         <span style="font-weight:900">العداد الدراسي</span>
@@ -2978,6 +2126,115 @@ body, html {
     </div>
 </div>
 
+<div id="exams-page" class="container page" style="display:none">
+  <div class="header">
+    <span style="font-weight:900; margin: auto; font-size: 18px; color: var(--primary-color);">المتبقي للامتحانات</span>
+  </div>
+  
+  <div class="posts-container" style="display: flex; flex-direction: column; gap: 15px; padding: 15px !important; height: calc(100vh - 130px); justify-content: center;">
+    
+    <div class="post" style="text-align: center; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 20px 10px; border-radius: 18px; box-shadow: 0 8px 20px rgba(0,196,255,0.2); margin: 0 !important;">
+      <h3 style="margin-bottom: 15px; font-weight: 900; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">السادس الابتدائي</h3>
+      <div style="display: flex; justify-content: center; gap: 8px; direction: ltr;">
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="prim-days" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">يوم</span>
+        </div>
+        <span style="font-size: 24px; font-weight: bold; align-self: center; opacity: 0.8; margin-top: -20px;">:</span>
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="prim-hours" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">ساعة</span>
+        </div>
+        <span style="font-size: 24px; font-weight: bold; align-self: center; opacity: 0.8; margin-top: -20px;">:</span>
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="prim-minutes" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">دقيقة</span>
+        </div>
+        <span style="font-size: 24px; font-weight: bold; align-self: center; opacity: 0.8; margin-top: -20px;">:</span>
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="prim-seconds" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">ثانية</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="post" style="text-align: center; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 20px 10px; border-radius: 18px; box-shadow: 0 8px 20px rgba(245,87,108,0.2); margin: 0 !important;">
+      <h3 style="margin-bottom: 15px; font-weight: 900; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">الثالث المتوسط</h3>
+      <div style="display: flex; justify-content: center; gap: 8px; direction: ltr;">
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="inter-days" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">يوم</span>
+        </div>
+        <span style="font-size: 24px; font-weight: bold; align-self: center; opacity: 0.8; margin-top: -20px;">:</span>
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="inter-hours" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">ساعة</span>
+        </div>
+        <span style="font-size: 24px; font-weight: bold; align-self: center; opacity: 0.8; margin-top: -20px;">:</span>
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="inter-minutes" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">دقيقة</span>
+        </div>
+        <span style="font-size: 24px; font-weight: bold; align-self: center; opacity: 0.8; margin-top: -20px;">:</span>
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="inter-seconds" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">ثانية</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="post" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 10px; border-radius: 18px; box-shadow: 0 8px 20px rgba(118,75,162,0.2); margin: 0 !important;">
+      <h3 style="margin-bottom: 15px; font-weight: 900; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">السادس الاعدادي</h3>
+      <div style="display: flex; justify-content: center; gap: 8px; direction: ltr;">
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="prep-days" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">يوم</span>
+        </div>
+        <span style="font-size: 24px; font-weight: bold; align-self: center; opacity: 0.8; margin-top: -20px;">:</span>
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="prep-hours" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">ساعة</span>
+        </div>
+        <span style="font-size: 24px; font-weight: bold; align-self: center; opacity: 0.8; margin-top: -20px;">:</span>
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="prep-minutes" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">دقيقة</span>
+        </div>
+        <span style="font-size: 24px; font-weight: bold; align-self: center; opacity: 0.8; margin-top: -20px;">:</span>
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.15); padding: 10px 5px; border-radius: 12px; min-width: 65px; backdrop-filter: blur(5px);">
+          <span id="prep-seconds" style="font-size: 28px; font-weight: 900; font-family: monospace; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">00</span>
+          <span style="font-size: 12px; font-weight: bold; opacity: 0.9; margin-top: 4px;">ثانية</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="admin-exams-page" class="container page" style="display:none">
+    <div class="header">
+        <button class="btn btn-secondary" onclick="backToAdminPanel()"><i class="fas fa-arrow-right"></i></button>
+        <span style="font-weight:900">ضبط مواعيد الامتحانات</span>
+    </div>
+    <div class="posts-container">
+        <div class="post" style="border-right: 4px solid #4facfe;">
+            <h3 style="color: var(--primary-color); margin-bottom: 15px;">السادس الابتدائي</h3>
+            <div class="select-group"><input type="datetime-local" id="admin-date-primary" class="form-control" style="font-family: monospace;"></div>
+            <button class="btn btn-success btn-block" onclick="saveExamDate('primary', 'admin-date-primary')"><i class="fas fa-save"></i> حفظ الموعد</button>
+        </div>
+        <div class="post" style="border-right: 4px solid #f093fb;">
+            <h3 style="color: var(--primary-color); margin-bottom: 15px;">الثالث المتوسط</h3>
+            <div class="select-group"><input type="datetime-local" id="admin-date-inter" class="form-control" style="font-family: monospace;"></div>
+            <button class="btn btn-success btn-block" onclick="saveExamDate('inter', 'admin-date-inter')"><i class="fas fa-save"></i> حفظ الموعد</button>
+        </div>
+        <div class="post" style="border-right: 4px solid #667eea;">
+            <h3 style="color: var(--primary-color); margin-bottom: 15px;">السادس الاعدادي</h3>
+            <div class="select-group"><input type="datetime-local" id="admin-date-prep" class="form-control" style="font-family: monospace;"></div>
+            <button class="btn btn-success btn-block" onclick="saveExamDate('prep', 'admin-date-prep')"><i class="fas fa-save"></i> حفظ الموعد</button>
+        </div>
+    </div>
+</div>
+
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBkoSz3ZUy4qKBTeLx42Oo-TlTtvFtF2vY",
@@ -2996,7 +2253,6 @@ try {
   
   db = firebase.firestore();
   auth = firebase.auth();
-  storage = firebase.storage();
   
   firebase.firestore().enablePersistence()
     .catch(err => console.log("Firestore persistence error:", err));
@@ -3018,7 +2274,6 @@ let currentUser = null;
 let posts = [];
 let companies = [];
 let activeSection = "posts";
-let currentDetailsPostId = null;
 let currentCommentsPostId = null;
 const userMetaCache = {};
 let lastBroadcast = null;
@@ -3521,7 +2776,9 @@ function initializePages() {
     broadcastPanel: document.getElementById("broadcast-panel-page"),
     support: document.getElementById("support-page"),
     userSupport: document.getElementById("user-support-page"), 
-    "study-timer-page": document.getElementById("study-timer-page")
+    "study-timer-page": document.getElementById("study-timer-page"),
+    exams: document.getElementById("exams-page"),
+    adminExams: document.getElementById("admin-exams-page")
   };
 }
 
@@ -3589,14 +2846,6 @@ function showProfilePage() {
 
 function backToProfile() {
   showPage("profile");
-}
-
-function backToMainFromDetails() {
-  showPage("main");
-}
-
-function backToMainFromComments() {
-  showPage("main");
 }
 
 function backToAdminPanel() {
@@ -3826,18 +3075,8 @@ async function sendSuggestion() {
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
   
   try {
-    const ownerQuery = await db.collection('users')
-      .where('email', '==', APP_OWNER_EMAIL)
-      .limit(1)
-      .get();
-    
-    if (ownerQuery.empty) return;
-    
-    const ownerDoc = ownerQuery.docs[0];
-    const ownerUid = ownerDoc.id;
-    
     await db.collection('inbox').add({
-      userId: ownerUid,
+      userId: 'ADMIN_INBOX', // التوجيه لصندوق الإدارة
       type: 'support_request',
       supportType: type,
       title: type === 'problem' ? '🚨 مشكلة جديدة' : '💡 اقتراح جديد',
@@ -4003,37 +3242,29 @@ function showUserSupportPage() {
 async function loadUserSupportRequests() {
   const container = document.getElementById('user-support-results');
   if (!container) return;
-  
-  container.innerHTML = '<div class="post"><p style="text-align: center; color: var(--text-color);">جاري تحميل طلبات الدعم...</p></div>';
+  container.innerHTML = '<div class="post"><p style="text-align: center;">جاري تحميل طلبات الدعم...</p></div>';
   
   try {
     const supportQuery = await db.collection('inbox')
+      .where('userId', '==', 'ADMIN_INBOX') 
       .orderBy('createdAt', 'desc')
-      .limit(50)
+      .limit(500)
       .get();
     
-    if (supportQuery.empty) {
-      container.innerHTML = '<div class="post"><p style="text-align: center; color: var(--text-color);">لا توجد طلبات دعم حالياً</p></div>';
-      return;
-    }
-    
     const supportRequests = supportQuery.docs
-      .map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }))
-      .filter(request => 
-        request.type === 'support_request' || 
-        request.type === 'admin_report'
-      );
-    
+      .map(doc => ({ id: doc.id, ...doc.data() }))
+      .filter(request => request.type === 'support_request');
+
     if (supportRequests.length === 0) {
-      container.innerHTML = '<div class="post"><p style="text-align: center; color: var(--text-color);">لا توجد طلبات دعم حالياً</p></div>';
+      container.innerHTML = '<div class="post"><p style="text-align: center;">لا توجد طلبات دعم أو اقتراحات حالياً</p></div>';
       return;
     }
-    
+
     container.innerHTML = supportRequests.map(request => {
-      const requestTime = request.createdAt?.toDate ? formatRelativeTime(request.createdAt.toDate()) : 'غير معروف';
+      // إصلاح مشكلة الوقت
+      const timeVal = request.createdAt?.toDate ? request.createdAt.toDate() : (request.createdAt ? new Date(request.createdAt) : null);
+      const requestTime = timeVal ? formatRelativeTime(timeVal) : 'الآن';
+      
       const typeText = request.supportType === 'problem' ? 'مشكلة' : 'اقتراح';
       const typeIcon = request.supportType === 'problem' ? '🚨' : '💡';
       const statusColor = request.status === 'resolved' ? '#28a745' : '#ffc107';
@@ -4048,42 +3279,25 @@ async function loadUserSupportRequests() {
               ${request.status === 'resolved' ? 'تم الرد' : typeText}
             </div>
           </div>
-          
-          <div class="support-message">
-            ${escapeHTML(request.message || '')}
-          </div>
-          
+          <div class="support-message">${escapeHTML(request.message || '')}</div>
           <div class="reply-section">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
               <small style="color: #777;">${requestTime}</small>
               <small style="color: #777;">ID: ${request.userUid?.substring(0, 8) || 'غير معروف'}</small>
             </div>
-            
             ${request.status !== 'resolved' ? `
             <button class="support-reply-btn" onclick="openReplySupportModal('${request.userUid}', '${escapeHTML(request.userName || 'مستخدم')}', '${request.id}')">
               <i class="fas fa-reply"></i> الرد على المستخدم
             </button>
             ` : `
-            <div style="color: #28a745; font-weight: bold; text-align: center;">
-              <i class="fas fa-check-circle"></i> تم الرد على هذه الرسالة
-            </div>
+            <div style="color: #28a745; font-weight: bold; text-align: center;">✅ تم الرد على هذه الرسالة</div>
             `}
           </div>
         </div>
       `;
     }).join('');
-    
   } catch (error) {
-    container.innerHTML = `
-      <div class="post">
-        <p style="text-align: center; color: #ff6b6b;">
-          خطأ في تحميل طلبات الدعم
-        </p>
-        <button class="btn" onclick="loadUserSupportRequests()" style="margin-top: 10px;">
-          <i class="fas fa-redo"></i> إعادة المحاولة
-        </button>
-      </div>
-    `;
+    container.innerHTML = '<div class="post"><p style="text-align: center; color: #ff6b6b;">خطأ في التحميل</p></div>';
   }
 }
 
@@ -4179,7 +3393,7 @@ let postsOffset = 0;
 let allPosts = [];
 let displayPosts = [];
 
-async function loadPostsFromFirestore(loadMore = false) {
+async function loadPostsFromFirestore(loadMore = false, forceRefresh = false) {
   try {
     if (!loadMore) {
       postsOffset = 0;
@@ -4196,9 +3410,14 @@ async function loadPostsFromFirestore(loadMore = false) {
     const cachedPosts = localStorage.getItem(cacheKey);
     const cacheTimestamp = localStorage.getItem(cacheTime);
     
-    if (cachedPosts && cacheTimestamp && (now - parseInt(cacheTimestamp)) < cacheExpiry && !loadMore) {
-      allPosts = JSON.parse(cachedPosts);
+    // التعديل: إضافة forceRefresh وتصحيح التواريخ وإصلاح الأوفسيت عند جلبها من الكاش
+    if (cachedPosts && cacheTimestamp && (now - parseInt(cacheTimestamp)) < cacheExpiry && !loadMore && !forceRefresh) {
+      allPosts = JSON.parse(cachedPosts).map(p => ({
+        ...p,
+        createdAt: p.createdAt ? new Date(p.createdAt) : new Date(0)
+      }));
       displayPosts = allPosts.slice(0, postsLimit);
+      postsOffset = postsLimit; 
       posts = displayPosts;
       renderPosts();
       updatePostCountInProfile();
@@ -4250,8 +3469,13 @@ async function loadPostsFromFirestore(loadMore = false) {
   } catch (e) {
     const cachedPosts = localStorage.getItem('posts_cache');
     if (cachedPosts && !loadMore) {
-      allPosts = JSON.parse(cachedPosts);
+      // التعديل: تصحيح التواريخ في حالة الفشل والاعتماد على الكاش
+      allPosts = JSON.parse(cachedPosts).map(p => ({
+        ...p,
+        createdAt: p.createdAt ? new Date(p.createdAt) : new Date(0)
+      }));
       displayPosts = allPosts.slice(0, postsLimit);
+      postsOffset = postsLimit;
       posts = displayPosts;
       renderPosts();
       updatePostCountInProfile();
@@ -4284,7 +3508,6 @@ async function renderPosts() {
     return;
   }
   
-  window.postsContainer.innerHTML = "";
   const filterMaterial = document.getElementById('filter-material').value;
   const filterStage = document.getElementById('filter-stage').value;
   
@@ -4301,15 +3524,19 @@ async function renderPosts() {
     return isVisible && materialMatch && stageMatch;
   });
   
-  if (filtered.length === 0) {
-    window.postsContainer.innerHTML = '<div class="post"><p>لا توجد منشورات تطابق الفلتر</p></div>';
-    return;
-  }
-  
+  // التعديل: جلب بيانات المستخدمين والانتظار (بينما لا تزال المنشورات القديمة ظاهرة)
   const uids = [...new Set(filtered.map(p => p.userId).filter(Boolean))];
   await Promise.all(uids.map(async uid => {
     if (!userMetaCache[uid]) userMetaCache[uid] = await getUserMeta(uid);
   }));
+  
+  // التعديل: الآن بعد أن أصبحت البيانات جاهزة 100%، نقوم بتفريغ الحاوية حتى لا تظهر شاشة بيضاء
+  window.postsContainer.innerHTML = "";
+
+  if (filtered.length === 0) {
+    window.postsContainer.innerHTML = '<div class="post"><p>لا توجد منشورات تطابق الفلتر</p></div>';
+    return;
+  }
   
   const frag = document.createDocumentFragment();
   
@@ -4527,9 +3754,7 @@ function createPostElement(post, meta, context = 'list') {
         <span class="post-price">${priceLabel}</span>
       </div>
       
-      <div class="post-description">
-        ${escapeHTML(post.description || '')}
-      </div>
+      <div class="post-description">${escapeHTML(post.description || '')}</div>
     </div>
     
     ${post.contactMethod === "comments" ? `
@@ -5047,7 +4272,7 @@ async function openCommentsPage(postId) {
   if (!currentUser) return;
   currentCommentsPostId = postId;
   showPage("comments");
-  await renderComments(postId);
+  await renderCommentsWithCache(postId);
 }
 
 async function renderCommentsWithCache(postId, forceRefresh = false) {
@@ -5292,7 +4517,8 @@ async function addCommentFromPage() {
     
     const post = posts.find(p => p.id === currentCommentsPostId);
     
-    if (post && post.userId !== currentUser.uid && !isOwner()) {
+    // التعديل: تمت إزالة (!isOwner()) لضمان وصول الإشعار لصاحب المنشور دائماً
+    if (post && post.userId !== currentUser.uid) {
       await db.collection('inbox').add({
         userId: post.userId,
         type: 'comment_notification',
@@ -5314,9 +4540,7 @@ async function addCommentFromPage() {
     showNotification('تم إرسال التعليق');
     
   } catch (e) {
-    showNotification('تم إرسال التعليق بنجاح');
-    textInput.value = '';
-    await renderCommentsWithCache(currentCommentsPostId);
+    showNotification('حدث خطأ أثناء إرسال التعليق، حاول مجدداً', 'error');
   } finally {
     btn.disabled = false;
     btn.innerHTML = 'إرسال';
@@ -5357,27 +4581,10 @@ async function sendCommentReplyNotifications(postId, commentText, commenterName)
       }
     });
     
-    let ownerUid = null;
-    try {
-      const ownerQuery = await db.collection('users')
-        .where('email', '==', APP_OWNER_EMAIL)
-        .limit(1)
-        .get();
-      
-      if (!ownerQuery.empty) {
-        ownerUid = ownerQuery.docs[0].id;
-      }
-    } catch (error) {
-    }
-    
     const batch = db.batch();
     let notificationCount = 0;
     
     for (const userId of mentionedUsers) {
-      if (ownerUid && userId === ownerUid) {
-        continue;
-      }
-      
       if (notificationCount >= 10) break;
       
       const notificationRef = db.collection('inbox').doc();
@@ -5430,7 +4637,7 @@ async function deleteComment(commentId, postId) {
     }
     
     showNotification('تم حذف التعليق');
-    await renderComments(postId);
+    await renderCommentsWithCache(postId);
     
   } catch (error) {
     showNotification('فشل حذف التعليق', 'error');
@@ -5460,10 +4667,6 @@ async function banCommentUser(userId, postId) {
   } catch (error) {
     showNotification('فشل حظر المستخدم', 'error');
   }
-}
-
-async function renderComments(postId) {
-  await renderCommentsWithCache(postId);
 }
 
 async function ownerTogglePin(postId, isPinned) {
@@ -5665,9 +4868,28 @@ async function editProfileName() {
   }
 }
 
+// الدالة الجديدة لمعالجة الضغط على إشعار التعليقات وفتحه
+async function openCommentsFromNotification(postId, notificationId) {
+  openCommentsPage(postId);
+  try {
+    await db.collection('inbox').doc(notificationId).update({
+      status: 'read',
+      readAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    if (unreadNotifications.inbox > 0) {
+      unreadNotifications.inbox--;
+      updateAllBadges();
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 async function showInbox() {
   if (!currentUser) return showNotification('سجّل الدخول', 'warning');
   showPage('inbox');
+  
+  cleanupOldNotifications();
   
   if (!window.inboxContainer) return;
   
@@ -5701,32 +4923,40 @@ async function showInbox() {
       renderInboxMessages(messages, fromCache);
     }
     
-    let querySnapshot;
+    let querySnapshotPersonal = await db.collection('inbox')
+      .where('userId', '==', currentUser.uid)
+      .orderBy('createdAt', 'desc')
+      .limit(200)
+      .get();
+      
+    let allDocs = querySnapshotPersonal.docs;
     
     if (isOwner()) {
-      querySnapshot = await db.collection('inbox')
-        .orderBy('createdAt', 'desc')
-        .limit(100)
-        .get();
-      
-      messages = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-        docRef: doc.ref
-      }));
-    } else {
-      querySnapshot = await db.collection('inbox')
-        .where('userId', '==', currentUser.uid)
-        .orderBy('createdAt', 'desc')
-        .limit(100)
-        .get();
-      
-      messages = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-        docRef: doc.ref
-      }));
+        let querySnapshotAdmin = await db.collection('inbox')
+          .where('userId', '==', 'ADMIN_INBOX')
+          .orderBy('createdAt', 'desc')
+          .limit(200)
+          .get();
+        allDocs = [...allDocs, ...querySnapshotAdmin.docs];
+        
+        allDocs.sort((a, b) => {
+            const timeA = a.data().createdAt?.toDate ? a.data().createdAt.toDate().getTime() : 0;
+            const timeB = b.data().createdAt?.toDate ? b.data().createdAt.toDate().getTime() : 0;
+            return timeB - timeA;
+        });
     }
+    
+    const twentyFourHoursAgo = Date.now() - (24 * 60 * 60 * 1000);
+    
+    messages = allDocs
+      .map(doc => ({ id: doc.id, ...doc.data(), docRef: doc.ref }))
+      .filter(msg => {
+        if (msg.status === 'read' && msg.readAt) {
+          const readTime = msg.readAt.toDate ? msg.readAt.toDate().getTime() : msg.readAt;
+          return readTime >= twentyFourHoursAgo;
+        }
+        return true; 
+      });
     
     localStorage.setItem(cacheKey, JSON.stringify(messages));
     localStorage.setItem(cacheTime, now.toString());
@@ -5734,8 +4964,6 @@ async function showInbox() {
     if (!fromCache || messages.length > 0) {
       renderInboxMessages(messages, false);
     }
-    
-    await markAllNotificationsAsRead();
     
   } catch (error) {
     window.inboxContainer.innerHTML = `
@@ -5751,146 +4979,122 @@ async function showInbox() {
 
 function renderInboxMessages(messages, fromCache = false) {
   if (!window.inboxContainer) return;
-  
   if (messages.length === 0) {
-    window.inboxContainer.innerHTML = `
-      <div class="post" style="text-align: center; padding: 40px 20px;">
-        <i class="fas fa-inbox" style="font-size: 48px; color: #999; margin-bottom: 15px;"></i>
-        <p style="color: var(--text-color); font-size: 16px;">لا توجد رسائل حالياً</p>
-        <p style="color: #999; font-size: 14px; margin-top: 5px;">سيتم عرض الرسائل الجديدة هنا تلقائياً</p>
-      </div>
-    `;
+    window.inboxContainer.innerHTML = '<div class="post" style="text-align: center; padding: 40px 20px;"><p>لا توجد رسائل حالياً</p></div>';
     return;
   }
-  
+
   let html = '';
-  
-  if (fromCache) {
-    html += `
-      <div class="post" style="background: #f8f9fa; border-left: 4px solid #ffc107; margin-bottom: 10px;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <i class="fas fa-sync-alt fa-spin" style="color: #ffc107;"></i>
-          <small style="color: var(--text-color);">يتم تحديث البيانات من الخادم...</small>
-        </div>
-      </div>
-    `;
-  }
-  
+
   messages.forEach(msg => {
-    const created = msg.createdAt?.toDate ? formatRelativeTime(msg.createdAt.toDate()) : '';
+    // حل مشكلة الوقت الجذري لكل حالات البيانات (كاش أو سيرفر)
+    let timeVal = null;
+    if (msg.createdAt) {
+        if (typeof msg.createdAt.toDate === 'function') {
+            timeVal = msg.createdAt.toDate(); // بيانات حية من السيرفر
+        } else if (msg.createdAt.seconds) {
+            timeVal = new Date(msg.createdAt.seconds * 1000); // كاش لنوع Timestamp
+        } else {
+            const parsed = new Date(msg.createdAt); // كاش لنوع نصي
+            if (!isNaN(parsed)) timeVal = parsed;
+        }
+    }
+    const created = timeVal ? formatRelativeTime(timeVal) : 'الآن';
     const isUnread = msg.status === 'unread';
-    const isResolved = msg.status === 'resolved';
-    
-    if (msg.type === 'comment_reply' || msg.type === 'comment_notification') {
+
+    if (msg.type === 'comment_reply' || msg.type === 'comment_notification' || msg.type === 'support_reply') {
       const postId = msg.postId || '';
+      const isSupport = msg.type === 'support_reply';
       const isCommentReply = msg.type === 'comment_reply';
       
+      const icon = isSupport ? 'fa-headset' : (isCommentReply ? 'fa-comment-dots' : 'fa-comment');
+      const clickAction = isSupport ? `onclick="markMessageRead('${msg.id}')"` : `onclick="openCommentsFromNotification('${postId}', '${msg.id}')"`;
+      const cursorType = isSupport ? 'default' : 'pointer';
+      
       html += `
-        <div class="post" style="border-right: ${isUnread ? '4px solid #4a6bff' : 'none'}; background: ${isUnread ? '#f8f9fa' : '#fff'}; cursor: pointer;" 
-             onclick="openCommentsFromNotification('${postId}', '${msg.id}')">
+        <div class="post" style="border-right: ${isUnread ? '4px solid #4a6bff' : 'none'}; background: ${isUnread ? '#f8f9fa' : '#fff'}; cursor: ${cursorType};" ${clickAction}>
           <div style="font-weight:bold;color:#0f235f; display: flex; align-items: center; gap: 8px;">
-            <i class="fas fa-comment${isCommentReply ? '-dots' : ''}"></i>
-            ${escapeHTML(msg.title || (isCommentReply ? 'رد على تعليقك' : 'تعليق جديد'))}
-            ${isUnread ? '<span style="background: #4a6bff; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-right: 5px;">جديد</span>' : ''}
+            <i class="fas ${icon}"></i>
+            ${escapeHTML(msg.title || 'إشعار جديد')}
           </div>
           <p style="margin-top:8px; white-space: pre-wrap;">${escapeHTML(msg.message || '')}</p>
-          <div style="margin-top: 8px; color: #4a6bff; font-weight: 600; font-size: 13px;">
-            <i class="fas fa-external-link-alt"></i> انقر لفتح التعليقات
-          </div>
           <small style="color:#777">${created}</small>
         </div>`;
-    }
-    else if (isOwner() && (msg.type === 'admin_report' || msg.type === 'support_request')) {
-      if (isResolved) {
+    } 
+    else if (isOwner() && msg.type === 'admin_report') {
+      if (msg.status === 'resolved') {
         html += `
           <div class="post" style="opacity:0.7; background:#f8f9fa; border-right: ${isUnread ? '4px solid #4a6bff' : 'none'};">
-            <div style="font-weight:bold;color:#0f235f">📩 ${msg.type === 'support_request' ? 'طلب دعم' : 'بلاغ'} - ${msg.actionMessage || 'تم المعالجة'}</div>
+            <div style="font-weight:bold;color:#0f235f">📩 بلاغ معالج - ${msg.actionMessage || 'تمت المعالجة'}</div>
             <p style="margin-top:8px; white-space: pre-wrap;">${escapeHTML(msg.message || '')}</p>
-            <div style="color:#28a745; font-weight:bold; margin-top:8px;">
-              ✅ ${msg.actionMessage || 'تمت المعالجة'}
-            </div>
+            <div style="color:#28a745; font-weight:bold; margin-top:8px;">✅ ${msg.actionMessage || 'تمت المعالجة'}</div>
             <small style="color:#777">${created}</small>
           </div>`;
       } else {
-        const typeText = msg.supportType === 'problem' ? 'مشكلة' : msg.supportType === 'suggestion' ? 'اقتراح' : 'طلب دعم';
-        const typeIcon = msg.supportType === 'problem' ? '🚨' : msg.supportType === 'suggestion' ? '💡' : '📩';
-        
         html += `
-          <div class="post" style="border-right: ${isUnread ? '4px solid #4a6bff' : 'none'}; background: ${isUnread ? '#f8f9fa' : '#fff'};">
-            <div style="font-weight:bold;color:#0f235f">${typeIcon} ${typeText} ${isUnread ? '<span style="background: #4a6bff; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-right: 5px;">جديد</span>' : ''}</div>
+          <div class="post" style="border-right: 4px solid #dc3545; background: #fff;">
+            <div style="font-weight:bold;color:#dc3545"><i class="fas fa-flag"></i> بلاغ جديد</div>
             <p style="margin-top:8px; white-space: pre-wrap;">${escapeHTML(msg.message || '')}</p>
-            ${msg.type === 'admin_report' ? `
-            <div class="post-actions" style="margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap;">
-              <button class="btn btn-danger btn-xs" onclick="adminReportAction('${msg.id}','ban_poster','${escapeHTML(msg.postOwnerId || '')}')">
-                <i class="fa-solid fa-ban"></i> حظر
-              </button>
-              <button class="btn btn-warning btn-xs" onclick="adminReportAction('${msg.id}','delete_post','${escapeHTML(msg.postId || '')}')">
-                <i class="fa-solid fa-trash"></i> حذف
-              </button>
-              <button class="btn btn-success btn-xs" onclick="adminReportAction('${msg.id}','view_single_post','${escapeHTML(msg.postOwnerId || '')}','','${escapeHTML(msg.postId || '')}')">
-                <i class="fa-solid fa-eye"></i> عرض
-              </button>
-              <button class="btn btn-secondary btn-xs" onclick="adminReportAction('${msg.id}','reject','')">
-                <i class="fa-solid fa-x"></i> رفض
-              </button>
+            <div class="post-actions" style="margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+              <button class="btn btn-warning btn-xs" onclick="adminReportAction('${msg.id}', 'delete_post', '${escapeHTML(msg.postOwnerId || '')}', '${escapeHTML(msg.reporterUid || '')}', '${escapeHTML(msg.postId || '')}')"><i class="fa-solid fa-trash"></i> حذف المنشور</button>
+              <button class="btn btn-danger btn-xs" onclick="adminReportAction('${msg.id}', 'ban_poster', '${escapeHTML(msg.postOwnerId || '')}', '${escapeHTML(msg.reporterUid || '')}', '${escapeHTML(msg.postId || '')}')"><i class="fa-solid fa-ban"></i> حظر صاحب المنشور</button>
+              <button class="btn btn-danger btn-xs" onclick="adminReportAction('${msg.id}', 'ban_reporter', '${escapeHTML(msg.postOwnerId || '')}', '${escapeHTML(msg.reporterUid || '')}', '${escapeHTML(msg.postId || '')}')"><i class="fa-solid fa-user-slash"></i> حظر المُبلّغ</button>
+              <button class="btn btn-secondary btn-xs" onclick="adminReportAction('${msg.id}', 'reject', '${escapeHTML(msg.postOwnerId || '')}', '${escapeHTML(msg.reporterUid || '')}', '${escapeHTML(msg.postId || '')}')"><i class="fa-solid fa-x"></i> رفض الإبلاغ</button>
+              <button class="btn btn-success btn-xs" style="grid-column: 1 / -1;" onclick="adminReportAction('${msg.id}', 'view_single_post', '${escapeHTML(msg.postOwnerId || '')}', '${escapeHTML(msg.reporterUid || '')}', '${escapeHTML(msg.postId || '')}')"><i class="fa-solid fa-eye"></i> عرض المنشور</button>
             </div>
-            ` : ''}
             <small style="color:#777">${created}</small>
           </div>`;
       }
     }
-    else {
-      html += `
-        <div class="post" style="border-right: ${isUnread ? '4px solid #4a6bff' : 'none'}; background: ${isUnread ? '#f8f9fa' : '#fff'};">
-          <div style="font-weight:bold;color:#0f235f">${escapeHTML(msg.title || 'إشعار')} ${isUnread ? '<span style="background: #4a6bff; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-right: 5px;">جديد</span>' : ''}</div>
-          <p style="margin-top:8px; white-space: pre-wrap;">${escapeHTML(msg.message || '')}</p>
-          <small style="color:#777">${created}</small>
-        </div>`;
-    }
   });
-  
   window.inboxContainer.innerHTML = html;
-  
-  if (!fromCache) {
-    startInboxListener();
-  }
+  if (!fromCache) startInboxListener();
 }
 
-async function adminReportAction(inboxDocId, action, targetId, reporterId = '', postId = '') {
+// دالة صغيرة لقراءة رسائل الدعم إذا ضغط عليها المستخدم
+async function markMessageRead(notificationId) {
+  try {
+    await db.collection('inbox').doc(notificationId).update({
+      status: 'read',
+      readAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  } catch (e) {}
+}
+
+
+async function adminReportAction(inboxDocId, action, postOwnerId, reporterId, postId) {
   if (!isOwner()) return;
   
   try {
     let actionMessage = '';
+    let replyToReporter = ''; // الرسالة التي ستصل للمبلغ
 
-    if (action === 'ban_poster' && targetId) {
-      await db.collection('users').doc(targetId).update({
-        blockedFromPosting: true
-      });
-      actionMessage = 'تم حظر صاحب المنشور';
-    } else if (action === 'ban_reporter' && reporterId) {
-      await db.collection('users').doc(reporterId).update({
-        blockedFromPosting: true
-      });
-      actionMessage = 'تم حظر المُبلّغ';
-    } else if (action === 'delete_post' && targetId) {
-      try {
-        await db.collection('posts').doc(targetId).delete();
-      } catch (deleteError) {
-        await db.collection('posts').doc(targetId).update({
-          status: 'deleted'
-        });
-      }
+    if (action === 'delete_post' && postId) {
+      try { await db.collection('posts').doc(postId).delete(); } 
+      catch (e) { await db.collection('posts').doc(postId).update({ status: 'deleted' }); }
       actionMessage = 'تم حذف المنشور';
-    } else if (action === 'reject') {
+      replyToReporter = 'شكراً لك. تمت مراجعة بلاغك وتم حذف المنشور المخالف.';
+    } 
+    else if (action === 'ban_poster' && postOwnerId) {
+      await db.collection('users').doc(postOwnerId).update({ blockedFromPosting: true });
+      actionMessage = 'تم حظر صاحب المنشور';
+      replyToReporter = 'شكراً لك. تمت مراجعة بلاغك وتم حظر المخالف من التطبيق.';
+    } 
+    else if (action === 'ban_reporter' && reporterId) {
+      await db.collection('users').doc(reporterId).update({ blockedFromPosting: true });
+      actionMessage = 'تم حظر المُبلّغ';
+      replyToReporter = 'لقد قمت بتقديم بلاغ كاذب أو مخالف، تم حظرك من التطبيق.';
+    } 
+    else if (action === 'reject') {
       actionMessage = 'تم رفض البلاغ';
-    } else if (action === 'view_posts' && targetId) {
-      await showUserPostsPage(targetId);
-      return;
-    } else if (action === 'view_single_post' && postId) {
+      replyToReporter = 'تمت مراجعة بلاغك، وتبين أن المنشور لا يخالف الشروط وتم إغلاق البلاغ.';
+    } 
+    else if (action === 'view_single_post' && postId) {
       await showSinglePostModal(postId);
-      return;
+      return; // لا تغلق البلاغ، فقط اعرض المنشور
     }
 
+    // تحديث حالة البلاغ وإغلاقه
     await db.collection('inbox').doc(inboxDocId).update({
       status: 'resolved',
       resolvedAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -5898,7 +5102,21 @@ async function adminReportAction(inboxDocId, action, targetId, reporterId = '', 
       actionMessage: actionMessage
     });
 
-    showNotification('تم معالجة الإبلاغ بنجاح');
+    // إرسال النتيجة إلى صندوق البريد الوارد للمبلغ
+    if (replyToReporter && reporterId) {
+        await db.collection('inbox').add({
+            userId: reporterId,
+            type: 'support_reply',
+            title: '📬 نتيجة الإبلاغ المرفوع',
+            message: replyToReporter,
+            status: 'unread',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            repliedBy: currentUser.uid,
+            repliedByName: currentUser.name
+        });
+    }
+
+    showNotification('تمت المعالجة بنجاح');
     setTimeout(() => { showInbox(); }, 2000);
 
   } catch (e) {
@@ -6205,79 +5423,58 @@ function startAllListeners() {
 
 function startInboxListener() {
   if (!currentUser) return;
-  
-  if (notificationsListener) {
-    notificationsListener();
-  }
-  
-  let inboxQuery;
-  
+  if (notificationsListener) notificationsListener();
+  if (window.adminInboxListener) window.adminInboxListener();
+
+  let personalUnread = 0;
+  let adminReportsUnread = 0;
+  let adminSupportUnread = 0;
+
+  const updateTotals = () => {
+     // البريد الوارد يجمع إشعاراتك الشخصية + البلاغات
+     unreadNotifications.inbox = personalUnread + adminReportsUnread;
+     updateAllBadges();
+     
+     // تحديث فقاعات لوحة التحكم (للاقتراحات والمشاكل فقط)
+     const adminBadge = document.getElementById('admin-panel-badge');
+     const supportBadge = document.getElementById('user-support-badge');
+     
+     if (adminBadge) {
+         adminBadge.style.display = adminSupportUnread > 0 ? 'flex' : 'none';
+         adminBadge.textContent = adminSupportUnread > 9 ? '9+' : adminSupportUnread.toString();
+     }
+     if (supportBadge) {
+         supportBadge.style.display = adminSupportUnread > 0 ? 'flex' : 'none';
+         supportBadge.textContent = adminSupportUnread > 9 ? '9+' : adminSupportUnread.toString();
+     }
+     
+     if (pages.inbox && pages.inbox.style.display === 'block') {
+         showInbox(); 
+     }
+  };
+
+  notificationsListener = db.collection('inbox')
+    .where('userId', '==', currentUser.uid)
+    .where('status', '==', 'unread')
+    .onSnapshot((snapshot) => {
+        personalUnread = snapshot.size;
+        updateTotals();
+    }, (error) => console.log("Personal Listener error:", error));
+
   if (isOwner()) {
-    inboxQuery = db.collection('inbox')
-      .where('status', '==', 'unread')
-      .where('type', 'in', ['support_request', 'admin_report', 'support_reply']);
-  } else {
-    inboxQuery = db.collection('inbox')
-      .where('userId', '==', currentUser.uid)
-      .where('status', '==', 'unread');
+      window.adminInboxListener = db.collection('inbox')
+        .where('userId', '==', 'ADMIN_INBOX')
+        .where('status', '==', 'unread')
+        .onSnapshot((snapshot) => {
+            adminReportsUnread = 0;
+            adminSupportUnread = 0;
+            snapshot.forEach(doc => {
+                if(doc.data().type === 'admin_report') adminReportsUnread++;
+                if(doc.data().type === 'support_request') adminSupportUnread++;
+            });
+            updateTotals();
+        }, (error) => console.log("Admin Listener error:", error));
   }
-  
-  notificationsListener = inboxQuery.onSnapshot(async (snapshot) => {
-    try {
-      let unreadCount = 0;
-      const nowTime = Date.now();
-      const oneWeekAgo = nowTime - (7 * 24 * 60 * 60 * 1000);
-      
-      snapshot.forEach(doc => {
-        const msg = doc.data();
-        const msgTime = msg.createdAt?.toDate?.()?.getTime() || 0;
-        
-        if (isOwner()) {
-          unreadCount++;
-        } else if (msgTime > oneWeekAgo) {
-          unreadCount++;
-        }
-      });
-      
-      const oldCount = unreadNotifications.inbox;
-      unreadNotifications.inbox = unreadCount;
-      
-      if (unreadCount > oldCount) {
-        updateAllBadges();
-        
-        const badge = document.getElementById('inbox-badge');
-        if (badge && unreadCount > 0) {
-          badge.style.animation = 'none';
-          setTimeout(() => {
-            badge.style.animation = 'pulse 0.5s 3';
-          }, 10);
-        }
-        
-        if (isOwner() && unreadCount > oldCount && oldCount === 0) {
-          try {
-            const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==');
-            audio.volume = 0.1;
-            audio.play().catch(() => {});
-          } catch (e) {}
-        }
-      }
-      
-      updateAllBadges();
-      
-    } catch (error) {
-      setTimeout(() => {
-        if (currentUser) {
-          startInboxListener();
-        }
-      }, 5000);
-    }
-  }, (error) => {
-    setTimeout(() => {
-      if (currentUser) {
-        startInboxListener();
-      }
-    }, 5000);
-  });
 }
 
 function updateAllBadges() {
@@ -6362,6 +5559,10 @@ function stopAllListeners() {
   if (notificationsListener) {
     notificationsListener();
     notificationsListener = null;
+  }
+  if (window.adminInboxListener) {
+    window.adminInboxListener();
+    window.adminInboxListener = null;
   }
   if (postsListener) {
     postsListener();
@@ -6483,11 +5684,6 @@ function clearPostsBadge() {
   updateAllBadges();
 }
 
-function clearInboxBadge() {
-  unreadNotifications.inbox = 0;
-  updateAllBadges();
-}
-
 function openForgotPasswordModal() {
   document.getElementById('forgot-password-modal').style.display = 'block';
 }
@@ -6580,7 +5776,8 @@ function initializePullToRefresh() {
         pullIndicator.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> جاري التحديث...';
         
         setTimeout(() => {
-          loadPostsFromFirestore().then(() => {
+          // التعديل: إرسال (false, true) لإجبار التطبيق على تجاهل الكاش وجلب بيانات جديدة فوراً
+          loadPostsFromFirestore(false, true).then(() => {
             pullIndicator.style.display = 'none';
             clearPostsBadge();
             showNotification("تم تحديث المنشورات");
@@ -6953,52 +6150,33 @@ async function submitReport() {
     
     try {
         const post = posts.find(p => p.id === currentReportPostId);
-        
-        const ownerQuery = await db.collection('users')
-            .where('email', '==', APP_OWNER_EMAIL)
-            .limit(1)
-            .get();
-        
-        if (ownerQuery.empty) return;
-        
-        const ownerDoc = ownerQuery.docs[0];
-        const ownerUid = ownerDoc.id;
-        
+        if (!post) throw new Error("المنشور غير موجود");
+
         await db.collection('inbox').add({
-            userId: ownerUid,
+            userId: 'ADMIN_INBOX', // التوجيه لصندوق الإدارة مباشرة
             type: 'admin_report',
             postId: currentReportPostId,
+            postOwnerId: post.userId,
             reporterUid: currentUser.uid,
             reporterName: currentUser.name || 'مستخدم',
             reporterShortUid: currentUser.shortUid || 'غير معروف',
-            title: '🚨 بلاغ جديد',
-            message: `👤 المبلغ: ${currentUser.name || 'مستخدم'}\n📝 السبب: ${finalReason}\n🆔 معرف المبلغ: ${currentUser.shortUid || currentUser.uid.substring(0, 8)}`,
+            title: '🚨 بلاغ جديد عن منشور',
+            message: `👤 المُبلغ: ${currentUser.name}\n📝 السبب: ${finalReason}\n🆔 صاحب المنشور: ${post.userName}`,
             status: 'unread',
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
         
-        const reportedPosts = JSON.parse(localStorage.getItem('reportedPosts') || '[]');
-        if (!reportedPosts.includes(currentReportPostId)) {
-            reportedPosts.push(currentReportPostId);
-            localStorage.setItem('reportedPosts', JSON.stringify(reportedPosts));
-        }
-        
-        showNotification('تم الإبلاغ عن المنشور وسيتم مراجعته');
+        showNotification('تم إرسال الإبلاغ للمراجعة');
         closeReportModal();
         
     } catch (e) {
+        console.error(e);
         showNotification('تعذّر إرسال البلاغ', 'error');
     } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال الإبلاغ';
     }
 }
-
-document.addEventListener('click', function(e) {
-    if (e.target.id === 'report-modal') {
-        closeReportModal();
-    }
-});
 
 function openConfirmationModal(title, message, onConfirm) {
     document.getElementById('confirmation-title').textContent = title;
@@ -7115,31 +6293,31 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function calculateSupportRequests() {
-  if (!isOwner()) return;
+  if (!isOwner()) return 0;
   
   try {
-    const supportQuery = await db.collection('inbox')
-      .where('type', 'in', ['support_request', 'admin_report'])
+    const snap = await db.collection('inbox')
+      .where('userId', '==', 'ADMIN_INBOX') 
       .where('status', '==', 'unread')
       .get();
-    
-    const unreadSupportCount = supportQuery.size;
-    
+      
+    let reportsCount = 0;
+    let suggestionsCount = 0;
+
+    snap.forEach(doc => {
+      const data = doc.data();
+      if (data.type === 'admin_report') reportsCount++;
+      if (data.type === 'support_request') suggestionsCount++;
+    });
+
+    // إضافة البلاغات للبريد الوارد
+    unreadNotifications.inbox = (unreadNotifications.inbox || 0) + reportsCount;
+
     const adminBadge = document.getElementById('admin-panel-badge');
     if (adminBadge) {
-      if (unreadSupportCount > 0) {
+      if (suggestionsCount > 0) {
         adminBadge.style.display = 'flex';
-        adminBadge.textContent = unreadSupportCount > 9 ? '9+' : unreadSupportCount.toString();
-        adminBadge.style.background = 'linear-gradient(135deg, #ff3b3b, #ff6b6b)';
-        adminBadge.style.boxShadow = '0 2px 10px rgba(255, 59, 59, 0.5)';
-        adminBadge.style.animation = 'pulse 1.5s infinite';
-        
-        if (window.lastSupportCount !== unreadSupportCount) {
-          adminBadge.style.transform = 'scale(1.2)';
-          setTimeout(() => {
-            adminBadge.style.transform = 'scale(1)';
-          }, 300);
-        }
+        adminBadge.textContent = suggestionsCount > 9 ? '9+' : suggestionsCount.toString();
       } else {
         adminBadge.style.display = 'none';
       }
@@ -7147,57 +6325,20 @@ async function calculateSupportRequests() {
     
     const supportBadge = document.getElementById('user-support-badge');
     if (supportBadge) {
-      if (unreadSupportCount > 0) {
+      if (suggestionsCount > 0) {
         supportBadge.style.display = 'flex';
-        supportBadge.textContent = unreadSupportCount > 9 ? '9+' : unreadSupportCount.toString();
-        supportBadge.style.background = 'linear-gradient(135deg, #ff6b6b, #ff8e6b)';
-        supportBadge.style.boxShadow = '0 2px 10px rgba(255, 107, 107, 0.5)';
-        supportBadge.style.animation = 'pulse 2s infinite';
+        supportBadge.textContent = suggestionsCount > 9 ? '9+' : suggestionsCount.toString();
       } else {
         supportBadge.style.display = 'none';
       }
     }
     
-    const profileBadge = document.getElementById('profile-notification-badge');
-    if (profileBadge) {
-      const totalNotifications = (unreadNotifications.inbox || 0) + unreadSupportCount;
-      if (totalNotifications > 0) {
-        profileBadge.style.display = 'flex';
-        profileBadge.textContent = totalNotifications > 9 ? '9+' : totalNotifications.toString();
-        profileBadge.style.background = 'linear-gradient(135deg, #ff3b3b, #ff6b6b)';
-        profileBadge.style.animation = 'pulse 2s infinite';
-      }
-    }
-    
-    window.lastSupportCount = unreadSupportCount;
-    window.unreadSupportRequests = unreadSupportCount;
-    
-    if (unreadSupportCount > 0) {
-      document.title = `(${unreadSupportCount}) ${document.title.replace(/^\(\d+\)\s*/, '')}`;
-    } else {
-      document.title = document.title.replace(/^\(\d+\)\s*/, '');
-    }
-    
-    return unreadSupportCount;
+    updateAllBadges();
+    return suggestionsCount;
     
   } catch (error) {
-    try {
-      const allMessages = await db.collection('inbox').get();
-      let unreadSupportCount = 0;
-      
-      allMessages.forEach(doc => {
-        const msg = doc.data();
-        if ((msg.type === 'support_request' || msg.type === 'admin_report') && msg.status === 'unread') {
-          unreadSupportCount++;
-        }
-      });
-      
-      updateAdminBadgesWithCount(unreadSupportCount);
-      return unreadSupportCount;
-      
-    } catch (fallbackError) {
-      return 0;
-    }
+    console.error("Error calculating support requests:", error);
+    return 0;
   }
 }
 
@@ -7270,6 +6411,173 @@ async function markAllSupportAsRead() {
     btn.disabled = false;
     btn.innerHTML = originalText;
   }
+}
+
+async function cleanupOldNotifications() {
+  if (!currentUser) return;
+  try {
+    // تحديد الوقت قبل 24 ساعة بالملي ثانية
+    const twentyFourHoursAgo = Date.now() - (24 * 60 * 60 * 1000);
+    
+    // جلب الرسائل المقروءة فقط للمستخدم الحالي
+    const readMessages = await db.collection('inbox')
+      .where('userId', '==', currentUser.uid)
+      .where('status', '==', 'read')
+      .get();
+
+    if (readMessages.empty) return;
+
+    const batch = db.batch();
+    let count = 0;
+
+    readMessages.forEach(doc => {
+      const data = doc.data();
+      if (data.readAt) {
+        const readTime = data.readAt.toDate().getTime();
+        // إذا كان وقت القراءة أقدم من 24 ساعة، قم بإضافتها لقائمة الحذف
+        if (readTime < twentyFourHoursAgo) {
+          batch.delete(doc.ref);
+          count++;
+        }
+      }
+    });
+
+    // تنفيذ عملية الحذف دفعة واحدة وتفريغ الكاش
+    if (count > 0) {
+      await batch.commit();
+      const cacheKey = `inbox_cache_${currentUser.uid}`;
+      localStorage.removeItem(cacheKey);
+    }
+  } catch (error) {
+    console.error("خطأ في تنظيف الإشعارات القديمة:", error);
+  }
+}
+
+// =========================================
+//    Exams Countdown System
+// =========================================
+
+
+function showExamsPage() {
+    showPage("exams");
+    
+    document.querySelectorAll("#bottom-nav .nav-item").forEach(item => {
+        item.classList.remove("active");
+        if (item.dataset.page === "exams") {
+            item.classList.add("active");
+        }
+    });
+    
+    startExamsCountdown();
+}
+
+function showAdminExamsSettings() {
+    showPage("adminExams");
+    loadAdminExamsDates();
+}
+
+async function saveExamDate(type, inputId) {
+    if (!isOwner()) return;
+    const dateVal = document.getElementById(inputId).value;
+    if (!dateVal) return showNotification("يرجى تحديد الموعد بالكامل", "error");
+    
+    const btn = event.currentTarget;
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+    
+    try {
+        await db.collection('settings').doc('exams_dates').set({
+            [type]: dateVal
+        }, { merge: true });
+        showNotification("تم ضبط العداد بنجاح");
+    } catch(e) {
+        showNotification("خطأ في حفظ الموعد", "error");
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
+
+async function loadAdminExamsDates() {
+    try {
+        const doc = await db.collection('settings').doc('exams_dates').get();
+        if (doc.exists) {
+            const data = doc.data();
+            if (data.primary) document.getElementById('admin-date-primary').value = data.primary;
+            if (data.inter) document.getElementById('admin-date-inter').value = data.inter;
+            if (data.prep) document.getElementById('admin-date-prep').value = data.prep;
+        }
+    } catch(e) {
+        console.log("Error loading dates", e);
+    }
+}
+
+let examsInterval = null;
+let currentExamsDates = { primary: null, inter: null, prep: null };
+
+function startExamsCountdown() {
+    if (examsInterval) clearInterval(examsInterval);
+    
+    // الاستماع الفوري لقاعدة البيانات (تحديث لحظي بدون عمل ريفريش)
+    db.collection('settings').doc('exams_dates').onSnapshot(doc => {
+        if (doc.exists) {
+            currentExamsDates = doc.data();
+            // تحديث فوري أول ما تجي البيانات
+            updateTimerUI('prim', currentExamsDates.primary);
+            updateTimerUI('inter', currentExamsDates.inter);
+            updateTimerUI('prep', currentExamsDates.prep);
+        }
+    });
+    
+    // التحديث كل ثانية (للعداد التنازلي)
+    examsInterval = setInterval(() => {
+        updateTimerUI('prim', currentExamsDates.primary);
+        updateTimerUI('inter', currentExamsDates.inter);
+        updateTimerUI('prep', currentExamsDates.prep);
+    }, 1000);
+}
+
+function updateTimerUI(prefix, targetDateStr) {
+    const daysEl = document.getElementById(`${prefix}-days`);
+    const hoursEl = document.getElementById(`${prefix}-hours`);
+    const minsEl = document.getElementById(`${prefix}-minutes`);
+    const secsEl = document.getElementById(`${prefix}-seconds`);
+    
+    if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
+    
+    if (!targetDateStr) {
+        setTimerZero(daysEl, hoursEl, minsEl, secsEl);
+        return;
+    }
+    
+    // هذه الصيغة هي الأفضل والأكثر توافقية مع جميع الأجهزة من الـ datetime-local
+    const target = new Date(targetDateStr).getTime();
+    const now = new Date().getTime();
+    const distance = target - now;
+    
+    // إذا الوقت انتهى أو التاريخ غير صحيح
+    if (isNaN(target) || distance <= 0) {
+        setTimerZero(daysEl, hoursEl, minsEl, secsEl);
+        return;
+    }
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    daysEl.textContent = days.toString().padStart(2, '0');
+    hoursEl.textContent = hours.toString().padStart(2, '0');
+    minsEl.textContent = minutes.toString().padStart(2, '0');
+    secsEl.textContent = seconds.toString().padStart(2, '0');
+}
+
+function setTimerZero(d, h, m, s) {
+    d.textContent = "00";
+    h.textContent = "00";
+    m.textContent = "00";
+    s.textContent = "00";
 }
 
 </script>
