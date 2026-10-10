@@ -438,7 +438,8 @@ a, button {
 .card-uni       { background: linear-gradient(135deg, #a8f0c6 0%, #4dd599 100%); }
 .card-pdf       { background: linear-gradient(135deg, #d9b3ff 0%, #a259ff 100%); }
 .card-video     { background: linear-gradient(135deg, #a8e6ff 0%, #4fc3f7 100%); }
-.card-social    { background: linear-gradient(135deg, #ffc9a3 0%, #ff8a4c 100%); }
+.card-thesis    { background: linear-gradient(135deg, #ffe0a3 0%, #f5a542 100%); }
+.card-social    { background: linear-gradient(135deg, #ffc9a3 0%, #ff8a4c 100%); } 
 
 [data-theme="dark"] .english-card {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
@@ -1290,19 +1291,16 @@ textarea.select-control { max-height: none; }
 .post-menu-item:hover { background: var(--sky); color: var(--primary-color); }
 .post-menu-item i { width: 16px; text-align: center; font-size: 12px; }
 
-/* =========================================
-   Profile Page
-========================================= */
-.profile-shell { padding: 16px; }
+.profile-shell { padding: 12px; }
 .profile-card {
   background: var(--gradient-primary);
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 14px;
+  padding: 16px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  gap: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(106, 17, 203, 0.2);
   color: white;
   position: relative;
   overflow: hidden;
@@ -1310,58 +1308,76 @@ textarea.select-control { max-height: none; }
 .profile-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
+  top: 0; left: 0; right: 0; height: 100%;
   background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
   transform: translateX(-100%);
   transition: transform 0.6s;
 }
 .profile-card:hover::before { transform: translateX(100%); }
-.profile-meta { display: flex; flex-direction: column; gap: 6px; flex: 1; }
-.profile-name-row { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 20px; color: #fff; }
-.profile-count { font-size: 14px; color: rgba(255,255,255,0.9); font-weight: 700; }
-.profile-email { font-size: 13px; color: rgba(255,255,255,0.8); word-break: break-all; }
-.profile-uid-input { font-size: 12px; padding: 6px 8px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 6px; }
-.profile-uid-input::placeholder { color: rgba(255,255,255,0.7); }
+.avatar-container .avatar {
+  width: 60px; height: 60px;
+  border-width: 2px;
+}
+.avatar-container .avatar-upload-btn {
+  width: 20px; height: 20px; font-size: 10px; bottom: 2px; right: 2px;
+}
+.profile-meta { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.profile-name-row { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 15px; color: #fff; }
+.profile-name-row .edit-icon { font-size: 11px; opacity: 0.8; cursor: pointer; transition: 0.2s; }
+.profile-name-row .edit-icon:hover { opacity: 1; transform: scale(1.1); }
+.profile-email { font-size: 11px; color: rgba(255,255,255,0.85); word-break: break-all; }
+.profile-uid-row { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.profile-uid-input { 
+  font-size: 10px; padding: 4px 8px; background: rgba(0,0,0,0.15); 
+  border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 6px; width: 100px;
+}
+.uid-copy-btn {
+  background: rgba(255,255,255,0.2); border: none; color: #fff; 
+  padding: 4px 8px; border-radius: 6px; font-size: 11px; cursor: pointer; transition: 0.2s;
+}
+.uid-copy-btn:hover { background: rgba(255,255,255,0.3); }
 
 .profile-actions-card {
-  margin-top: 20px;
-  background: var(--gradient-secondary);
-  border-radius: 18px;
-  padding: 15px;
-  box-shadow: 0 6px 20px rgba(138, 43, 226, 0.3);
+  background: #fff;
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid var(--border-color);
 }
-.profile-menu { padding: 5px; }
+[data-theme="dark"] .profile-actions-card { background: #1e1e1e; border-color: #333; }
+.profile-menu { display: flex; flex-direction: column; gap: 6px; }
 .menu-item {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between !important;
   gap: 12px;
-  padding: 16px;
-  margin-bottom: 12px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 14px;
+  padding: 12px 14px;
+  background: #f8f9fa;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.2);
-  min-height: 44px !important;
-  min-width: 44px !important;
-  touch-action: manipulation !important;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid transparent;
 }
+[data-theme="dark"] .menu-item { background: #2a2a2a; color: #fff; }
 .menu-item:hover {
-  background: rgba(255,255,255,0.25);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  background: var(--sky);
+  transform: translateX(-4px);
+  border-color: rgba(106, 17, 203, 0.1);
 }
-.menu-item i { font-size: 18px; width: 24px; text-align: center; }
-.menu-item .nav-badge { position: static; margin-right: auto; margin-left: 8px; }
-.menu-item[onclick="logout()"] { background: rgba(220, 53, 69, 0.2) !important; color: #fff !important; border: 1px solid rgba(220, 53, 69, 0.4) !important; }
-.menu-item[onclick="logout()"]:hover { background: rgba(220, 53, 69, 0.3) !important; transform: translateY(-2px); }
+.menu-item .mi-icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: linear-gradient(135deg, rgba(106,17,203,0.1), rgba(37,117,252,0.1));
+  color: var(--primary-color);
+  display: flex; align-items: center; justify-content: center; font-size: 13px;
+}
+.menu-item .nav-badge { position: static; margin-right: auto; margin-left: 0; }
+.menu-item.logout-btn { background: #fff0f0; color: #dc3545; }
+[data-theme="dark"] .menu-item.logout-btn { background: rgba(220, 53, 69, 0.15); color: #ff6b6b; }
+.menu-item.logout-btn .mi-icon { background: rgba(220, 53, 69, 0.1); color: inherit; }
+.menu-item.logout-btn:hover { background: #ffe5e5; border-color: rgba(220, 53, 69, 0.2); }
 
 /* =========================================
    Badges & Notifications
@@ -2512,6 +2528,173 @@ html, body {
   }
 }
 
+/* =========================================
+   Leaderboard & Levels System
+========================================= */
+.levels-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+
+.level-1 { background: linear-gradient(135deg,#b8c6db,#6c7a8c); color:#fff; }
+.level-2 { background: linear-gradient(135deg,#a8e063,#56ab2f); color:#fff; }
+.level-3 { background: linear-gradient(135deg,#4facfe,#00f2fe); color:#fff; }
+.level-4 { background: linear-gradient(135deg,#a18cd1,#6a11cb); color:#fff; }
+.level-5 { background: linear-gradient(135deg,#f5a542,#ffd700); color:#3d2500; }
+.level-6 { background: linear-gradient(135deg,#ff6b6b,#c0392b); color:#fff; }
+.level-7 { background: linear-gradient(135deg,#00c9ff,#92fe9d); color:#08312f; }
+.level-8 { background: linear-gradient(135deg,#ff00cc,#333399); color:#fff; }
+.level-9 { background: linear-gradient(135deg,#141e30,#243b55); color:#f5c542; }
+.level-10 { background: linear-gradient(135deg,#f5c542,#ff6b00,#dc3545,#6a11cb,#2575fc); color:#fff; animation: legendaryGlow 2s infinite; }
+
+@keyframes legendaryGlow {
+  0%,100% { box-shadow: 0 2px 12px rgba(245,197,66,0.6); }
+  50% { box-shadow: 0 2px 20px rgba(255,107,0,0.9); }
+}
+
+.leaderboard-page {
+  padding: 16px;
+  padding-bottom: 100px;
+}
+
+.leaderboard-page {
+  padding: 12px;
+  padding-bottom: 90px;
+}
+.leaderboard-header {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  border-radius: 16px;
+  padding: 16px 12px;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(106, 17, 203, 0.25);
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.leaderboard-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(245,197,66,0.15) 0%, transparent 60%);
+  animation: rotateGlow 8s linear infinite;
+}
+.leaderboard-header h2 {
+  font-weight: 800;
+  font-size: 18px;
+  margin: 0 0 4px 0;
+  position: relative;
+  z-index: 2;
+}
+.leaderboard-header p {
+  font-size: 11px;
+  opacity: 0.85;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.leaderboard-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+[data-theme="dark"] .leaderboard-item {
+  background: #1e1e1e;
+  border-color: #333;
+}
+.leaderboard-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.leaderboard-rank {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+.leaderboard-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #d7e4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  border: 1px solid #e9ecef;
+}
+.leaderboard-info {
+  flex: 1;
+  min-width: 0;
+}
+.leaderboard-name {
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.leaderboard-score {
+  font-size: 11px;
+  color: var(--light-text);
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.leaderboard-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leaderboard-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--light-text);
+}
+
+.leaderboard-empty i {
+  font-size: 60px;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
   </style>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -2634,15 +2817,11 @@ html, body {
   <div id="profile-page" class="container page" style="display:none">
     <div class="profile-shell">
       <div class="profile-card">
-        <button class="theme-toggle-btn" onclick="toggleTheme()">
-          <i class="fas fa-moon"></i>
-        </button>
-        
         <div class="avatar-container">
-            <div id="avatar" class="avatar" title="انقر لتغيير الصورة" onclick="openAvatarModal()">
-                <div style="width:100%;height:100%;font-size:40px;line-height:72px">👨🏻‍💼</div>
+            <div id="avatar" class="avatar" onclick="openAvatarModal()">
+                <div style="width:100%;height:100%;font-size:32px;line-height:60px">👨🏻‍💼</div>
             </div>
-            <div class="avatar-upload-btn" onclick="openImageUploadModal()" title="رفع صورة شخصية">
+            <div class="avatar-upload-btn" onclick="openImageUploadModal()">
                 <i class="fas fa-camera"></i>
             </div>
         </div>
@@ -2650,13 +2829,12 @@ html, body {
           <div class="profile-name-row">
             <span id="profile-name"></span>
             <span id="profile-verified"></span>
-            <i class="fas fa-pencil-alt" style="color:white;cursor:pointer" onclick="editProfileName()"></i>
+            <i class="fas fa-pencil-alt edit-icon" onclick="editProfileName()"></i>
           </div>
-          <div id="profile-count" class="profile-count"></div>
           <div id="profile-email" class="profile-email"></div>
-          <div class="row" style="align-items: center; gap: 8px; margin-top:4px;">
-            <input id="profile-uid-input" class="form-control profile-uid-input" readonly />
-            <button class="btn btn-xs" onclick="copyUidToClipboard()" style="background: rgba(255,255,255,0.3); color: white; border: 1px solid rgba(255,255,255,0.5);"><i class="fas fa-copy"></i> نسخ</button>
+          <div class="profile-uid-row">
+            <input id="profile-uid-input" class="profile-uid-input" readonly />
+            <button class="uid-copy-btn" onclick="copyUidToClipboard()"><i class="fas fa-copy"></i></button>
           </div>
         </div>
       </div>
@@ -2664,28 +2842,28 @@ html, body {
       <div class="profile-actions-card">
         <div class="profile-menu">
           <div class="menu-item" onclick="showUserPosts()">
-            <i class="fas fa-book"></i>
+            <div class="mi-icon"><i class="fas fa-book"></i></div>
             <span>منشوراتي</span>
           </div>
           
           <div class="menu-item" onclick="showInbox();">
-            <i class="fas fa-inbox"></i>
+            <div class="mi-icon"><i class="fas fa-inbox"></i></div>
             <span>البريد الوارد</span>
             <div id="inbox-badge" class="nav-badge" style="display: none">0</div>
           </div>
           
           <div class="menu-item" onclick="showSupportPage()">
-            <i class="fas fa-headset"></i>
-            <span>التواصل مع الدعم</span>
+            <div class="mi-icon"><i class="fas fa-headset"></i></div>
+            <span>الدعم الفني</span>
           </div>
           
           <div class="menu-item owner-only" style="display:none" onclick="showAdminPanel()">
-            <i class="fas fa-cogs"></i>
+            <div class="mi-icon"><i class="fas fa-cogs"></i></div>
             <span>لوحة التحكم</span>
           </div>
           
-          <div class="menu-item" onclick="logout()">
-            <i class="fas fa-sign-out-alt"></i>
+          <div class="menu-item logout-btn" onclick="logout()">
+            <div class="mi-icon"><i class="fas fa-sign-out-alt"></i></div>
             <span>تسجيل الخروج</span>
           </div>
         </div>
@@ -2764,9 +2942,13 @@ html, body {
         <i class="fas fa-graduation-cap"></i>
         <span>إضافة دورة إنكليزي</span>
     </div>
-    <div class="menu-item admin-control-btn" onclick="showPage('addSocial')">
+        <div class="menu-item admin-control-btn" onclick="showPage('addSocial')">
         <i class="fas fa-share-alt"></i>
         <span>إضافة رابط حسابنا</span>
+    </div>
+    <div class="menu-item admin-control-btn" onclick="showPage('addThesis')">
+        <i class="fas fa-scroll"></i>
+        <span>عروض بحوث التخرج</span>
     </div>
     <div class="menu-item admin-control-btn" onclick="showUserStatistics()">
         <i class="fas fa-chart-bar"></i>
@@ -2892,9 +3074,14 @@ html, body {
   <span class="ec-title">ملفات دراسية جامعية</span>
   <span class="ec-arrow"><i class="fas fa-chevron-left"></i></span>
 </div>
-      <div class="english-card card-video" onclick="openLecturesPage()" style="cursor:pointer;">
+            <div class="english-card card-video" onclick="openLecturesPage()" style="cursor:pointer;">
   <div class="ec-icon"><i class="fas fa-video"></i></div>
   <span class="ec-title">محاضرات تعلم الإنكليزية</span>
+  <span class="ec-arrow"><i class="fas fa-chevron-left"></i></span>
+</div>
+      <div class="english-card card-thesis" onclick="openThesisPage()" style="cursor:pointer;">
+  <div class="ec-icon"><i class="fas fa-scroll"></i></div>
+  <span class="ec-title">بحوث التخرج</span>
   <span class="ec-arrow"><i class="fas fa-chevron-left"></i></span>
 </div>
                         <div class="english-card card-social" onclick="openSocialPage()" style="cursor:pointer;">
@@ -2914,10 +3101,14 @@ html, body {
     </div>
   </div>
 
-  <div id="bottom-nav" class="bottom-nav" style="display: none;">
+    <div id="bottom-nav" class="bottom-nav" style="display: none;">
       <div class="nav-item active" data-page="english" onclick="showEnglishPage();">
           <i class="fas fa-graduation-cap"></i>
           <span>تعلم الانكليزية</span>
+      </div>
+      <div class="nav-item" data-page="leaderboard" onclick="showLeaderboardPage();">
+          <i class="fas fa-trophy"></i>
+          <span>التصنيف</span>
       </div>
       <div class="nav-item" data-page="main" onclick="showMainPageAndClearBadge();">
           <i class="fas fa-store"></i>
@@ -2929,6 +3120,27 @@ html, body {
           <span>حسابي</span>
           <div id="profile-notification-badge" class="nav-badge" style="display: none">0</div>
       </div>
+  </div>
+
+    <div id="leaderboard-page" class="container page" style="display:none">
+    <div class="header">
+      <div class="header-title">
+        <span class="ar">لوحة التصنيف</span>
+        <span class="en">LEADERBOARD</span>
+      </div>
+    </div>
+    <div class="leaderboard-page">
+      <div class="leaderboard-header">
+        <h2>🏆 أبطال التطبيق</h2>
+        <p>أكثر 10 متفاعلين هذا الأسبوع</p>
+      </div>
+      <div class="leaderboard-list" id="leaderboard-list">
+        <div class="leaderboard-empty">
+          <div class="spinner" style="margin:0 auto;"></div>
+          <p style="margin-top:12px;">جاري التحميل...</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="notification" class="notification"></div>
@@ -3914,6 +4126,120 @@ html, body {
   </div>
 </div>
 
+<!-- صفحة عرض بحوث التخرج -->
+<div id="thesis-page" class="container page" style="display:none">
+  <div class="header">
+    <button class="btn btn-secondary" onclick="backToEnglish()"><i class="fas fa-arrow-right"></i></button>
+    <div class="header-title">
+      <span class="ar">بحوث التخرج</span>
+      <span class="en">GRADUATION RESEARCH</span>
+    </div>
+    <div style="width:44px;"></div>
+  </div>
+  <div class="posts-container" id="thesis-container"></div>
+</div>
+
+<!-- صفحة إضافة / إدارة العروض (لوحة التحكم) -->
+<div id="add-thesis-page" class="container page" style="display:none">
+  <div class="header">
+    <button class="btn btn-secondary" onclick="backToAdminPanel()"><i class="fas fa-arrow-right"></i></button>
+    <span style="font-weight:900">بحوث التخرج</span>
+    <div style="width:44px;"></div>
+  </div>
+
+  <div class="posts-container">
+    <div style="display:flex;background:#f2f4ff;border-radius:12px;padding:4px;margin-bottom:16px;">
+      <button id="thesis-tab-add" onclick="switchThesisTab('add')" style="flex:1;padding:12px;border:none;background:#6a11cb;color:#fff;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer;">
+        <i class="fas fa-plus"></i> إضافة
+      </button>
+      <button id="thesis-tab-list" onclick="switchThesisTab('list')" style="flex:1;padding:12px;border:none;background:transparent;color:#6a11cb;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer;">
+        <i class="fas fa-list"></i> المضافة
+      </button>
+    </div>
+
+    <div id="thesis-tab-add-content">
+      <div class="post">
+        <div class="form-group" style="margin-bottom:14px;">
+          <label style="display:block;font-weight:700;margin-bottom:6px;">عنوان العرض</label>
+          <input type="text" id="add-thesis-title" class="form-control" placeholder="مثال: إنشاء بحوث التخرج لجميع الأقسام">
+        </div>
+        <div class="form-group" style="margin-bottom:14px;">
+          <label style="display:block;font-weight:700;margin-bottom:6px;">تفاصيل البحث</label>
+          <textarea id="add-thesis-details" class="form-control" rows="6" placeholder="اكتب التفاصيل الكاملة..."></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom:14px;">
+          <label style="display:block;font-weight:700;margin-bottom:6px;">السعر (د.ع)</label>
+          <input type="number" id="add-thesis-price" class="form-control" placeholder="مثال: 25000" value="0">
+        </div>
+        <div class="form-group" style="margin-bottom:14px;">
+          <label style="display:block;font-weight:700;margin-bottom:6px;">طريقة التواصل</label>
+          <select id="add-thesis-contact-type" class="form-control" onchange="toggleThesisContactField()">
+            <option value="telegram">تلكرام</option>
+            <option value="whatsapp">واتساب</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:14px;" id="add-thesis-telegram-field">
+          <label style="display:block;font-weight:700;margin-bottom:6px;">معرّف تلكرام</label>
+          <input type="text" id="add-thesis-telegram" class="form-control" placeholder="username" style="direction:ltr;">
+        </div>
+        <div class="form-group" style="margin-bottom:14px;display:none;" id="add-thesis-whatsapp-field">
+          <label style="display:block;font-weight:700;margin-bottom:6px;">رقم واتساب</label>
+          <input type="text" id="add-thesis-whatsapp" class="form-control" placeholder="07xxxxxxxx" style="direction:ltr;">
+        </div>
+        <button class="btn btn-success btn-block" onclick="saveThesis()" id="add-thesis-btn">
+          <i class="fas fa-plus"></i> نشر العرض
+        </button>
+      </div>
+    </div>
+
+    <div id="thesis-tab-list-content" style="display:none;">
+      <div id="manage-thesis-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal تعديل عرض البحث -->
+<div id="edit-thesis-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>تعديل العرض</h2>
+      <button class="close-modal" onclick="closeEditThesisModal()">&times;</button>
+    </div>
+    <input type="hidden" id="edit-thesis-id">
+    <div class="select-group">
+      <label>عنوان العرض</label>
+      <input type="text" id="edit-thesis-title" class="select-control">
+    </div>
+    <div class="select-group">
+      <label>تفاصيل البحث</label>
+      <textarea id="edit-thesis-details" class="select-control" rows="6"></textarea>
+    </div>
+    <div class="select-group">
+      <label>السعر (د.ع)</label>
+      <input type="number" id="edit-thesis-price" class="select-control">
+    </div>
+    <div class="select-group">
+      <label>طريقة التواصل</label>
+      <select id="edit-thesis-contact-type" class="select-control" onchange="toggleEditThesisContactField()">
+        <option value="telegram">تلكرام</option>
+        <option value="whatsapp">واتساب</option>
+      </select>
+    </div>
+    <div class="select-group" id="edit-thesis-telegram-field">
+      <label>معرّف تلكرام</label>
+      <input type="text" id="edit-thesis-telegram" class="select-control" style="direction:ltr;">
+    </div>
+    <div class="select-group" id="edit-thesis-whatsapp-field" style="display:none;">
+      <label>رقم واتساب</label>
+      <input type="text" id="edit-thesis-whatsapp" class="select-control" style="direction:ltr;">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeEditThesisModal()">إلغاء</button>
+      <button class="btn btn-success" id="edit-thesis-save-btn" onclick="saveThesisEdit()">حفظ</button>
+    </div>
+  </div>
+</div>
+
 <div id="edit-social-modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -4022,7 +4348,7 @@ try {
   }, 4000);
 }
 
-const APP_OWNER_EMAIL = "mslmalmyaly223@gmail.com";
+const APP_OWNER_EMAIL = "";
 
 let currentUser = null;
 let posts = [];
@@ -4431,6 +4757,8 @@ async function login() {
 }
 
 function logout() {
+  syncUserQuizScore();
+
   const keysToRemove = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
@@ -4442,6 +4770,11 @@ function logout() {
   keysToRemove.forEach(key => {
     localStorage.removeItem(key);
   });
+  
+  if (window._dailyResetInterval) {
+    clearInterval(window._dailyResetInterval);
+    window._dailyResetInterval = null;
+  }
   
   stopAllListeners();
   auth.signOut();
@@ -4516,8 +4849,9 @@ auth.onAuthStateChanged(async (user) => {
 
 function initializePages() {
   pages = {
-    auth: document.getElementById("auth-page"),
+        auth: document.getElementById("auth-page"),
     english: document.getElementById("english-page"),
+    leaderboard: document.getElementById("leaderboard-page"),
     main: document.getElementById("main-page"),
     profile: document.getElementById("profile-page"),
     userPosts: document.getElementById("user-posts-page"),
@@ -4545,8 +4879,10 @@ function initializePages() {
     addFile: document.getElementById("add-file-page"),
     courses: document.getElementById("courses-page"),
     addCourse: document.getElementById("add-course-page"),
-    social: document.getElementById("social-page"),
+        social: document.getElementById("social-page"),
     addSocial: document.getElementById("add-social-page"),
+    thesis: document.getElementById("thesis-page"),
+    addThesis: document.getElementById("add-thesis-page"),
     addImage: document.getElementById("add-image-page")
   };
 }
@@ -4660,6 +4996,14 @@ function updateUIForLoggedInUser() {
   updateCreateButton();
   updatePostCountInProfile();
   updateNavBadges();
+
+  setTimeout(() => {
+    renderUserLevelInProfile();
+    syncUserQuizScore();
+    processDailyLeaderboardReset();
+    startDailyResetScheduler();
+  }, 500);
+
   if (isOwner()) {
     setTimeout(() => {
       createAdminBadges();
@@ -5850,14 +6194,6 @@ async function showUserPosts() {
     window.userPostsContainer.appendChild(div);
   }
 }
-
-function updatePostCountInProfile() {
-  if (!currentUser) return;
-  const count = posts.filter(p => p.userId === currentUser?.uid && p.status !== 'deleted').length;
-  const el = document.getElementById("profile-count");
-  if (el) el.textContent = `عدد منشوراتك: ${count}`;
-}
-
 async function repost(postId) {
   const doc = await db.collection("posts").doc(postId).get();
   if (!doc.exists || doc.data().userId !== currentUser.uid) return;
@@ -7813,9 +8149,26 @@ function initializeApp() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener("beforeunload", function() {
+  if (currentUser) {
+    syncUserQuizScore();
+  }
+});
+
+document.addEventListener("visibilitychange", function() {
+  if (document.visibilityState === "hidden" && currentUser) {
+    syncUserQuizScore();
+  }
+});
     setTimeout(() => {
         try {
             initializeApp();
+            
+                setTimeout(() => {
+      if (currentUser) {
+        processDailyLeaderboardReset().catch(() => {});
+      }
+    }, 3000);
             
             setTimeout(() => {
                 checkFirebaseConnection().then(connected => {
@@ -8530,8 +8883,8 @@ function startPronListening(wordId, expectedWord) {
   pronRecognition = new SR();
   pronRecognition.lang = "en-US";
   pronRecognition.interimResults = false;
-  pronRecognition.maxAlternatives = 5;
-  pronRecognition.continuous = true;
+  pronRecognition.maxAlternatives = 1;
+  pronRecognition.continuous = false;
 
   const card = document.getElementById(`pron-card-${wordId}`);
   const mic = document.getElementById(`pron-mic-${wordId}`);
@@ -8542,7 +8895,7 @@ function startPronListening(wordId, expectedWord) {
   if (mic) mic.classList.add("listening");
   if (stopBtn) stopBtn.classList.add("show");
   if (statusEl) {
-    statusEl.textContent = "Recording... tap stop when done";
+    statusEl.textContent = "Listening...";
     statusEl.className = "word-pron-status listening";
   }
 
@@ -8553,14 +8906,12 @@ function startPronListening(wordId, expectedWord) {
   pronLastResult = null;
 
   pronRecognition.onresult = function (event) {
-    let transcript = '';
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-      transcript += event.results[i][0].transcript + ' ';
-    }
-    pronFinalTranscript = (pronFinalTranscript + ' ' + transcript).trim();
-
-    if (statusEl) {
-      statusEl.textContent = 'Heard: "' + pronFinalTranscript + '" — tap stop to check';
+    if (event.results.length > 0) {
+      pronFinalTranscript = event.results[0][0].transcript.trim();
+      if (statusEl) {
+        statusEl.textContent = 'Heard: "' + pronFinalTranscript + '"';
+      }
+      stopPronListening(wordId);
     }
   };
 
@@ -8569,11 +8920,11 @@ function startPronListening(wordId, expectedWord) {
       cleanupPronListening(wordId);
       showNotification("Microphone permission denied", "error");
     } else if (event.error === "no-speech") {
-      if (statusEl) statusEl.textContent = "No speech yet — try again";
+      if (statusEl) statusEl.textContent = "No speech yet";
     } else if (event.error === "aborted") {
     } else {
       cleanupPronListening(wordId);
-      showNotification("Recognition error: " + event.error, "error");
+      showNotification("Recognition error", "error");
     }
   };
 
@@ -8584,7 +8935,7 @@ function startPronListening(wordId, expectedWord) {
       } else {
         cleanupPronListening(wordId);
         if (statusEl) {
-          statusEl.textContent = "No speech detected — tap mic to retry";
+          statusEl.textContent = "Tap mic to retry";
           statusEl.className = "word-pron-status wrong";
         }
       }
@@ -8810,6 +9161,8 @@ function finishQuiz() {
   stats.totalCorrect += currentQuizScore;
   stats.totalWrong += (total - currentQuizScore);
   saveStats(stats);
+
+  incrementDailyQuizCount();
 
   const container = document.querySelector("#word-quiz-page .posts-container");
   container.innerHTML = `
@@ -9296,6 +9649,10 @@ function renderDuoResult(failed) {
   stats.totalCorrect += correct;
   stats.totalWrong += wrong;
   saveStats(stats);
+
+  if (!failed) {
+    incrementDailyQuizCount();
+  }
 
   const fill = document.getElementById("duo-progress-fill");
   if (fill) fill.style.width = "100%";
@@ -11022,6 +11379,698 @@ function deleteSocialItem(id) {
       }
     }
   );
+}
+
+/* =========================================
+   Graduation Thesis Offers System
+========================================= */
+
+function openThesisPage() {
+  showPage("thesis");
+  loadThesisOffers();
+}
+
+async function loadThesisOffers() {
+  const container = document.getElementById("thesis-container");
+  container.innerHTML = '<div class="post"><p style="text-align:center;">جاري التحميل...</p></div>';
+
+  try {
+    const snap = await db.collection("thesisOffers")
+      .orderBy("createdAt", "desc")
+      .get();
+
+    if (snap.empty) {
+      container.innerHTML = `
+        <div class="post" style="text-align:center;padding:40px 20px;">
+          <div style="font-size:50px;margin-bottom:12px;">📜</div>
+          <p style="font-weight:700;">لا توجد عروض متاحة حالياً</p>
+          <p style="font-size:13px;color:#888;margin-top:8px;">ترقبوا العروض القادمة</p>
+        </div>
+      `;
+      return;
+    }
+
+    let html = "";
+    snap.forEach(doc => {
+      const t = doc.data();
+      const priceText = t.price > 0 ? `${Number(t.price).toLocaleString('ar-IQ')} د.ع` : "مجاناً";
+      const contactIcon = t.contactType === "telegram" ? "fab fa-telegram" : "fab fa-whatsapp";
+      const contactColor = t.contactType === "telegram" ? "#0088cc" : "#25D366";
+      const contactLabel = t.contactType === "telegram" ? "تواصل عبر تلكرام" : "تواصل عبر واتساب";
+
+      html += `
+        <div class="post" style="background:linear-gradient(135deg,#f5a542 0%,#f5c542 100%);color:#1a0b3d;border:none;padding:0;overflow:hidden;box-shadow:0 8px 25px rgba(245,165,66,0.4);">
+          <div style="padding:22px;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+              <div style="background:rgba(26,11,61,0.15);width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#1a0b3d;">
+                <i class="fas fa-scroll"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-weight:900;font-size:18px;line-height:1.3;color:#1a0b3d;">${escapeHTML(t.title || "عرض")}</div>
+              </div>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.6);border-radius:12px;padding:16px;margin-bottom:14px;line-height:1.8;white-space:pre-line;font-size:14px;color:#1a0b3d;">
+              ${escapeHTML(t.details || "")}
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+              <div style="background:#1a0b3d;color:#f5c542;padding:10px 18px;border-radius:99px;font-weight:900;font-size:16px;">
+                <i class="fas fa-tag"></i> ${priceText}
+              </div>
+            </div>
+
+            <button onclick="contactThesisOwner('${escapeHTML(t.contactType || "telegram")}', '${escapeHTML(t.contactValue || "")}')" style="width:100%;background:${contactColor};color:#fff;border:none;padding:14px;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+              <i class="${contactIcon}"></i>
+              ${contactLabel}
+            </button>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+
+  } catch (e) {
+    console.error("Load thesis offers error:", e);
+    container.innerHTML = '<div class="post"><p style="text-align:center;color:#dc3545;">فشل تحميل العروض</p></div>';
+  }
+}
+
+function contactThesisOwner(type, value) {
+  if (!value) {
+    showNotification("معلومات التواصل غير متوفرة", "error");
+    return;
+  }
+  if (type === "telegram") {
+    const username = value.replace(/^@+/, "").replace(/https?:\/\/t\.me\//, "").trim();
+    window.open("https://t.me/" + username, "_blank", "noopener,noreferrer");
+  } else {
+    let num = (value || "").toString().replace(/[^\d]/g, "");
+    if (num.startsWith('00964')) num = '964' + num.substring(5);
+    if (num.startsWith('9640')) num = '964' + num.substring(4);
+    if (num.startsWith('07')) num = '964' + num.substring(1);
+    window.open("https://wa.me/" + num, "_blank", "noopener,noreferrer");
+  }
+}
+
+function toggleThesisContactField() {
+  const type = document.getElementById("add-thesis-contact-type").value;
+  const tgField = document.getElementById("add-thesis-telegram-field");
+  const waField = document.getElementById("add-thesis-whatsapp-field");
+  if (type === "telegram") {
+    tgField.style.display = "block";
+    waField.style.display = "none";
+  } else {
+    tgField.style.display = "none";
+    waField.style.display = "block";
+  }
+}
+
+function toggleEditThesisContactField() {
+  const type = document.getElementById("edit-thesis-contact-type").value;
+  const tgField = document.getElementById("edit-thesis-telegram-field");
+  const waField = document.getElementById("edit-thesis-whatsapp-field");
+  if (type === "telegram") {
+    tgField.style.display = "block";
+    waField.style.display = "none";
+  } else {
+    tgField.style.display = "none";
+    waField.style.display = "block";
+  }
+}
+
+async function saveThesis() {
+  if (!isOwner()) {
+    showNotification("Owner only", "error");
+    return;
+  }
+  const title = document.getElementById("add-thesis-title").value.trim();
+  const details = document.getElementById("add-thesis-details").value.trim();
+  const price = document.getElementById("add-thesis-price").value.trim();
+  const contactType = document.getElementById("add-thesis-contact-type").value;
+  const telegram = document.getElementById("add-thesis-telegram").value.trim();
+  const whatsapp = document.getElementById("add-thesis-whatsapp").value.trim();
+
+  if (!title) { showNotification("Enter title", "error"); return; }
+  if (!details) { showNotification("Enter details", "error"); return; }
+
+  let contactValue = "";
+  if (contactType === "telegram") {
+    if (!telegram) { showNotification("Enter Telegram username", "error"); return; }
+    contactValue = telegram;
+  } else {
+    if (!whatsapp) { showNotification("Enter WhatsApp number", "error"); return; }
+    contactValue = whatsapp;
+  }
+
+  const btn = document.getElementById("add-thesis-btn");
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+  try {
+    await db.collection("thesisOffers").add({
+      title: title,
+      details: details,
+      price: Number(price) || 0,
+      contactType: contactType,
+      contactValue: contactValue,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      addedBy: currentUser.uid,
+      addedByName: currentUser.name
+    });
+
+    document.getElementById("add-thesis-title").value = "";
+    document.getElementById("add-thesis-details").value = "";
+    document.getElementById("add-thesis-price").value = "0";
+    document.getElementById("add-thesis-telegram").value = "";
+    document.getElementById("add-thesis-whatsapp").value = "";
+    showNotification("Offer published");
+    switchThesisTab("list");
+  } catch (e) {
+    console.error("Save thesis error:", e);
+    showNotification("Failed to save", "error");
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-plus"></i> نشر العرض';
+  }
+}
+
+function switchThesisTab(tab) {
+  const addBtn = document.getElementById("thesis-tab-add");
+  const listBtn = document.getElementById("thesis-tab-list");
+  const addContent = document.getElementById("thesis-tab-add-content");
+  const listContent = document.getElementById("thesis-tab-list-content");
+
+  if (tab === "add") {
+    addBtn.style.background = "#6a11cb";
+    addBtn.style.color = "#fff";
+    listBtn.style.background = "transparent";
+    listBtn.style.color = "#6a11cb";
+    addContent.style.display = "block";
+    listContent.style.display = "none";
+  } else {
+    listBtn.style.background = "#6a11cb";
+    listBtn.style.color = "#fff";
+    addBtn.style.background = "transparent";
+    addBtn.style.color = "#6a11cb";
+    addContent.style.display = "none";
+    listContent.style.display = "block";
+    loadManageThesis();
+  }
+}
+
+async function loadManageThesis() {
+  const container = document.getElementById("manage-thesis-list");
+  container.innerHTML = '<div class="post"><p style="text-align:center;">Loading...</p></div>';
+
+  try {
+    const snap = await db.collection("thesisOffers").orderBy("createdAt", "desc").get();
+
+    if (snap.empty) {
+      container.innerHTML = '<div class="post"><p style="text-align:center;">No offers yet</p></div>';
+      return;
+    }
+
+    let html = "";
+    snap.forEach(doc => {
+      const d = doc.data();
+      const priceText = d.price > 0 ? `${Number(d.price).toLocaleString('ar-IQ')} د.ع` : "مجاناً";
+      html += `
+        <div class="post" style="padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;">
+            <div style="flex:1;">
+              <div style="font-weight:900;font-size:15px;color:#1a0b3d;">${escapeHTML(d.title || "")}</div>
+              <div style="font-size:12px;color:#28a745;font-weight:800;margin-top:6px;">
+                <i class="fas fa-tag"></i> ${priceText}
+              </div>
+            </div>
+            <div style="background:linear-gradient(135deg,#f5a542,#f5c542);color:#fff;width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
+              <i class="fas fa-scroll"></i>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-xs" style="flex:1;background:#2575fc;" onclick="openEditThesisModal('${doc.id}')">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <button class="btn btn-danger btn-xs" style="flex:1;" onclick="deleteThesisItem('${doc.id}')">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+
+  } catch (e) {
+    console.error(e);
+    container.innerHTML = '<div class="post"><p style="text-align:center;color:#dc3545;">Load failed</p></div>';
+  }
+}
+
+async function openEditThesisModal(id) {
+  try {
+    const doc = await db.collection("thesisOffers").doc(id).get();
+    if (!doc.exists) { showNotification("Offer not found", "error"); return; }
+    const d = doc.data();
+    document.getElementById("edit-thesis-id").value = id;
+    document.getElementById("edit-thesis-title").value = d.title || "";
+    document.getElementById("edit-thesis-details").value = d.details || "";
+    document.getElementById("edit-thesis-price").value = d.price || 0;
+    document.getElementById("edit-thesis-contact-type").value = d.contactType || "telegram";
+    if (d.contactType === "whatsapp") {
+      document.getElementById("edit-thesis-whatsapp").value = d.contactValue || "";
+      document.getElementById("edit-thesis-telegram").value = "";
+    } else {
+      document.getElementById("edit-thesis-telegram").value = d.contactValue || "";
+      document.getElementById("edit-thesis-whatsapp").value = "";
+    }
+    toggleEditThesisContactField();
+    document.getElementById("edit-thesis-modal").style.display = "block";
+  } catch (e) {
+    showNotification("Failed to open offer", "error");
+  }
+}
+
+function closeEditThesisModal() {
+  document.getElementById("edit-thesis-modal").style.display = "none";
+}
+
+async function saveThesisEdit() {
+  const id = document.getElementById("edit-thesis-id").value;
+  const title = document.getElementById("edit-thesis-title").value.trim();
+  const details = document.getElementById("edit-thesis-details").value.trim();
+  const price = document.getElementById("edit-thesis-price").value.trim();
+  const contactType = document.getElementById("edit-thesis-contact-type").value;
+  const telegram = document.getElementById("edit-thesis-telegram").value.trim();
+  const whatsapp = document.getElementById("edit-thesis-whatsapp").value.trim();
+
+  if (!title) { showNotification("Enter title", "error"); return; }
+  if (!details) { showNotification("Enter details", "error"); return; }
+
+  let contactValue = "";
+  if (contactType === "telegram") {
+    if (!telegram) { showNotification("Enter Telegram username", "error"); return; }
+    contactValue = telegram;
+  } else {
+    if (!whatsapp) { showNotification("Enter WhatsApp number", "error"); return; }
+    contactValue = whatsapp;
+  }
+
+  const btn = document.getElementById("edit-thesis-save-btn");
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+  try {
+    await db.collection("thesisOffers").doc(id).update({
+      title: title,
+      details: details,
+      price: Number(price) || 0,
+      contactType: contactType,
+      contactValue: contactValue,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    showNotification("Changes saved");
+    closeEditThesisModal();
+    loadManageThesis();
+  } catch (e) {
+    showNotification("Failed to save", "error");
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = "حفظ";
+  }
+}
+
+function deleteThesisItem(id) {
+  openConfirmationModal(
+    "حذف العرض",
+    "هل أنت متأكد من حذف هذا العرض؟",
+    async function () {
+      try {
+        await db.collection("thesisOffers").doc(id).delete();
+        showNotification("Deleted");
+        loadManageThesis();
+      } catch (e) {
+        showNotification("Failed to delete", "error");
+      }
+    }
+  );
+}
+
+/* =========================================
+   Leaderboard & Levels System
+========================================= */
+
+const LEVEL_NAMES = [
+  "",
+  "مبتدئ",
+  "متعلّم",
+  "نشيط",
+  "متقدّم",
+  "محترف",
+  "خبير",
+  "أسطورة",
+  "بطل",
+  "نخبة",
+  "أسطورة خالدة"
+];
+
+const MAX_LEVEL = 10;
+const LEADERBOARD_LIMIT = 10;
+
+function getDailyQuizCountKey() {
+  const today = getIraqDateString();
+  return currentUser ? `daily_quiz_count_${currentUser.uid}_${today}` : null;
+}
+
+function getDailyQuizSyncKey() {
+  const today = getIraqDateString();
+  return currentUser ? `daily_quiz_synced_${currentUser.uid}_${today}` : null;
+}
+
+function getIraqDateString() {
+  const now = new Date();
+  const iraqTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (3 * 3600000));
+  const y = iraqTime.getFullYear();
+  const m = String(iraqTime.getMonth() + 1).padStart(2, "0");
+  const d = String(iraqTime.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function getLocalLevelKey() {
+  return currentUser ? `user_level_${currentUser.uid}` : null;
+}
+
+function getLocalLevel() {
+  const key = getLocalLevelKey();
+  if (!key) return 1;
+  const lvl = parseInt(localStorage.getItem(key) || "1");
+  return isNaN(lvl) ? 1 : Math.min(Math.max(lvl, 1), MAX_LEVEL);
+}
+
+function setLocalLevel(level) {
+  const key = getLocalLevelKey();
+  if (!key) return;
+  localStorage.setItem(key, String(Math.min(Math.max(level, 1), MAX_LEVEL)));
+}
+
+function incrementDailyQuizCount() {
+  const key = getDailyQuizCountKey();
+  if (!key) return;
+  const current = parseInt(localStorage.getItem(key) || "0");
+  localStorage.setItem(key, String(current + 1));
+}
+
+function getDailyQuizCount() {
+  const key = getDailyQuizCountKey();
+  if (!key) return 0;
+  return parseInt(localStorage.getItem(key) || "0");
+}
+
+async function syncUserQuizScore() {
+  if (!currentUser) return;
+  const count = getDailyQuizCount();
+  if (count <= 0) return;
+
+  const syncKey = getDailyQuizSyncKey();
+  if (localStorage.getItem(syncKey) === "1") return;
+
+  try {
+    const userRef = db.collection("users").doc(currentUser.uid);
+    const userDoc = await userRef.get();
+    const data = userDoc.data() || {};
+
+    await userRef.update({
+      dailyQuizCount: count,
+      dailyQuizDate: getIraqDateString(),
+      weeklyQuizTotal: firebase.firestore.FieldValue.increment(count),
+      lastQuizSyncAt: firebase.firestore.FieldValue.serverTimestamp(),
+      name: currentUser.name || data.name || "",
+      avatar: currentUser.avatar || data.avatar || "male",
+      avatarBase64: currentUser.avatarBase64 || data.avatarBase64 || null,
+      level: getLocalLevel()
+    });
+
+    localStorage.setItem(syncKey, "1");
+  } catch (e) {
+    console.error("Sync quiz score error:", e);
+  }
+}
+
+function getLevelBadgeHTML(level) {
+  const safeLevel = Math.min(Math.max(parseInt(level) || 1, 1), MAX_LEVEL);
+  const name = LEVEL_NAMES[safeLevel] || "مبتدئ";
+  return `<span class="levels-badge level-${safeLevel}">⭐ Lv.${safeLevel} · ${name}</span>`;
+}
+
+function showLeaderboardPage() {
+  showPage("leaderboard");
+  document.querySelectorAll("#bottom-nav .nav-item").forEach(item => {
+    item.classList.remove("active");
+    if (item.dataset.page === "leaderboard") {
+      item.classList.add("active");
+    }
+  });
+  loadLeaderboard();
+}
+
+async function loadLeaderboard() {
+  const listEl = document.getElementById("leaderboard-list");
+  if (!listEl) return;
+
+  listEl.innerHTML = `
+    <div class="leaderboard-empty">
+      <div class="spinner" style="margin:0 auto;"></div>
+      <p style="margin-top:12px;">جاري التحميل...</p>
+    </div>
+  `;
+
+  let cached = null;
+  try {
+    const cachedRaw = localStorage.getItem("leaderboard_cache_v1");
+    const cachedTime = localStorage.getItem("leaderboard_cache_time_v1");
+    if (cachedRaw && cachedTime && (Date.now() - parseInt(cachedTime)) < (60 * 60 * 1000)) {
+      cached = JSON.parse(cachedRaw);
+    }
+  } catch (e) {}
+
+  if (cached && Array.isArray(cached.top) && cached.top.length > 0) {
+    renderLeaderboard(cached.top);
+    return;
+  }
+
+  try {
+    const snap = await db.collection("leaderboard").doc("top10").get();
+    let top = [];
+    if (snap.exists && Array.isArray(snap.data().top)) {
+      top = snap.data().top;
+    } else {
+      top = await rebuildLeaderboard();
+    }
+
+    localStorage.setItem("leaderboard_cache_v1", JSON.stringify({ top }));
+    localStorage.setItem("leaderboard_cache_time_v1", Date.now().toString());
+
+    renderLeaderboard(top);
+  } catch (e) {
+    console.error("Load leaderboard error:", e);
+    listEl.innerHTML = `
+      <div class="leaderboard-empty">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>فشل تحميل التصنيف</p>
+      </div>
+    `;
+  }
+}
+
+function renderLeaderboard(top) {
+  const listEl = document.getElementById("leaderboard-list");
+  if (!listEl) return;
+
+  if (!top || top.length === 0) {
+    listEl.innerHTML = `
+      <div class="leaderboard-empty">
+        <i class="fas fa-trophy"></i>
+        <p style="font-weight:800;margin-top:12px;">لا يوجد متفاعلون بعد</p>
+        <p style="font-size:13px;margin-top:6px;">أكمل اختبارات لتدخل قائمة الأبطال!</p>
+      </div>
+    `;
+    return;
+  }
+
+  let html = "";
+  top.forEach((user, idx) => {
+    const rank = idx + 1;
+    const rankClass = "rank-" + Math.min(rank, 10);
+    const level = Math.min(Math.max(user.level || 1, 1), MAX_LEVEL);
+    const levelName = LEVEL_NAMES[level] || "مبتدئ";
+    const avatarHTML = user.avatarBase64
+      ? `<img src="${user.avatarBase64}" alt="">`
+      : (user.avatar === "female" ? "👩🏻‍💼" : "👨🏻‍💼");
+
+    html += `
+      <div class="leaderboard-item">
+        <div class="leaderboard-rank ${rankClass}">${rank}</div>
+        <div class="leaderboard-avatar">${avatarHTML}</div>
+        <div class="leaderboard-info">
+          <div class="leaderboard-name">
+            ${escapeHTML(user.name || "مستخدم")}
+            <span class="levels-badge level-${level}">Lv.${level} · ${levelName}</span>
+          </div>
+          <div class="leaderboard-score">
+            <i class="fas fa-check-circle" style="color:#28a745;"></i>
+            ${user.weeklyQuizTotal || 0} اختبار مكتمل
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  listEl.innerHTML = html;
+}
+
+async function rebuildLeaderboard() {
+  try {
+    const snap = await db.collection("users")
+      .orderBy("weeklyQuizTotal", "desc")
+      .limit(LEADERBOARD_LIMIT)
+      .get();
+
+    const top = [];
+    snap.forEach(doc => {
+      const d = doc.data();
+      if ((d.weeklyQuizTotal || 0) > 0) {
+        top.push({
+          uid: doc.id,
+          name: d.name || "مستخدم",
+          avatar: d.avatar || "male",
+          avatarBase64: d.avatarBase64 || null,
+          level: d.level || 1,
+          weeklyQuizTotal: d.weeklyQuizTotal || 0
+        });
+      }
+    });
+
+    return top;
+  } catch (e) {
+    console.error("Rebuild leaderboard error:", e);
+    return [];
+  }
+}
+
+async function processDailyLeaderboardReset() {
+  if (!currentUser) return;
+
+  const now = new Date();
+  const iraqTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (3 * 3600000));
+  const todayStr = getIraqDateString();
+  const lastResetKey = "leaderboard_last_reset_date";
+  const lastReset = localStorage.getItem(lastResetKey);
+
+  if (lastReset === todayStr) return;
+
+  try {
+    const snap = await db.collection("users")
+      .orderBy("weeklyQuizTotal", "desc")
+      .limit(LEADERBOARD_LIMIT)
+      .get();
+
+    const top = [];
+    let firstPlaceUid = null;
+
+    snap.forEach((doc, idx) => {
+      const d = doc.data();
+      const total = d.weeklyQuizTotal || 0;
+      if (total > 0) {
+        if (idx === 0) firstPlaceUid = doc.id;
+        top.push({
+          uid: doc.id,
+          name: d.name || "مستخدم",
+          avatar: d.avatar || "male",
+          avatarBase64: d.avatarBase64 || null,
+          level: d.level || 1,
+          weeklyQuizTotal: total
+        });
+      }
+    });
+
+    await db.collection("leaderboard").doc("top10").set({
+      top: top,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      resetDate: todayStr
+    });
+
+    if (firstPlaceUid) {
+      const firstRef = db.collection("users").doc(firstPlaceUid);
+      const firstDoc = await firstRef.get();
+      const currentLvl = (firstDoc.data() || {}).level || 1;
+      const newLvl = Math.min(currentLvl + 1, MAX_LEVEL);
+      await firstRef.update({ level: newLvl });
+
+      if (firstPlaceUid === currentUser.uid) {
+        setLocalLevel(newLvl);
+      }
+    }
+
+    const allUsers = await db.collection("users")
+      .where("weeklyQuizTotal", ">", 0)
+      .get();
+
+    const batch = db.batch();
+    let count = 0;
+    allUsers.forEach(doc => {
+      batch.update(doc.ref, {
+        weeklyQuizTotal: 0,
+        dailyQuizCount: 0
+      });
+      count++;
+      if (count >= 400) return;
+    });
+    if (count > 0) await batch.commit();
+
+    localStorage.setItem(lastResetKey, todayStr);
+    localStorage.removeItem("leaderboard_cache_v1");
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith("daily_quiz_synced_")) {
+        localStorage.removeItem(k);
+      }
+    }
+  } catch (e) {
+    console.error("Daily leaderboard reset error:", e);
+  }
+}
+
+function renderUserLevelInProfile() {
+  const container = document.querySelector(".profile-name-row");
+  if (!container) return;
+
+  const existing = container.querySelector(".levels-badge");
+  if (existing) existing.remove();
+
+  const level = getLocalLevel();
+  const badge = document.createElement("span");
+  badge.innerHTML = getLevelBadgeHTML(level);
+  const badgeEl = badge.firstChild;
+
+  const verifiedEl = document.getElementById("profile-verified");
+  if (verifiedEl && verifiedEl.nextSibling) {
+    verifiedEl.parentNode.insertBefore(badgeEl, verifiedEl.nextSibling);
+  } else {
+    container.appendChild(badgeEl);
+  }
+}
+
+function startDailyResetScheduler() {
+  if (window._dailyResetInterval) clearInterval(window._dailyResetInterval);
+  window._dailyResetInterval = setInterval(() => {
+    if (!currentUser) return;
+    const now = new Date();
+    const iraqTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (3 * 3600000));
+    if (iraqTime.getHours() === 0 && iraqTime.getMinutes() < 5) {
+      processDailyLeaderboardReset();
+    }
+  }, 60 * 1000);
 }
 
 </script>
