@@ -1291,97 +1291,229 @@ textarea.select-control { max-height: none; }
 .post-menu-item:hover { background: var(--sky); color: var(--primary-color); }
 .post-menu-item i { width: 16px; text-align: center; font-size: 12px; }
 
-.profile-shell { padding: 12px; }
+.profile-shell {
+  padding: 12px;
+  padding-bottom: 90px;
+}
+
 .profile-card {
-  background: var(--gradient-primary);
-  border-radius: 14px;
-  padding: 16px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  border-radius: 16px;
+  padding: 16px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 15px rgba(106, 17, 203, 0.2);
-  color: white;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 20px rgba(106, 17, 203, 0.28);
+  color: #fff;
   position: relative;
   overflow: hidden;
 }
+
 .profile-card::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; height: 100%;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.6s;
+  top: -60%;
+  right: -40%;
+  width: 160%;
+  height: 220%;
+  background: radial-gradient(circle, rgba(245, 197, 66, 0.15) 0%, transparent 65%);
+  pointer-events: none;
 }
-.profile-card:hover::before { transform: translateX(100%); }
-.avatar-container .avatar {
-  width: 60px; height: 60px;
-  border-width: 2px;
+
+.profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
 }
-.avatar-container .avatar-upload-btn {
-  width: 20px; height: 20px; font-size: 10px; bottom: 2px; right: 2px;
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 900;
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.2;
+  flex-wrap: wrap;
 }
-.profile-meta { display: flex; flex-direction: column; gap: 4px; flex: 1; }
-.profile-name-row { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 15px; color: #fff; }
-.profile-name-row .edit-icon { font-size: 11px; opacity: 0.8; cursor: pointer; transition: 0.2s; }
-.profile-name-row .edit-icon:hover { opacity: 1; transform: scale(1.1); }
-.profile-email { font-size: 11px; color: rgba(255,255,255,0.85); word-break: break-all; }
-.profile-uid-row { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
-.profile-uid-input { 
-  font-size: 10px; padding: 4px 8px; background: rgba(0,0,0,0.15); 
-  border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 6px; width: 100px;
+
+.profile-name-row .levels-badge {
+  font-size: 9px !important;
+  padding: 2px 7px !important;
 }
-.uid-copy-btn {
-  background: rgba(255,255,255,0.2); border: none; color: #fff; 
-  padding: 4px 8px; border-radius: 6px; font-size: 11px; cursor: pointer; transition: 0.2s;
+
+.profile-email {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.85);
+  word-break: break-all;
+  line-height: 1.3;
 }
-.uid-copy-btn:hover { background: rgba(255,255,255,0.3); }
+
+.profile-uid-input {
+  font-size: 11px;
+  padding: 5px 8px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  border-radius: 8px;
+  max-height: 32px;
+  flex: 1;
+}
+
+.profile-uid-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.profile-level-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+
+.profile-level-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f5c542, #ff9500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #1a0b3d;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(245, 197, 66, 0.4);
+}
+
+.profile-level-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-level-title {
+  font-weight: 900;
+  font-size: 12px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.profile-level-title .lvl-num {
+  color: #f5c542;
+  font-size: 13px;
+}
+
+.profile-level-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.profile-level-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f5c542, #ffd966);
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+.profile-level-progress-text {
+  font-size: 9px;
+  opacity: 0.85;
+  margin-top: 3px;
+  font-weight: 700;
+}
 
 .profile-actions-card {
+  margin-top: 12px;
   background: #fff;
   border-radius: 14px;
-  padding: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--border-color);
 }
-[data-theme="dark"] .profile-actions-card { background: #1e1e1e; border-color: #333; }
-.profile-menu { display: flex; flex-direction: column; gap: 6px; }
+
+.profile-menu {
+  padding: 0;
+}
+
 .menu-item {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: flex-start !important;
   gap: 12px;
   padding: 12px 14px;
-  background: #f8f9fa;
+  margin-bottom: 4px;
+  background: transparent;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
   color: var(--text-color);
+  border: none;
+  min-height: 44px;
   font-size: 13px;
   font-weight: 700;
-  border: 1px solid transparent;
 }
-[data-theme="dark"] .menu-item { background: #2a2a2a; color: #fff; }
-.menu-item:hover {
-  background: var(--sky);
-  transform: translateX(-4px);
-  border-color: rgba(106, 17, 203, 0.1);
-}
-.menu-item .mi-icon {
-  width: 28px; height: 28px; border-radius: 8px;
-  background: linear-gradient(135deg, rgba(106,17,203,0.1), rgba(37,117,252,0.1));
-  color: var(--primary-color);
-  display: flex; align-items: center; justify-content: center; font-size: 13px;
-}
-.menu-item .nav-badge { position: static; margin-right: auto; margin-left: 0; }
-.menu-item.logout-btn { background: #fff0f0; color: #dc3545; }
-[data-theme="dark"] .menu-item.logout-btn { background: rgba(220, 53, 69, 0.15); color: #ff6b6b; }
-.menu-item.logout-btn .mi-icon { background: rgba(220, 53, 69, 0.1); color: inherit; }
-.menu-item.logout-btn:hover { background: #ffe5e5; border-color: rgba(220, 53, 69, 0.2); }
 
-/* =========================================
-   Badges & Notifications
-========================================= */
+.menu-item:last-child {
+  margin-bottom: 0;
+}
+
+.menu-item:hover {
+  background: #f3e8ff;
+}
+
+.menu-item i {
+  font-size: 15px;
+  width: 20px;
+  text-align: center;
+  color: #6a11cb;
+}
+
+.menu-item span {
+  flex: 1;
+}
+
+.menu-item .nav-badge {
+  position: static;
+  margin: 0;
+}
+
+.menu-item[onclick="logout()"] {
+  color: #dc3545 !important;
+  margin-top: 4px;
+  border-top: 1px solid var(--border-color);
+  border-radius: 0 0 10px 10px;
+}
+
+.menu-item[onclick="logout()"]:hover {
+  background: #fdeaea !important;
+}
+
+.menu-item[onclick="logout()"] i {
+  color: #dc3545;
+}
+.menu-item i { font-size: 18px; width: 24px; text-align: center; }
+.menu-item .nav-badge { position: static; margin-right: auto; margin-left: 8px; }
+.menu-item[onclick="logout()"] { background: rgba(220, 53, 69, 0.2) !important; color: #fff !important; border: 1px solid rgba(220, 53, 69, 0.4) !important; }
+.menu-item[onclick="logout()"]:hover { background: rgba(220, 53, 69, 0.3) !important; transform: translateY(-2px); }
+
+
 .notification {
   position: fixed;
   left: 50%;
@@ -2561,120 +2693,105 @@ html, body {
 }
 
 .leaderboard-page {
-  padding: 16px;
-  padding-bottom: 100px;
+  padding: 10px 12px 90px 12px;
 }
 
-.leaderboard-page {
-  padding: 12px;
-  padding-bottom: 90px;
-}
 .leaderboard-header {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  border-radius: 16px;
-  padding: 16px 12px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  border-radius: 14px;
+  padding: 12px 14px;
   color: #fff;
   text-align: center;
-  box-shadow: 0 6px 15px rgba(106, 17, 203, 0.25);
+  box-shadow: 0 4px 14px rgba(106, 17, 203, 0.25);
   margin-bottom: 12px;
   position: relative;
   overflow: hidden;
 }
+
 .leaderboard-header::before {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(245,197,66,0.15) 0%, transparent 60%);
-  animation: rotateGlow 8s linear infinite;
+  top: -60%;
+  right: -40%;
+  width: 160%;
+  height: 220%;
+  background: radial-gradient(circle, rgba(245, 197, 66, 0.18) 0%, transparent 65%);
+  pointer-events: none;
 }
+
 .leaderboard-header h2 {
-  font-weight: 800;
-  font-size: 18px;
-  margin: 0 0 4px 0;
+  font-weight: 900;
+  font-size: 14px;
+  margin: 0 0 2px 0;
   position: relative;
   z-index: 2;
+  letter-spacing: 0.3px;
 }
+
 .leaderboard-header p {
-  font-size: 11px;
+  font-size: 10px;
   opacity: 0.85;
   margin: 0;
   position: relative;
   z-index: 2;
 }
+
 .leaderboard-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
+
 .leaderboard-item {
   background: #fff;
-  border-radius: 12px;
-  padding: 10px 12px;
+  border-radius: 10px;
+  padding: 8px 10px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  gap: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--border-color);
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
-  overflow: hidden;
 }
-[data-theme="dark"] .leaderboard-item {
-  background: #1e1e1e;
-  border-color: #333;
-}
+
 .leaderboard-item:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
+
 .leaderboard-rank {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
-  font-size: 14px;
+  font-weight: 900;
+  font-size: 12px;
   color: #fff;
   flex-shrink: 0;
-  position: relative;
-  z-index: 2;
 }
+
+.rank-1 { background: linear-gradient(135deg, #ffd700, #ff9500); }
+.rank-2 { background: linear-gradient(135deg, #d8d8d8, #a0a0a0); }
+.rank-3 { background: linear-gradient(135deg, #cd7f32, #8b4513); }
+.rank-4, .rank-5, .rank-6, .rank-7, .rank-8, .rank-9, .rank-10 {
+  background: linear-gradient(135deg, #8a63e0, #6a11cb);
+}
+
 .leaderboard-avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   overflow: hidden;
   background: #d7e4ff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 16px;
   flex-shrink: 0;
   border: 1px solid #e9ecef;
-}
-.leaderboard-info {
-  flex: 1;
-  min-width: 0;
-}
-.leaderboard-name {
-  font-weight: 800;
-  font-size: 13px;
-  color: var(--text-color);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.leaderboard-score {
-  font-size: 11px;
-  color: var(--light-text);
-  margin-top: 2px;
-  font-weight: 600;
 }
 
 .leaderboard-avatar img {
@@ -2683,16 +2800,49 @@ html, body {
   object-fit: cover;
 }
 
+.leaderboard-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.leaderboard-name {
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  line-height: 1.2;
+}
+
+.leaderboard-name .levels-badge {
+  font-size: 9px !important;
+  padding: 2px 6px !important;
+}
+
+.leaderboard-score {
+  font-size: 10px;
+  color: var(--light-text);
+  margin-top: 2px;
+  font-weight: 700;
+}
+
 .leaderboard-empty {
   text-align: center;
-  padding: 60px 20px;
+  padding: 40px 16px;
   color: var(--light-text);
 }
 
 .leaderboard-empty i {
-  font-size: 60px;
-  margin-bottom: 16px;
-  opacity: 0.4;
+  font-size: 40px;
+  margin-bottom: 10px;
+  opacity: 0.35;
+}
+
+.leaderboard-empty p {
+  font-size: 13px;
+  font-weight: 700;
 }
 
   </style>
@@ -2818,10 +2968,10 @@ html, body {
     <div class="profile-shell">
       <div class="profile-card">
         <div class="avatar-container">
-            <div id="avatar" class="avatar" onclick="openAvatarModal()">
-                <div style="width:100%;height:100%;font-size:32px;line-height:60px">👨🏻‍💼</div>
+            <div id="avatar" class="avatar" title="انقر لتغيير الصورة" onclick="openAvatarModal()">
+                <div style="width:100%;height:100%;font-size:40px;line-height:72px">👨🏻‍💼</div>
             </div>
-            <div class="avatar-upload-btn" onclick="openImageUploadModal()">
+            <div class="avatar-upload-btn" onclick="openImageUploadModal()" title="رفع صورة شخصية">
                 <i class="fas fa-camera"></i>
             </div>
         </div>
@@ -2829,12 +2979,12 @@ html, body {
           <div class="profile-name-row">
             <span id="profile-name"></span>
             <span id="profile-verified"></span>
-            <i class="fas fa-pencil-alt edit-icon" onclick="editProfileName()"></i>
+            <i class="fas fa-pencil-alt" style="color:white;cursor:pointer;font-size:12px;" onclick="editProfileName()"></i>
           </div>
           <div id="profile-email" class="profile-email"></div>
-          <div class="profile-uid-row">
-            <input id="profile-uid-input" class="profile-uid-input" readonly />
-            <button class="uid-copy-btn" onclick="copyUidToClipboard()"><i class="fas fa-copy"></i></button>
+          <div class="row" style="align-items: center; gap: 6px; margin-top:4px;">
+            <input id="profile-uid-input" class="form-control profile-uid-input" readonly />
+            <button class="btn btn-xs" onclick="copyUidToClipboard()" style="background: rgba(255,255,255,0.22); color: white; border: 1px solid rgba(255,255,255,0.35); padding: 5px 8px; font-size: 11px; min-height: 28px;"><i class="fas fa-copy"></i></button>
           </div>
         </div>
       </div>
@@ -2842,28 +2992,28 @@ html, body {
       <div class="profile-actions-card">
         <div class="profile-menu">
           <div class="menu-item" onclick="showUserPosts()">
-            <div class="mi-icon"><i class="fas fa-book"></i></div>
+            <i class="fas fa-book"></i>
             <span>منشوراتي</span>
           </div>
           
           <div class="menu-item" onclick="showInbox();">
-            <div class="mi-icon"><i class="fas fa-inbox"></i></div>
+            <i class="fas fa-inbox"></i>
             <span>البريد الوارد</span>
             <div id="inbox-badge" class="nav-badge" style="display: none">0</div>
           </div>
           
           <div class="menu-item" onclick="showSupportPage()">
-            <div class="mi-icon"><i class="fas fa-headset"></i></div>
-            <span>الدعم الفني</span>
+            <i class="fas fa-headset"></i>
+            <span>التواصل مع الدعم</span>
           </div>
           
           <div class="menu-item owner-only" style="display:none" onclick="showAdminPanel()">
-            <div class="mi-icon"><i class="fas fa-cogs"></i></div>
+            <i class="fas fa-cogs"></i>
             <span>لوحة التحكم</span>
           </div>
           
-          <div class="menu-item logout-btn" onclick="logout()">
-            <div class="mi-icon"><i class="fas fa-sign-out-alt"></i></div>
+          <div class="menu-item" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
             <span>تسجيل الخروج</span>
           </div>
         </div>
@@ -3137,7 +3287,7 @@ html, body {
       <div class="leaderboard-list" id="leaderboard-list">
         <div class="leaderboard-empty">
           <div class="spinner" style="margin:0 auto;"></div>
-          <p style="margin-top:12px;">جاري التحميل...</p>
+          <p style="margin-top:8px;">جاري التحميل...</p>
         </div>
       </div>
     </div>
@@ -4348,7 +4498,7 @@ try {
   }, 4000);
 }
 
-const APP_OWNER_EMAIL = "";
+const APP_OWNER_EMAIL = "bbyy661@gmail.com";
 
 let currentUser = null;
 let posts = [];
@@ -4375,31 +4525,6 @@ let studyTimer = {
     interval: null,
     currentSessionName: localStorage.getItem('currentSessionName') || ''
 };
-
-function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-  
-  const themeIcon = document.querySelector('.theme-toggle-btn i');
-  if (themeIcon) {
-    themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-  }
-  
-  showNotification(newTheme === 'dark' ? 'تم تفعيل الوضع الليلي' : 'تم تفعيل الوضع النهاري');
-}
-
-function loadTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  
-  const themeIcon = document.querySelector('.theme-toggle-btn i');
-  if (themeIcon) {
-    themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-  }
-}
 
 function previewRegisterAvatar(event) {
   const file = event.target.files[0];
@@ -4998,18 +5123,18 @@ function updateUIForLoggedInUser() {
   updateNavBadges();
 
   setTimeout(() => {
-    renderUserLevelInProfile();
-    syncUserQuizScore();
-    processDailyLeaderboardReset();
-    startDailyResetScheduler();
+    try { renderUserLevelInProfile(); } catch(e) { console.warn(e); }
+    try { syncUserQuizScore(); } catch(e) { console.warn(e); }
+    try { processDailyLeaderboardReset(); } catch(e) { console.warn(e); }
+    try { startDailyResetScheduler(); } catch(e) { console.warn(e); }
   }, 500);
 
   if (isOwner()) {
     setTimeout(() => {
-      createAdminBadges();
-      calculateSupportRequests();
-      setInterval(calculateSupportRequests, 30000);
-      cleanupExpiredHomeImages();
+      try { createAdminBadges(); } catch(e) {}
+      try { calculateSupportRequests(); } catch(e) {}
+      try { setInterval(calculateSupportRequests, 30000); } catch(e) {}
+      try { cleanupExpiredHomeImages(); } catch(e) {}
     }, 1000);
   }
 }
@@ -6194,6 +6319,7 @@ async function showUserPosts() {
     window.userPostsContainer.appendChild(div);
   }
 }
+
 async function repost(postId) {
   const doc = await db.collection("posts").doc(postId).get();
   if (!doc.exists || doc.data().userId !== currentUser.uid) return;
@@ -8854,10 +8980,49 @@ function isPronunciationMatch(target, spoken) {
   const t = normalizeWord(target);
   const s = normalizeWord(spoken);
   if (!t || !s) return false;
+
   if (t === s) return true;
+  if (s.includes(t)) return true;
+
+  const spokenWords = s.split(/\s+/).filter(Boolean);
+  for (const w of spokenWords) {
+    if (w === t) return true;
+  }
+
+  const targetParts = t.split(/\s+/).filter(Boolean);
+  const targetCount = targetParts.length;
+  const spokenCount = spokenWords.length;
+  const isRepeated = spokenCount >= targetCount * 2;
+
+  if (isRepeated) {
+    let allMatch = true;
+    for (let i = 0; i < targetParts.length; i++) {
+      const targetWord = targetParts[i];
+      const matchesCount = spokenWords.filter(w => {
+        if (w === targetWord) return true;
+        const d = levenshtein(targetWord, w);
+        const th = targetWord.length <= 4 ? 1 : targetWord.length <= 7 ? 2 : 3;
+        return d <= th;
+      }).length;
+      if (matchesCount < 2) {
+        allMatch = false;
+        break;
+      }
+    }
+    if (allMatch) return true;
+  }
+
   const dist = levenshtein(t, s);
   const threshold = t.length <= 4 ? 1 : t.length <= 7 ? 2 : 3;
-  return dist <= threshold;
+  if (dist <= threshold) return true;
+
+  for (const w of spokenWords) {
+    const d2 = levenshtein(t, w);
+    const th2 = t.length <= 4 ? 1 : t.length <= 7 ? 2 : 3;
+    if (d2 <= th2) return true;
+  }
+
+  return false;
 }
 
 function startPronListening(wordId, expectedWord) {
@@ -8882,9 +9047,9 @@ function startPronListening(wordId, expectedWord) {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   pronRecognition = new SR();
   pronRecognition.lang = "en-US";
-  pronRecognition.interimResults = false;
-  pronRecognition.maxAlternatives = 1;
-  pronRecognition.continuous = false;
+  pronRecognition.interimResults = true;
+  pronRecognition.maxAlternatives = 5;
+  pronRecognition.continuous = true;
 
   const card = document.getElementById(`pron-card-${wordId}`);
   const mic = document.getElementById(`pron-mic-${wordId}`);
@@ -8894,8 +9059,8 @@ function startPronListening(wordId, expectedWord) {
   if (card) card.classList.add("listening");
   if (mic) mic.classList.add("listening");
   if (stopBtn) stopBtn.classList.add("show");
-  if (statusEl) {
-    statusEl.textContent = "Listening...";
+    if (statusEl) {
+    statusEl.textContent = "جاري الاستماع...";
     statusEl.className = "word-pron-status listening";
   }
 
@@ -8905,39 +9070,73 @@ function startPronListening(wordId, expectedWord) {
   pronStopRequested = false;
   pronLastResult = null;
 
-  pronRecognition.onresult = function (event) {
-    if (event.results.length > 0) {
-      pronFinalTranscript = event.results[0][0].transcript.trim();
-      if (statusEl) {
-        statusEl.textContent = 'Heard: "' + pronFinalTranscript + '"';
+  let silenceTimer = null;
+  let hasHeardSpeech = false;
+
+  const resetSilenceTimer = () => {
+    if (silenceTimer) clearTimeout(silenceTimer);
+    silenceTimer = setTimeout(() => {
+      if (hasHeardSpeech && !pronStopRequested) {
+        stopPronListening(wordId);
       }
-      stopPronListening(wordId);
+    }, 1500);
+  };
+
+  pronRecognition.onresult = function (event) {
+    let interim = '';
+    let finalText = '';
+
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const result = event.results[i];
+      if (result.isFinal) {
+        finalText += result[0].transcript + ' ';
+      } else {
+        interim += result[0].transcript + ' ';
+      }
+    }
+
+    if (finalText) {
+      pronFinalTranscript = (pronFinalTranscript + ' ' + finalText).trim();
+      hasHeardSpeech = true;
+    }
+
+    const displayText = (pronFinalTranscript + ' ' + interim).trim();
+
+        if (displayText && statusEl) {
+      hasHeardSpeech = true;
+      statusEl.textContent = 'سمعت: "' + displayText + '"';
+      resetSilenceTimer();
     }
   };
 
   pronRecognition.onerror = function (event) {
-    if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+        if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+      if (silenceTimer) clearTimeout(silenceTimer);
       cleanupPronListening(wordId);
-      showNotification("Microphone permission denied", "error");
+      showNotification("يجب السماح باستخدام المايكروفون", "error");
     } else if (event.error === "no-speech") {
-      if (statusEl) statusEl.textContent = "No speech yet";
+      if (statusEl) statusEl.textContent = "جاري الاستماع... تكلم الآن";
     } else if (event.error === "aborted") {
     } else {
+      if (silenceTimer) clearTimeout(silenceTimer);
       cleanupPronListening(wordId);
-      showNotification("Recognition error", "error");
+      showNotification("خطأ في التعرف على الصوت: " + event.error, "error");
     }
   };
 
-  pronRecognition.onend = function () {
+    pronRecognition.onend = function () {
+    if (silenceTimer) clearTimeout(silenceTimer);
     if (!pronStopRequested && pronListeningId === wordId) {
-      if (pronFinalTranscript) {
+      if (pronFinalTranscript && pronFinalTranscript.trim().length > 0) {
         checkPronResult(wordId, expectedWord, pronFinalTranscript);
-      } else {
+      } else if (hasHeardSpeech) {
         cleanupPronListening(wordId);
         if (statusEl) {
-          statusEl.textContent = "Tap mic to retry";
-          statusEl.className = "word-pron-status wrong";
+          statusEl.textContent = "حاول مرة ثانية";
+          
         }
+      } else {
+        try { pronRecognition.start(); } catch (e) {}
       }
     }
   };
@@ -8954,9 +9153,9 @@ function stopPronListening(wordId) {
   if (pronListeningId !== wordId) return;
   pronStopRequested = true;
 
-  const statusEl = document.getElementById(`pron-status-${wordId}`);
+    const statusEl = document.getElementById(`pron-status-${wordId}`);
   if (statusEl) {
-    statusEl.textContent = "Analyzing...";
+    statusEl.textContent = "جاري التحليل...";
     statusEl.className = "word-pron-status listening";
   }
 
@@ -8965,18 +9164,18 @@ function stopPronListening(wordId) {
   } catch (e) {}
 
   setTimeout(() => {
-    const finalText = pronFinalTranscript || "";
+    const finalText = (pronFinalTranscript || "").trim();
     if (finalText) {
       checkPronResult(wordId, pronCurrentWord, finalText);
     } else {
       cleanupPronListening(wordId);
-      if (statusEl) {
-        statusEl.textContent = "Nothing heard — try again";
+            if (statusEl) {
+        statusEl.textContent = "لم يتم سماع أي صوت — حاول مرة أخرى";
         statusEl.className = "word-pron-status wrong";
       }
-      showNotification("No speech detected", "warning");
+      showNotification("لم يتم الكشف عن أي صوت", "warning");
     }
-  }, 700);
+  }, 900);
 }
 
 function cleanupPronListening(wordId) {
@@ -9014,18 +9213,18 @@ function checkPronResult(wordId, expectedWord, spokenText) {
   }
   if (statusEl) {
     if (isCorrect) {
-      statusEl.textContent = '✓ Correct — you said: "' + (spokenText || expectedWord) + '"';
+      statusEl.textContent = '✓ صحيح — قلت: "' + (spokenText || expectedWord) + '"';
       statusEl.className = "word-pron-status correct";
     } else {
-      statusEl.textContent = '✗ You said: "' + (spokenText || "?") + '" — correct: ' + expectedWord;
+      statusEl.textContent = '✗ قلت: "' + (spokenText || "?") + '" — الصحيح: ' + expectedWord;
       statusEl.className = "word-pron-status wrong";
     }
   }
 
   if (isCorrect) {
-    showNotification("Great job!", "success");
+    showNotification("أحسنت!", "success");
   } else {
-    showNotification('Try again. Correct: ' + expectedWord, "warning");
+    showNotification('حاول مرة ثانية. الصحيح: ' + expectedWord, "warning");
   }
 
   const progress2 = getPronProgress();
@@ -9035,7 +9234,7 @@ function checkPronResult(wordId, expectedWord, spokenText) {
   const fillEl = document.getElementById("pron-progress-fill");
   const textEl = document.getElementById("pron-progress-text");
   if (fillEl) fillEl.style.width = percent + "%";
-  if (textEl) textEl.textContent = `${correctCount} / ${total} words`;
+  if (textEl) textEl.textContent = `${correctCount} / ${total} كلمة`;
 
   pronFinalTranscript = '';
   pronCurrentWord = null;
@@ -11890,8 +12089,8 @@ function renderLeaderboard(top) {
     listEl.innerHTML = `
       <div class="leaderboard-empty">
         <i class="fas fa-trophy"></i>
-        <p style="font-weight:800;margin-top:12px;">لا يوجد متفاعلون بعد</p>
-        <p style="font-size:13px;margin-top:6px;">أكمل اختبارات لتدخل قائمة الأبطال!</p>
+        <p>لا يوجد متفاعلون بعد</p>
+        <p style="font-size:11px;margin-top:4px;font-weight:600;opacity:0.8;">أكمل اختبارات لتدخل قائمة الأبطال</p>
       </div>
     `;
     return;
@@ -12042,22 +12241,30 @@ async function processDailyLeaderboardReset() {
 }
 
 function renderUserLevelInProfile() {
-  const container = document.querySelector(".profile-name-row");
-  if (!container) return;
+  try {
+    const container = document.querySelector(".profile-name-row");
+    if (!container) return;
 
-  const existing = container.querySelector(".levels-badge");
-  if (existing) existing.remove();
+    const existing = container.querySelector(".profile-level-badge-new");
+    if (existing) existing.remove();
 
-  const level = getLocalLevel();
-  const badge = document.createElement("span");
-  badge.innerHTML = getLevelBadgeHTML(level);
-  const badgeEl = badge.firstChild;
+    const level = typeof getLocalLevel === "function" ? getLocalLevel() : 1;
+    const safeLevel = Math.min(Math.max(parseInt(level) || 1, 1), 10);
+    const levelName = (typeof LEVEL_NAMES !== "undefined" && LEVEL_NAMES[safeLevel]) ? LEVEL_NAMES[safeLevel] : "مبتدئ";
 
-  const verifiedEl = document.getElementById("profile-verified");
-  if (verifiedEl && verifiedEl.nextSibling) {
-    verifiedEl.parentNode.insertBefore(badgeEl, verifiedEl.nextSibling);
-  } else {
-    container.appendChild(badgeEl);
+    const badgeEl = document.createElement("span");
+    badgeEl.className = "profile-level-badge-new level-" + safeLevel;
+    badgeEl.innerHTML = '<i class="fas fa-star" style="font-size:9px;"></i> Lv.' + safeLevel + ' · ' + levelName;
+    badgeEl.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:900;padding:3px 9px;border-radius:99px;letter-spacing:0.3px;box-shadow:0 2px 8px rgba(0,0,0,0.25);white-space:nowrap;';
+
+    const verifiedEl = document.getElementById("profile-verified");
+    if (verifiedEl && verifiedEl.parentNode === container) {
+      verifiedEl.parentNode.insertBefore(badgeEl, verifiedEl.nextSibling);
+    } else {
+      container.appendChild(badgeEl);
+    }
+  } catch (e) {
+    console.warn("renderUserLevelInProfile error:", e);
   }
 }
 
@@ -12071,6 +12278,24 @@ function startDailyResetScheduler() {
       processDailyLeaderboardReset();
     }
   }, 60 * 1000);
+}
+
+function updatePostCountInProfile() {
+  if (!currentUser) return;
+  try {
+    const count = posts.filter(p => p.userId === currentUser.uid && p.status !== 'deleted').length;
+    let badge = document.getElementById('profile-posts-count-badge');
+    const menuItem = document.querySelector('.menu-item[onclick="showUserPosts()"]');
+    if (!menuItem) return;
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.id = 'profile-posts-count-badge';
+      badge.style.cssText = 'background:linear-gradient(135deg,#6a11cb,#2575fc);color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;margin-right:auto;';
+      menuItem.appendChild(badge);
+    }
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'inline-block' : 'none';
+  } catch (e) {}
 }
 
 </script>
