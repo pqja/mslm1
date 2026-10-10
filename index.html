@@ -1952,6 +1952,46 @@ html, body {
   animation: pulseGlow 1.2s infinite;
 }
 
+.word-pron-controls {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.word-pron-stop {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #dc3545, #a71d2a);
+  color: #fff;
+  border: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+  transition: all 0.2s ease;
+}
+
+.word-pron-stop.show {
+  display: flex;
+}
+
+.word-pron-stop:active {
+  transform: scale(0.92);
+}
+
+.word-pron-hint {
+  font-size: 11px;
+  color: #6a11cb;
+  font-weight: 700;
+  margin-top: 4px;
+  text-align: right;
+}
+
 .word-pron-mic.correct {
   background: linear-gradient(135deg, #28a745, #20c997);
 }
@@ -3481,7 +3521,7 @@ html, body {
   </div>
 </div>
 
-<!-- صفحة قائمة الملفات -->
+<!-- صفحة قائمة الملفات - اختيار المرحلة -->
 <div id="files-page" class="container page" style="display:none">
   <div class="header">
     <button class="btn btn-secondary" onclick="backToEnglish()"><i class="fas fa-arrow-right"></i></button>
@@ -3493,20 +3533,21 @@ html, body {
   </div>
 
   <div class="posts-container">
+    <p style="text-align:center;font-weight:700;color:#666;margin-bottom:14px;">اختر المرحلة</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <div class="cat-card" onclick="openFilesStage(1)" style="padding:20px 12px;">
+      <div class="cat-card" onclick="openFilesStageType(1)" style="padding:20px 12px;">
         <i class="fas fa-file-pdf"></i>
         المرحلة الأولى
       </div>
-      <div class="cat-card" onclick="openFilesStage(2)" style="padding:20px 12px;">
+      <div class="cat-card" onclick="openFilesStageType(2)" style="padding:20px 12px;">
         <i class="fas fa-file-pdf"></i>
         المرحلة الثانية
       </div>
-      <div class="cat-card" onclick="openFilesStage(3)" style="padding:20px 12px;">
+      <div class="cat-card" onclick="openFilesStageType(3)" style="padding:20px 12px;">
         <i class="fas fa-file-pdf"></i>
         المرحلة الثالثة
       </div>
-      <div class="cat-card" onclick="openFilesStage(4)" style="padding:20px 12px;">
+      <div class="cat-card" onclick="openFilesStageType(4)" style="padding:20px 12px;">
         <i class="fas fa-file-pdf"></i>
         المرحلة الرابعة
       </div>
@@ -3514,16 +3555,38 @@ html, body {
   </div>
 </div>
 
-<!-- صفحة ملفات مرحلة معينة -->
-<div id="files-list-page" class="container page" style="display:none">
+<!-- صفحة اختيار النوع: كتب أو ملازم -->
+<div id="files-type-page" class="container page" style="display:none">
   <div class="header">
     <button class="btn btn-secondary" onclick="showPage('files')"><i class="fas fa-arrow-right"></i></button>
-    <span id="files-list-title" style="font-weight:900">المرحلة</span>
+    <span id="files-type-title" style="font-weight:900">المرحلة</span>
+    <div style="width:44px;"></div>
+  </div>
+  <div class="posts-container">
+    <p style="text-align:center;font-weight:700;color:#666;margin-bottom:14px;">اختر النوع</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="cat-card" onclick="openFilesListType('book')" style="padding:30px 14px;background:linear-gradient(135deg,#6a11cb,#2575fc);">
+        <i class="fas fa-book" style="font-size:36px;margin-bottom:10px;"></i>
+        <div style="font-size:17px;">كتب</div>
+      </div>
+      <div class="cat-card" onclick="openFilesListType('note')" style="padding:30px 14px;background:linear-gradient(135deg,#43e97b,#38f9d7);">
+        <i class="fas fa-file-alt" style="font-size:36px;margin-bottom:10px;"></i>
+        <div style="font-size:17px;">ملازم</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- صفحة ملفات مرحلة معينة + نوع -->
+<div id="files-list-page" class="container page" style="display:none">
+  <div class="header">
+    <button class="btn btn-secondary" onclick="backToFilesType()"><i class="fas fa-arrow-right"></i></button>
+    <span id="files-list-title" style="font-weight:900">الملفات</span>
     <div style="width:44px;"></div>
   </div>
   <div class="posts-container">
     <div style="margin-bottom:14px;">
-      <input type="text" id="files-search-input" class="form-control" placeholder="ابحث عن ملف..." oninput="filterFilesList()">
+      <input type="text" id="files-search-input" class="form-control" placeholder="ابحث..." oninput="filterFilesList()">
     </div>
     <div id="files-list-container"></div>
   </div>
@@ -3546,7 +3609,7 @@ html, body {
       </button>
     </div>
 
-    <div id="file-tab-add-content">
+        <div id="file-tab-add-content">
       <div class="post">
         <div class="form-group" style="margin-bottom:14px;">
           <label style="display:block;font-weight:700;margin-bottom:6px;">المرحلة</label>
@@ -3555,6 +3618,13 @@ html, body {
             <option value="2">المرحلة الثانية</option>
             <option value="3">المرحلة الثالثة</option>
             <option value="4">المرحلة الرابعة</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:14px;">
+          <label style="display:block;font-weight:700;margin-bottom:6px;">النوع</label>
+          <select id="add-file-type" class="form-control">
+            <option value="book">كتاب</option>
+            <option value="note">ملزمة</option>
           </select>
         </div>
         <div class="form-group" style="margin-bottom:14px;">
@@ -3773,6 +3843,13 @@ html, body {
       </select>
     </div>
     <div class="select-group">
+      <label>النوع</label>
+      <select id="edit-file-type" class="select-control">
+        <option value="book">كتاب</option>
+        <option value="note">ملزمة</option>
+      </select>
+    </div>
+    <div class="select-group">
       <label>اسم الملف</label>
       <input type="text" id="edit-file-title" class="select-control">
     </div>
@@ -3945,7 +4022,7 @@ try {
   }, 4000);
 }
 
-const APP_OWNER_EMAIL = "bbyy661@gmail.com";
+const APP_OWNER_EMAIL = "mslmalmyaly223@gmail.com";
 
 let currentUser = null;
 let posts = [];
@@ -4462,7 +4539,8 @@ function initializePages() {
     lecturesList: document.getElementById("lectures-list-page"),
     lectureView: document.getElementById("lecture-view-page"),
     addLecture: document.getElementById("add-lecture-page"),
-    files: document.getElementById("files-page"),
+        files: document.getElementById("files-page"),
+    filesType: document.getElementById("files-type-page"),
     filesList: document.getElementById("files-list-page"),
     addFile: document.getElementById("add-file-page"),
     courses: document.getElementById("courses-page"),
@@ -8282,6 +8360,10 @@ function renderDailyWords() {
 let pronRecognition = null;
 let pronListeningId = null;
 let pronWordsToday = [];
+let pronLastResult = null;
+let pronStopRequested = false;
+let pronCurrentWord = null;
+let pronFinalTranscript = '';
 
 function isSpeechRecognitionSupported() {
   return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
@@ -8351,7 +8433,7 @@ function renderPronWords() {
   if (!isSpeechRecognitionSupported()) {
     warningEl.style.display = "block";
     document.getElementById("pron-warning-text").textContent =
-      "Your browser does not support speech recognition. Please use Chrome or Edge. You can still practice by typing the word.";
+      "Your browser does not support speech recognition. Please use Chrome or Edge.";
   } else {
     warningEl.style.display = "none";
   }
@@ -8366,6 +8448,7 @@ function renderPronWords() {
     const status = progress[word.id] || "";
     const statusClass = status === "correct" ? "correct" : status === "wrong" ? "wrong" : "";
     const statusText = status === "correct" ? "✓ Correct" : status === "wrong" ? "✗ Try again" : "";
+    const safeWord = escapeHTML(word.en).replace(/'/g, "&#39;");
     html += `
       <div class="word-pron-card ${statusClass}" id="pron-card-${word.id}">
         <div style="background:${status === "correct" ? "#28a745" : "#6a11cb"};color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex-shrink:0;">
@@ -8376,9 +8459,14 @@ function renderPronWords() {
           <div class="word-pron-ar">${escapeHTML(word.ar)}</div>
           <div class="word-pron-status ${status}" id="pron-status-${word.id}">${statusText}</div>
         </div>
-        <button class="word-pron-mic ${status}" id="pron-mic-${word.id}" onclick="startPronListening('${word.id}', '${escapeHTML(word.en).replace(/'/g, "\\'")}')">
-          <i class="fas fa-microphone"></i>
-        </button>
+        <div class="word-pron-controls">
+          <button class="word-pron-mic ${status}" id="pron-mic-${word.id}" onclick="startPronListening('${word.id}', '${safeWord}')">
+            <i class="fas fa-microphone"></i>
+          </button>
+          <button class="word-pron-stop" id="pron-stop-${word.id}" onclick="stopPronListening('${word.id}')">
+            <i class="fas fa-stop"></i>
+          </button>
+        </div>
       </div>
     `;
   });
@@ -8432,55 +8520,75 @@ function startPronListening(wordId, expectedWord) {
     try { pronRecognition.abort(); } catch (e) {}
     const prevCard = document.getElementById(`pron-card-${pronListeningId}`);
     const prevMic = document.getElementById(`pron-mic-${pronListeningId}`);
+    const prevStop = document.getElementById(`pron-stop-${pronListeningId}`);
     if (prevCard) prevCard.classList.remove("listening");
     if (prevMic) prevMic.classList.remove("listening");
+    if (prevStop) prevStop.classList.remove("show");
   }
 
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   pronRecognition = new SR();
   pronRecognition.lang = "en-US";
   pronRecognition.interimResults = false;
-  pronRecognition.maxAlternatives = 3;
-  pronRecognition.continuous = false;
+  pronRecognition.maxAlternatives = 5;
+  pronRecognition.continuous = true;
 
   const card = document.getElementById(`pron-card-${wordId}`);
   const mic = document.getElementById(`pron-mic-${wordId}`);
+  const stopBtn = document.getElementById(`pron-stop-${wordId}`);
   const statusEl = document.getElementById(`pron-status-${wordId}`);
 
   if (card) card.classList.add("listening");
   if (mic) mic.classList.add("listening");
+  if (stopBtn) stopBtn.classList.add("show");
   if (statusEl) {
-    statusEl.textContent = "Listening...";
+    statusEl.textContent = "Recording... tap stop when done";
     statusEl.className = "word-pron-status listening";
   }
+
   pronListeningId = wordId;
+  pronCurrentWord = expectedWord;
+  pronFinalTranscript = '';
+  pronStopRequested = false;
+  pronLastResult = null;
 
   pronRecognition.onresult = function (event) {
-    const results = event.results[0];
-    let best = "";
-    for (let i = 0; i < results.length; i++) {
-      const candidate = results[i].transcript;
-      if (!best || isPronunciationMatch(expectedWord, candidate)) {
-        best = candidate;
-        if (isPronunciationMatch(expectedWord, candidate)) break;
-      }
+    let transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript + ' ';
     }
-    checkPronResult(wordId, expectedWord, best);
+    pronFinalTranscript = (pronFinalTranscript + ' ' + transcript).trim();
+
+    if (statusEl) {
+      statusEl.textContent = 'Heard: "' + pronFinalTranscript + '" — tap stop to check';
+    }
   };
 
   pronRecognition.onerror = function (event) {
-    cleanupPronListening(wordId);
     if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+      cleanupPronListening(wordId);
       showNotification("Microphone permission denied", "error");
     } else if (event.error === "no-speech") {
-      showNotification("No speech detected, try again", "warning");
-    } else if (event.error !== "aborted") {
+      if (statusEl) statusEl.textContent = "No speech yet — try again";
+    } else if (event.error === "aborted") {
+    } else {
+      cleanupPronListening(wordId);
       showNotification("Recognition error: " + event.error, "error");
     }
   };
 
   pronRecognition.onend = function () {
-    cleanupPronListening(wordId);
+    if (!pronStopRequested && pronListeningId === wordId) {
+      if (pronFinalTranscript) {
+        checkPronResult(wordId, expectedWord, pronFinalTranscript);
+      } else {
+        cleanupPronListening(wordId);
+        if (statusEl) {
+          statusEl.textContent = "No speech detected — tap mic to retry";
+          statusEl.className = "word-pron-status wrong";
+        }
+      }
+    }
   };
 
   try {
@@ -8491,12 +8599,46 @@ function startPronListening(wordId, expectedWord) {
   }
 }
 
+function stopPronListening(wordId) {
+  if (pronListeningId !== wordId) return;
+  pronStopRequested = true;
+
+  const statusEl = document.getElementById(`pron-status-${wordId}`);
+  if (statusEl) {
+    statusEl.textContent = "Analyzing...";
+    statusEl.className = "word-pron-status listening";
+  }
+
+  try {
+    if (pronRecognition) pronRecognition.stop();
+  } catch (e) {}
+
+  setTimeout(() => {
+    const finalText = pronFinalTranscript || "";
+    if (finalText) {
+      checkPronResult(wordId, pronCurrentWord, finalText);
+    } else {
+      cleanupPronListening(wordId);
+      if (statusEl) {
+        statusEl.textContent = "Nothing heard — try again";
+        statusEl.className = "word-pron-status wrong";
+      }
+      showNotification("No speech detected", "warning");
+    }
+  }, 700);
+}
+
 function cleanupPronListening(wordId) {
   const card = document.getElementById(`pron-card-${wordId}`);
   const mic = document.getElementById(`pron-mic-${wordId}`);
+  const stopBtn = document.getElementById(`pron-stop-${wordId}`);
   if (card) card.classList.remove("listening");
   if (mic) mic.classList.remove("listening");
-  if (pronListeningId === wordId) pronListeningId = null;
+  if (stopBtn) stopBtn.classList.remove("show");
+  if (pronListeningId === wordId) {
+    pronListeningId = null;
+    pronStopRequested = false;
+  }
 }
 
 function checkPronResult(wordId, expectedWord, spokenText) {
@@ -8521,10 +8663,10 @@ function checkPronResult(wordId, expectedWord, spokenText) {
   }
   if (statusEl) {
     if (isCorrect) {
-      statusEl.textContent = "✓ Correct";
+      statusEl.textContent = '✓ Correct — you said: "' + (spokenText || expectedWord) + '"';
       statusEl.className = "word-pron-status correct";
     } else {
-      statusEl.textContent = `✗ You said: "${spokenText || "?"}"`;
+      statusEl.textContent = '✗ You said: "' + (spokenText || "?") + '" — correct: ' + expectedWord;
       statusEl.className = "word-pron-status wrong";
     }
   }
@@ -8532,7 +8674,7 @@ function checkPronResult(wordId, expectedWord, spokenText) {
   if (isCorrect) {
     showNotification("Great job!", "success");
   } else {
-    showNotification(`Try again. Correct: ${expectedWord}`, "warning");
+    showNotification('Try again. Correct: ' + expectedWord, "warning");
   }
 
   const progress2 = getPronProgress();
@@ -8543,6 +8685,9 @@ function checkPronResult(wordId, expectedWord, spokenText) {
   const textEl = document.getElementById("pron-progress-text");
   if (fillEl) fillEl.style.width = percent + "%";
   if (textEl) textEl.textContent = `${correctCount} / ${total} words`;
+
+  pronFinalTranscript = '';
+  pronCurrentWord = null;
 }
 
 function resetPronProgress() {
@@ -8550,6 +8695,10 @@ function resetPronProgress() {
     "Reset Progress",
     "Are you sure you want to reset your pronunciation progress for today?",
     function () {
+      if (pronRecognition && pronListeningId) {
+        try { pronRecognition.abort(); } catch (e) {}
+        cleanupPronListening(pronListeningId);
+      }
       localStorage.removeItem(getPronProgressKey());
       renderPronWords();
       showNotification("Progress reset");
@@ -9421,22 +9570,35 @@ switchLectureTab("list");
 }
 
 let currentFileStage = 1;
+let currentFileType = "book";
 let allFilesInStage = [];
 
 function openFilesPage() {
   showPage("files");
 }
 
-function openFilesStage(stage) {
+function openFilesStageType(stage) {
   currentFileStage = stage;
   const titles = { 1: "المرحلة الأولى", 2: "المرحلة الثانية", 3: "المرحلة الثالثة", 4: "المرحلة الرابعة" };
-  document.getElementById("files-list-title").textContent = titles[stage];
-  document.getElementById("files-search-input").value = "";
-  showPage("filesList");
-  loadFilesByStage(stage);
+  document.getElementById("files-type-title").textContent = titles[stage];
+  showPage("filesType");
 }
 
-async function loadFilesByStage(stage) {
+function backToFilesType() {
+  showPage("filesType");
+}
+
+function openFilesListType(type) {
+  currentFileType = type;
+  const stageTitles = { 1: "المرحلة الأولى", 2: "المرحلة الثانية", 3: "المرحلة الثالثة", 4: "المرحلة الرابعة" };
+  const typeTitles = { book: "الكتب", note: "الملازم" };
+  document.getElementById("files-list-title").textContent = stageTitles[currentFileStage] + " - " + typeTitles[type];
+  document.getElementById("files-search-input").value = "";
+  showPage("filesList");
+  loadFilesByStage(currentFileStage, currentFileType);
+}
+
+async function loadFilesByStage(stage, type) {
   const container = document.getElementById("files-list-container");
   container.innerHTML = '<div class="post"><p style="text-align:center;">جاري التحميل...</p></div>';
 
@@ -9444,6 +9606,7 @@ async function loadFilesByStage(stage) {
   try {
     const snap = await db.collection("studyFiles")
       .where("stage", "==", stage)
+      .where("type", "==", type)
       .orderBy("createdAt", "desc")
       .get();
     docs = snap.docs;
@@ -9452,21 +9615,24 @@ async function loadFilesByStage(stage) {
       const snap = await db.collection("studyFiles")
         .where("stage", "==", stage)
         .get();
-      docs = snap.docs.slice().sort((a, b) => {
-        const ta = a.data().createdAt?.toDate?.()?.getTime?.() || 0;
-        const tb = b.data().createdAt?.toDate?.()?.getTime?.() || 0;
-        return tb - ta;
-      });
+      docs = snap.docs
+        .filter(d => (d.data().type || "note") === type)
+        .sort((a, b) => {
+          const ta = a.data().createdAt?.toDate?.()?.getTime?.() || 0;
+          const tb = b.data().createdAt?.toDate?.()?.getTime?.() || 0;
+          return tb - ta;
+        });
     } catch (e2) {
       console.error("Load files error:", e2);
-      container.innerHTML = '<div class="post"><p style="text-align:center;color:#dc3545;">Failed to load files</p><button class="btn" style="margin-top:10px;" onclick="loadFilesByStage(' + stage + ')"><i class="fas fa-redo"></i> Retry</button></div>';
+      container.innerHTML = '<div class="post"><p style="text-align:center;color:#dc3545;">Failed to load files</p><button class="btn" style="margin-top:10px;" onclick="loadFilesByStage(' + stage + ', \'' + type + '\')"><i class="fas fa-redo"></i> Retry</button></div>';
       allFilesInStage = [];
       return;
     }
   }
 
   if (docs.length === 0) {
-    container.innerHTML = '<div class="post"><p style="text-align:center;">لا توجد ملفات لهذه المرحلة بعد</p></div>';
+    const typeLabel = type === "book" ? "كتب" : "ملازم";
+    container.innerHTML = '<div class="post"><p style="text-align:center;">لا توجد ' + typeLabel + ' لهذه المرحلة بعد</p></div>';
     allFilesInStage = [];
     return;
   }
@@ -9483,11 +9649,16 @@ function renderFilesList(files) {
   }
   let html = "";
   files.forEach(f => {
+    const isBook = (f.type || "note") === "book";
+    const iconClass = isBook ? "fas fa-book" : "fas fa-file-alt";
+    const gradient = isBook
+      ? "linear-gradient(135deg,#6a11cb,#2575fc)"
+      : "linear-gradient(135deg,#43e97b,#38f9d7)";
     html += `
       <div class="post" style="cursor:pointer;" onclick="openFileLink('${escapeHTML(f.url || "")}', '${escapeHTML(f.title || "")}')">
         <div style="display:flex;align-items:center;gap:12px;">
-          <div style="background:linear-gradient(135deg,#0088cc,#006699);color:#fff;width:50px;height:50px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">
-            <i class="fab fa-telegram"></i>
+          <div style="background:${gradient};color:#fff;width:50px;height:50px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">
+            <i class="${iconClass}"></i>
           </div>
           <div style="flex:1;">
             <div style="font-weight:900;font-size:15px;color:#1a0b3d;">${escapeHTML(f.title || "بدون عنوان")}</div>
@@ -9534,23 +9705,25 @@ function openFileLink(url, title) {
 
 async function saveFile() {
   if (!isOwner()) {
-    showNotification("للمالك فقط", "error");
+    showNotification("Owner only", "error");
     return;
   }
   const stage = parseInt(document.getElementById("add-file-stage").value);
+  const type = document.getElementById("add-file-type").value;
   const title = document.getElementById("add-file-title").value.trim();
   const url = document.getElementById("add-file-url").value.trim();
 
-  if (!title) { showNotification("اكتب اسم الملف", "error"); return; }
-  if (!url) { showNotification("الصق رابط الملف", "error"); return; }
+  if (!title) { showNotification("Enter file name", "error"); return; }
+  if (!url) { showNotification("Paste file link", "error"); return; }
 
   const btn = document.getElementById("add-file-btn");
   btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
 
   try {
     await db.collection("studyFiles").add({
       stage: stage,
+      type: type,
       title: title,
       url: url,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -9560,11 +9733,11 @@ async function saveFile() {
 
     document.getElementById("add-file-title").value = "";
     document.getElementById("add-file-url").value = "";
-    showNotification("تمت إضافة الملف");
-switchFileTab("list");
+    showNotification("File added");
+    switchFileTab("list");
   } catch (e) {
     console.error("Save file error:", e);
-    showNotification("فشل حفظ الملف", "error");
+    showNotification("Failed to save file", "error");
   } finally {
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-plus"></i> إضافة الملف';
@@ -10400,39 +10573,46 @@ function switchFileTab(tab) {
 
 async function loadManageFiles() {
   const container = document.getElementById("manage-files-list");
-  container.innerHTML = '<div class="post"><p style="text-align:center;">جاري التحميل...</p></div>';
+  container.innerHTML = '<div class="post"><p style="text-align:center;">Loading...</p></div>';
 
   try {
     const snap = await db.collection("studyFiles").orderBy("createdAt", "desc").get();
 
     if (snap.empty) {
-      container.innerHTML = '<div class="post"><p style="text-align:center;">لا توجد ملفات مضافة</p></div>';
+      container.innerHTML = '<div class="post"><p style="text-align:center;">No files yet</p></div>';
       return;
     }
 
     const stageNames = { 1: "المرحلة الأولى", 2: "المرحلة الثانية", 3: "المرحلة الثالثة", 4: "المرحلة الرابعة" };
+    const typeNames = { book: "كتاب", note: "ملزمة" };
     let html = "";
     snap.forEach(doc => {
       const d = doc.data();
+      const isBook = (d.type || "note") === "book";
+      const iconClass = isBook ? "fas fa-book" : "fas fa-file-alt";
+      const gradient = isBook
+        ? "linear-gradient(135deg,#6a11cb,#2575fc)"
+        : "linear-gradient(135deg,#43e97b,#38f9d7)";
+      const typeLabel = typeNames[d.type || "note"];
       html += `
         <div class="post" style="padding:14px;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;">
             <div style="flex:1;">
               <div style="font-weight:900;font-size:15px;color:#1a0b3d;">${escapeHTML(d.title || "")}</div>
               <div style="font-size:12px;color:#888;margin-top:4px;">
-                <i class="fas fa-bookmark"></i> ${stageNames[d.stage] || ""}
+                <i class="fas fa-bookmark"></i> ${stageNames[d.stage] || ""} · ${typeLabel}
               </div>
             </div>
-            <div style="background:linear-gradient(135deg,#0088cc,#006699);color:#fff;width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
-              <i class="fab fa-telegram"></i>
+            <div style="background:${gradient};color:#fff;width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
+              <i class="${iconClass}"></i>
             </div>
           </div>
           <div style="display:flex;gap:8px;">
             <button class="btn btn-xs" style="flex:1;background:#2575fc;" onclick="openEditFileModal('${doc.id}')">
-              <i class="fas fa-edit"></i> تعديل
+              <i class="fas fa-edit"></i> Edit
             </button>
             <button class="btn btn-danger btn-xs" style="flex:1;" onclick="deleteFileItem('${doc.id}')">
-              <i class="fas fa-trash"></i> حذف
+              <i class="fas fa-trash"></i> Delete
             </button>
           </div>
         </div>
@@ -10442,22 +10622,23 @@ async function loadManageFiles() {
 
   } catch (e) {
     console.error(e);
-    container.innerHTML = '<div class="post"><p style="text-align:center;color:#dc3545;">فشل التحميل</p></div>';
+    container.innerHTML = '<div class="post"><p style="text-align:center;color:#dc3545;">Load failed</p></div>';
   }
 }
 
 async function openEditFileModal(id) {
   try {
     const doc = await db.collection("studyFiles").doc(id).get();
-    if (!doc.exists) { showNotification("الملف غير موجود", "error"); return; }
+    if (!doc.exists) { showNotification("File not found", "error"); return; }
     const d = doc.data();
     document.getElementById("edit-file-id").value = id;
     document.getElementById("edit-file-stage").value = d.stage || 1;
+    document.getElementById("edit-file-type").value = d.type || "note";
     document.getElementById("edit-file-title").value = d.title || "";
     document.getElementById("edit-file-url").value = d.url || "";
     document.getElementById("edit-file-modal").style.display = "block";
   } catch (e) {
-    showNotification("فشل فتح الملف", "error");
+    showNotification("Failed to open file", "error");
   }
 }
 
@@ -10468,28 +10649,30 @@ function closeEditFileModal() {
 async function saveFileEdit() {
   const id = document.getElementById("edit-file-id").value;
   const stage = parseInt(document.getElementById("edit-file-stage").value);
+  const type = document.getElementById("edit-file-type").value;
   const title = document.getElementById("edit-file-title").value.trim();
   const url = document.getElementById("edit-file-url").value.trim();
 
-  if (!title) { showNotification("اكتب اسم الملف", "error"); return; }
-  if (!url) { showNotification("الصق رابط الملف", "error"); return; }
+  if (!title) { showNotification("Enter file name", "error"); return; }
+  if (!url) { showNotification("Paste file link", "error"); return; }
 
   const btn = document.getElementById("edit-file-save-btn");
   btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
 
   try {
     await db.collection("studyFiles").doc(id).update({
       stage: stage,
+      type: type,
       title: title,
       url: url,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     });
-    showNotification("تم حفظ التعديلات");
+    showNotification("Changes saved");
     closeEditFileModal();
     loadManageFiles();
   } catch (e) {
-    showNotification("فشل الحفظ", "error");
+    showNotification("Failed to save", "error");
   } finally {
     btn.disabled = false;
     btn.innerHTML = "حفظ";
